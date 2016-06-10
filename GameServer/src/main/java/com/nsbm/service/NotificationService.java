@@ -44,7 +44,7 @@ public class NotificationService {
  
     @GET
     @Produces(SseFeature.SERVER_SENT_EVENTS)
-    @Path("/listendPlayerJoin")
+    @Path("/listenPlayerJoin")
     public EventOutput listenToJoinBroadcast() {
         final EventOutput eventOutput = new EventOutput();
         this.broadcaster.add(eventOutput);

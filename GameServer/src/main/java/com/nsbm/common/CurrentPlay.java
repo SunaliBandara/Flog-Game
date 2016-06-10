@@ -7,8 +7,8 @@ package com.nsbm.common;
 
 import com.nsbm.entity.PlayerStatistics;
 import com.nsbm.entity.Player;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,13 +21,13 @@ public class CurrentPlay {
 
     public static int currentRound = 0;
     
-    private static final Set<Player> PLAYERS = new HashSet<Player>();
+    private static final List<Player> PLAYERS = new ArrayList<Player>();
 
     private static final Map <Integer, Map<Player,PlayerStatistics>> PLAYER_ROUND_STATISTICS = new HashMap<Integer, Map<Player,PlayerStatistics>>();
 
     private static final Map<Integer, List<Map<Player, String>>> PLAYER_ROUND_WORDS = new HashMap<Integer, List<Map<Player, String>>>();
 
-    public static Set<Player> getPLAYERS() {
+    public static List<Player> getPLAYERS() {
         return PLAYERS;
     }
 

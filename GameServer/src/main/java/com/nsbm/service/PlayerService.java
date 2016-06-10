@@ -32,12 +32,13 @@ public class PlayerService {
     @Path("/addPlayer")
     public String addPlayer(Player user) {
         user.setPlayerStatus(PlayerStatus.JOINED);
-        Set<Player> players = CurrentPlay.getPLAYERS(); 
-        boolean isAdded = players.add(user);
+        List<Player> players = CurrentPlay.getPLAYERS(); 
+        boolean isAdded = players.contains(user);
         
-        if (!isAdded) {
+        if (isAdded) {
             return EXISTINGPLAYER;
         }      
+        players.add(0, user);
         System.out.println(user.getUsername() + " Joined");
         return SUCCESS;
     }
@@ -46,7 +47,7 @@ public class PlayerService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getPlayers")
-    public Set<Player> getPlayers(){
+    public List<Player> getPlayers(){
         return CurrentPlay.getPLAYERS();
     }
 }

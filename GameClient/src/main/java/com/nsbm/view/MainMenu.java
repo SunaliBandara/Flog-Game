@@ -7,7 +7,7 @@ import com.nsbm.entity.Player;
 import static com.nsbm.service.PlayerServiceHandler.getAllPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listendToJoinEvent;
 import static com.nsbm.service.PlayerServiceHandler.notifyPlayerJoin;
-import static com.nsbm.service.PlayerServiceHandler.setMainMenu;
+import static com.nsbm.service.PlayerServiceHandler.setModelReference;
 import javax.swing.DefaultListModel;
 
 /**
@@ -93,7 +93,7 @@ public class MainMenu extends javax.swing.JFrame {
         user.setText(UserData.username);
         allPlayers = getAllPlayers();
         playerList.setModel(model);
-        setMainMenu(model);
+        setModelReference(model);
         new Thread(new Runnable() {
             @Override
             public void run() {
