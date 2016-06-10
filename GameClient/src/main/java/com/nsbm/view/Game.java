@@ -90,8 +90,8 @@ public class Game extends javax.swing.JFrame {
 
     private void sendWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendWordActionPerformed
         String word = wordTextField.getText();
-        String addWord = addWord(word);
-        JOptionPane.showMessageDialog(rootPane, addWord);
+        String recievedWord = addWord(word);
+        JOptionPane.showMessageDialog(rootPane, recievedWord);
     }//GEN-LAST:event_sendWordActionPerformed
 
     private void getTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getTextFieldActionPerformed

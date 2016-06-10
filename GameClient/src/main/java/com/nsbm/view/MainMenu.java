@@ -2,7 +2,7 @@ package com.nsbm.view;
 
 import static com.nsbm.common.CommonUtil.setModelData;
 import com.nsbm.common.PlayerStatus;
-import com.nsbm.common.UserData;
+import com.nsbm.common.CommonData;
 import com.nsbm.entity.Player;
 import static com.nsbm.service.PlayerServiceHandler.getAllPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listendToJoinEvent;
@@ -83,14 +83,14 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startGameActionPerformed
-        UserData.playerStatus = PlayerStatus.PLAYING;
+        CommonData.playerStatus = PlayerStatus.PLAYING;
         this.dispose();
         Game game = new Game();
         game.setVisible(true);
     }//GEN-LAST:event_startGameActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        user.setText(UserData.username);
+        user.setText(CommonData.username);
         allPlayers = getAllPlayers();
         playerList.setModel(model);
         setModelReference(model);

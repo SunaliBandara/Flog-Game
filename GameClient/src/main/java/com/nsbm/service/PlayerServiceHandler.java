@@ -8,21 +8,23 @@ package com.nsbm.service;
 import com.google.gson.Gson;
 import static com.nsbm.common.CommonUtil.setModelData;
 import com.nsbm.common.PlayerStatus;
-import com.nsbm.common.UserData;
-import static com.nsbm.common.UserData.ADD_PLAYER;
-import static com.nsbm.common.UserData.BROADCAST;
-import static com.nsbm.common.UserData.GET;
-import static com.nsbm.common.UserData.GET_PLAYERS;
-import static com.nsbm.common.UserData.PLAYER_CLASS;
-import static com.nsbm.common.UserData.PLAYER_JOIN_BROADCAST;
-import static com.nsbm.common.UserData.PLAYER_JOIN_LISTEN;
-import static com.nsbm.common.UserData.POST;
+import com.nsbm.common.CommonData;
+import static com.nsbm.common.CommonData.ADD_PLAYER;
+import static com.nsbm.common.CommonData.BROADCAST;
+import static com.nsbm.common.CommonData.GET;
+import static com.nsbm.common.CommonData.GET_PLAYERS;
+import static com.nsbm.common.CommonData.PLAYER_CLASS;
+import static com.nsbm.common.CommonData.PLAYER_JOIN_BROADCAST;
+import static com.nsbm.common.CommonData.PLAYER_JOIN_LISTEN;
+import static com.nsbm.common.CommonData.POST;
 import com.nsbm.entity.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -46,19 +48,10 @@ public class PlayerServiceHandler {
     public static String addPlayer(String playerName, String playerPassword) {
         String output = null;
         try {
-            HttpURLConnection connection = new ServiceFactory().getServiceConnection(PLAYER_CLASS, ADD_PLAYER, POST);
-            Player player = new Player();
-            player.setUsername(playerName);
-            player.setPassword(playerPassword);
-            String input = new Gson().toJson(player);
-            OutputStream os = connection.getOutputStream();
-            os.write(input.getBytes());
-            os.flush();
-            
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (connection.getInputStream())));
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, ADD_PLAYER, POST);
+            sendOutput(playerName, connection);
 
-            output = br.readLine();
+            output = getInput(connection);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -68,11 +61,8 @@ public class PlayerServiceHandler {
     public static Player[] getAllPlayers() {
         Player[] playerList = null;
         try {
-            HttpURLConnection conn = new ServiceFactory().getServiceConnection(PLAYER_CLASS, GET_PLAYERS, GET);
-            
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
-            String output = br.readLine();
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, GET_PLAYERS, GET);
+            String output = getInput(connection);
             Gson parser = new Gson();
             playerList = parser.fromJson(output, Player[].class);
 
@@ -85,16 +75,12 @@ public class PlayerServiceHandler {
     public static void notifyPlayerJoin() {
         String output = null;
         try {
-            HttpURLConnection conn = new ServiceFactory().getServiceConnection(BROADCAST, PLAYER_JOIN_BROADCAST, POST);
-            String input = UserData.username;
-            OutputStream os = conn.getOutputStream();
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(BROADCAST, PLAYER_JOIN_BROADCAST, POST);
+            String input = CommonData.username;
+            OutputStream os = connection.getOutputStream();
             os.write(input.getBytes());
             os.flush();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
-
-            output = br.readLine();
+            output = getInput(connection);
             System.out.println(output);
 
         } catch (Exception e) {
@@ -104,7 +90,7 @@ public class PlayerServiceHandler {
 
     public static void listendToJoinEvent() {
         Client client = ClientBuilder.newBuilder().register(SseFeature.class).build();
-        WebTarget target = client.target(UserData.IP + BROADCAST + PLAYER_JOIN_LISTEN);
+        WebTarget target = client.target(CommonData.IP + BROADCAST + PLAYER_JOIN_LISTEN);
 
         EventInput eventInput = target.request().get(EventInput.class);
         while (!eventInput.isClosed()) {
@@ -112,12 +98,44 @@ public class PlayerServiceHandler {
             if (inboundEvent == null) {
                 break;
             }
-            if (UserData.playerStatus == PlayerStatus.PLAYING) {
+            if (CommonData.playerStatus == PlayerStatus.PLAYING) {
                 break;
             }
-            setModelData(inboundEvent.readData(String.class),model);
+            setModelData(inboundEvent.readData(String.class), model);
         }
         System.out.println("Playing");
     }
 
+    private static void sendOutput(String username, HttpURLConnection connection) {
+        try {
+            Player player = new Player();
+            player.setUsername(username);
+            String input = new Gson().toJson(player);
+            OutputStream os = connection.getOutputStream();
+            os.write(input.getBytes());
+            os.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WordServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static String getInput(HttpURLConnection connection) {
+        BufferedReader br = null;
+        String output = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(
+                    (connection.getInputStream())));
+            output = br.readLine();
+            return output;
+        } catch (IOException ex) {
+            Logger.getLogger(WordServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(WordServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return output;
+    }
 }

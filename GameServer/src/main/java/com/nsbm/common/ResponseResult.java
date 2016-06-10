@@ -12,4 +12,5 @@ package com.nsbm.common;
 public class ResponseResult {
     public static final String SUCCESS = "success";
     public static final String EXISTINGPLAYER = "Player Exist";
+    public static final String ERROR = "error";
 }

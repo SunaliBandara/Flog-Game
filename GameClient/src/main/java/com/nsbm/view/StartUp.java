@@ -1,6 +1,6 @@
 package com.nsbm.view;
 
-import com.nsbm.common.UserData;
+import com.nsbm.common.CommonData;
 import static com.nsbm.service.PlayerServiceHandler.addPlayer;
 import javax.swing.JOptionPane;
 
@@ -94,7 +94,7 @@ public class StartUp extends javax.swing.JFrame {
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
         String playerName = playerNameTextField.getText();
-        UserData.username = playerName;
+        CommonData.username = playerName;
         String password = String.valueOf(passwordTextField.getPassword());
         String result = addPlayer(playerName,password);
         JOptionPane.showMessageDialog(rootPane, result);

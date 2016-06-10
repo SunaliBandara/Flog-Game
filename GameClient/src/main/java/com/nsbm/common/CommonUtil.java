@@ -19,7 +19,7 @@ public class CommonUtil {
         System.out.println(Arrays.toString(players));
         for (Player p : players) {
             System.out.println(p.getUsername());
-            if (p.getUsername().equals(UserData.username)) {
+            if (p.getUsername().equals(CommonData.username)) {
                 model.addElement("You joined");
             } else {
                 model.addElement(p.getUsername() + " joined");
