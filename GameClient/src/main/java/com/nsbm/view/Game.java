@@ -146,6 +146,7 @@ public class Game extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(rootPane, "Incorrect Word");
         }
+        this.dispose();
         RoundComplete roundComplete = new RoundComplete();
         roundComplete.setVisible(true);
     }//GEN-LAST:event_sendWordActionPerformed
