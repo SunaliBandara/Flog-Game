@@ -91,6 +91,7 @@ public class Player implements Serializable,Comparable<Player>{
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", playerStatus=" + playerStatus + '}';
-    } 
+        return "Player{" + "username=" + username + ", playerStatus=" + playerStatus + '}';
+    }
+
 }

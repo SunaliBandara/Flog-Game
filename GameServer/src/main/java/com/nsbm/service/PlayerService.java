@@ -6,6 +6,7 @@
 package com.nsbm.service;
 
 import com.google.gson.Gson;
+import static com.nsbm.common.CommonUtil.findPlayer;
 import static com.nsbm.common.CommonUtil.findRoundCompletedPlayers;
 import static com.nsbm.common.CommonUtil.getPlayerStatisticsFromPlayer;
 import com.nsbm.common.CurrentPlay;
@@ -34,16 +35,17 @@ public class PlayerService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/addPlayer")
-    public String addPlayer(Player user) {
-        user.setPlayerStatus(PlayerStatus.JOINED);
+    public String addPlayer(Player player) {
         List<Player> players = CurrentPlay.getPLAYERS(); 
-        boolean isAdded = players.contains(user);
+        boolean isAdded = players.contains(player);
         
         if (isAdded) {
             return EXISTINGPLAYER;
         }      
-        players.add(0, user);
-        System.out.println(user.getUsername() + " Joined");
+        players.add(0, player);
+        System.out.println(player.getUsername() + " Joined");
+        Player listPlayer = findPlayer(player.getUsername());
+        listPlayer.setPlayerStatus(PlayerStatus.JOINED);
         return SUCCESS;
     }
     

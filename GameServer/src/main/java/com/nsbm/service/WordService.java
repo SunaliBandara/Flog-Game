@@ -47,7 +47,6 @@ import javax.ws.rs.core.MediaType;
 public class WordService {
 
     private final static int INITIAL_LIMIT = 2;
-    
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,6 +62,8 @@ public class WordService {
             characters = characters.concat(String.valueOf(c));
         }
 
+        Player listPlayer = findPlayer(player.getUsername());
+        
         PlayerStatistics statistics = new PlayerStatistics();
         statistics.setInitialLetters(characters);
         statistics.setWordStatus(WordStatus.NOT_SUBMITTED);
@@ -73,7 +74,7 @@ public class WordService {
             playerStatistics = new HashMap<Player, PlayerStatistics>();
             playerRoundStatistics.put(currentRound, playerStatistics);
         }
-        playerStatistics.put(player, statistics);
+        playerStatistics.put(listPlayer, statistics);
         return characters;
     }
 
@@ -83,13 +84,14 @@ public class WordService {
     @Path("/getLetters/{vowelsRequired}/{consonantsRequired}")
     public String getLetters(Player player, @PathParam("vowelsRequired") int vowelsRequired, @PathParam("consonantsRequired") int consonantsRequired) {
         PlayerStatistics p = getPlayerStatisticsFromPlayer(player);
-        
+        Player listPlayer = findPlayer(player.getUsername());
+        listPlayer.setPlayerStatus(PlayerStatus.PLAYING);
         String voweles = getRandomVowels(vowelsRequired);
         p.setVowels(voweles);
-        voweles = voweles.concat("@");   
-        
+        voweles = voweles.concat("@");
+
         String consonants = getRandomConsonants(consonantsRequired);
-        p.setConsonants(consonants); 
+        p.setConsonants(consonants);
         return voweles + consonants;
     }
 
@@ -128,10 +130,13 @@ public class WordService {
                 } catch (IOException ex) {
                     Logger.getLogger(WordService.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                Player listPlayer = findPlayer(player.getUsername());
+                listPlayer.setPlayerStatus(PlayerStatus.ROUND_COMPLETED);
             }
-            p.setWordStatus(WordStatus.CORRECT);   
+            p.setWordStatus(WordStatus.CORRECT);
             Player listedPlayer = findPlayer(player.getUsername());
             listedPlayer.setPlayerStatus(PlayerStatus.ROUND_COMPLETED);
+            System.out.println(getPLAYER_ROUND_STATISTICS());
             return SUCCESS;
         } catch (MalformedURLException ex) {
             Logger.getLogger(WordService.class.getName()).log(Level.SEVERE, null, ex);
