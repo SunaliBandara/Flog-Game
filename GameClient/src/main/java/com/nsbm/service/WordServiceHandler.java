@@ -6,13 +6,10 @@
 package com.nsbm.service;
 
 import com.google.gson.Gson;
-import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.INITIAL_LETTERS;
-import static com.nsbm.common.CommonData.IP;
 import static com.nsbm.common.CommonData.LETTERS;
 import static com.nsbm.common.CommonData.POST;
 import static com.nsbm.common.CommonData.WORD_CLASS;
-import static com.nsbm.common.CommonData.id;
 import static com.nsbm.common.CommonData.username;
 import com.nsbm.entity.Player;
 import java.io.BufferedReader;
@@ -20,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,10 +38,10 @@ public class WordServiceHandler {
         return output;
     }
 
-    public static String getLetters(int required) {
+    public static String getLetters(int vowelsRequired, int consonantsRequired) {
         String output = null;
         try {
-            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(WORD_CLASS, LETTERS+"/"+required, POST);
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(WORD_CLASS, LETTERS+"/"+vowelsRequired+"/"+consonantsRequired, POST);
             sendOutput(username, connection);
             output = getInput(connection);
         } catch (Exception e) {

@@ -13,4 +13,5 @@ public class ResponseResult {
     public static final String SUCCESS = "success";
     public static final String EXISTINGPLAYER = "Player Exist";
     public static final String ERROR = "error";
+    public static final String INCORRECT_WORD = "incorrect word";
 }

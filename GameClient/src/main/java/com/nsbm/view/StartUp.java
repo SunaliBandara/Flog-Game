@@ -97,7 +97,6 @@ public class StartUp extends javax.swing.JFrame {
         CommonData.username = playerName;
         String password = String.valueOf(passwordTextField.getPassword());
         String result = addPlayer(playerName,password);
-        JOptionPane.showMessageDialog(rootPane, result);
         if(result.equals("success"))
         {
             this.dispose();

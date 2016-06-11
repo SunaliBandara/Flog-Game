@@ -10,5 +10,5 @@ package com.nsbm.common;
  * @author Lakshitha
  */
 public enum PlayerStatus {
-    JOINED, PLAYING
+    JOINED, PLAYING, ROUND_COMPLETED
 }

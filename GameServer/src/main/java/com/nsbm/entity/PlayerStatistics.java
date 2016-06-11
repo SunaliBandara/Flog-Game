@@ -5,24 +5,19 @@
  */
 package com.nsbm.entity;
 
+import com.nsbm.common.WordStatus;
+
 /**
  *
  * @author Lakshitha
  */
 public class PlayerStatistics {
-    private int noOfPickedLetters;
     private String initialLetters;
-    private String pickedLetters;
     private String word;
-
-    public int getNoOfPickedLetters() {
-        return noOfPickedLetters;
-    }
-
-    public void setNoOfPickedLetters(int noOfPickedLetters) {
-        this.noOfPickedLetters = noOfPickedLetters;
-    }
-
+    private String consonants;
+    private String vowels;
+    private WordStatus wordStatus;
+    
     public String getInitialLetters() {
         return initialLetters;
     }
@@ -31,25 +26,42 @@ public class PlayerStatistics {
         this.initialLetters = initialLetters;
     }
 
-    public String getPickedLetters() {
-        return pickedLetters;
-    }
-
-    public void setPickedLetters(String pickedLetters) {
-        this.pickedLetters = pickedLetters;
-    }
-
     public String getWord() {
         return word;
+    }
+
+    public String getConsonants() {
+        return consonants;
+    }
+
+    public void setConsonants(String consonants) {
+        this.consonants = consonants;
+    }
+
+    public String getVowels() {
+        return vowels;
+    }
+
+    public void setVowels(String vowels) {
+        this.vowels = vowels;
     }
 
     public void setWord(String word) {
         this.word = word;
     }
 
+    public WordStatus getWordStatus() {
+        return wordStatus;
+    }
+
+    public void setWordStatus(WordStatus wordStatus) {
+        this.wordStatus = wordStatus;
+    }
+
     @Override
     public String toString() {
-        return "PlayerStatistics{" + "noOfPickedLetters=" + noOfPickedLetters + ", initialLetters=" + initialLetters + ", pickedLetters=" + pickedLetters + ", word=" + word + '}';
+        return "PlayerStatistics{" + "initialLetters=" + initialLetters + ", word=" + word + ", consonants=" + consonants + ", vowels=" + vowels + '}';
     }
+
 
 }

@@ -16,7 +16,6 @@ import javax.swing.DefaultListModel;
 public class CommonUtil {
 
     public static void setModelData(Player[] players, DefaultListModel<String> model) {
-        System.out.println(Arrays.toString(players));
         for (Player p : players) {
             System.out.println(p.getUsername());
             if (p.getUsername().equals(CommonData.username)) {
@@ -29,5 +28,17 @@ public class CommonUtil {
 
     public static void setModelData(String player, DefaultListModel<String> model) {
         model.add(0, player + " joined");
+    }
+    
+    public static void setRoundCompletedModelData(String[] statistics, DefaultListModel<String> model) {
+        for (String p : statistics) {
+            p = p.replaceAll("@", " ");
+            model.addElement(p);
+        }
+    }
+
+    public static void setRoundCompletedModelData(String statistic, DefaultListModel<String> model) {
+        statistic = statistic.replaceAll("@", " ");
+        model.add(0, statistic);
     }
 }

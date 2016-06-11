@@ -5,13 +5,17 @@
  */
 package com.nsbm.service;
 
+import com.google.gson.Gson;
+import static com.nsbm.common.CommonUtil.findRoundCompletedPlayers;
+import static com.nsbm.common.CommonUtil.getPlayerStatisticsFromPlayer;
 import com.nsbm.common.CurrentPlay;
 import com.nsbm.common.PlayerStatus;
 import static com.nsbm.common.ResponseResult.EXISTINGPLAYER;
 import static com.nsbm.common.ResponseResult.SUCCESS;
 import com.nsbm.entity.Player;
+import com.nsbm.entity.PlayerStatistics;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -49,5 +53,22 @@ public class PlayerService {
     @Path("/getPlayers")
     public List<Player> getPlayers(){
         return CurrentPlay.getPLAYERS();
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getRoundCompletedPlayers")
+    public String getRoundCompletedPlayers(){
+        String statisticString = new String();
+        List<String> completedPlayer = new ArrayList<String>();
+        List<Player> players = findRoundCompletedPlayers();
+        for(Player player : players){
+            PlayerStatistics statistics = getPlayerStatisticsFromPlayer(player);
+            statisticString = player.getUsername() + "@" + statistics.getWordStatus() + "@"
+                    + statistics.getWord();
+            completedPlayer.add(statisticString);
+        }
+        return new Gson().toJson(completedPlayer);
     }
 }

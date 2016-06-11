@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -20,6 +19,7 @@ import java.util.Set;
 public class CurrentPlay {
 
     public static int currentRound = 0;
+    public static int submitedWords = 0;
     
     private static final List<Player> PLAYERS = new ArrayList<Player>();
 
@@ -38,14 +38,4 @@ public class CurrentPlay {
     public static Map<Integer, List<Map<Player, String>>> getPLAYER_ROUND_WORDS() {
         return PLAYER_ROUND_WORDS;
     }
-    
-    public static Player findUser(String username) {
-        for (Player user : PLAYERS) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
 }

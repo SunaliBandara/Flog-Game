@@ -1,12 +1,23 @@
-
 package com.nsbm.view;
 
+import static com.nsbm.common.CommonData.SUCCESS;
+import static com.nsbm.common.CommonData.username;
+import static com.nsbm.service.PlayerServiceHandler.listenToRoundCompletionEvent;
+import static com.nsbm.service.PlayerServiceHandler.notifyRoundCompletion;
 import static com.nsbm.service.WordServiceHandler.addWord;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class Game extends javax.swing.JFrame {
+
+    private String initialLetters = null;
+    private static int counter = 180;
+    private Timer timer;
+
     public Game() {
         initComponents();
     }
@@ -18,8 +29,13 @@ public class Game extends javax.swing.JFrame {
         lettersLabel = new javax.swing.JLabel();
         wordTextField = new javax.swing.JTextField();
         sendWord = new javax.swing.JButton();
-        requiredTextField = new javax.swing.JTextField();
-        getTextField = new javax.swing.JButton();
+        consonantsTextField = new javax.swing.JTextField();
+        getButton = new javax.swing.JButton();
+        vowelsTextField = new javax.swing.JTextField();
+        timeerLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        nameTextField = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -37,12 +53,20 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        getTextField.setText("Get");
-        getTextField.addActionListener(new java.awt.event.ActionListener() {
+        getButton.setText("Get");
+        getButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                getTextFieldActionPerformed(evt);
+                getButtonActionPerformed(evt);
             }
         });
+
+        timeerLabel.setText("timer");
+
+        jLabel2.setText("Vowels");
+
+        jLabel3.setText("Consonants");
+
+        nameTextField.setText("name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,17 +74,30 @@ public class Game extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(timeerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lettersLabel)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(wordTextField)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(vowelsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(consonantsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(getButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sendWord, javax.swing.GroupLayout.Alignment.TRAILING))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(requiredTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(getTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lettersLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(wordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(sendWord)))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(75, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nameTextField)
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,13 +106,22 @@ public class Game extends javax.swing.JFrame {
                 .addComponent(lettersLabel)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(requiredTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getTextField))
-                .addGap(18, 18, 18)
+                    .addComponent(consonantsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getButton)
+                    .addComponent(vowelsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(wordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sendWord))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(timeerLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(nameTextField)
+                .addContainerGap())
         );
 
         lettersLabel.getAccessibleContext().setAccessibleName("serverLetterLabel");
@@ -84,27 +130,71 @@ public class Game extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        String letters =  getInitialLetters();
-        lettersLabel.setText(letters);
+        nameTextField.setText(username);
+        initialLetters = getInitialLetters();
+        lettersLabel.setText(initialLetters);
+        sendWord.setEnabled(false);
+        wordTextField.setEditable(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void sendWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendWordActionPerformed
         String word = wordTextField.getText();
-        String recievedWord = addWord(word);
-        JOptionPane.showMessageDialog(rootPane, recievedWord);
+        String response = addWord(word);
+        if(response.equals(SUCCESS)){
+            JOptionPane.showMessageDialog(rootPane, "Correct Word");
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Incorrect Word");
+        }
+        RoundComplete roundComplete = new RoundComplete();
+        roundComplete.setVisible(true);
     }//GEN-LAST:event_sendWordActionPerformed
 
-    private void getTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getTextFieldActionPerformed
-        int required = Integer.parseInt(requiredTextField.getText());
-        String letters = getLetters(required);
-        lettersLabel.setText(lettersLabel.getText() + "  " + letters);
-    }//GEN-LAST:event_getTextFieldActionPerformed
+    private void getButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getButtonActionPerformed
+        lettersLabel.setText("");
+        int consonantsRequired = Integer.parseInt(consonantsTextField.getText());
+        int vowelsRequired = Integer.parseInt(vowelsTextField.getText());
+        if (consonantsRequired + vowelsRequired > 10) {
+            JOptionPane.showMessageDialog(rootPane, "You can not select more than 10");
+        } else {
+            String letters = getLetters(vowelsRequired, consonantsRequired);
+            String[] letterParts = letters.split("@");
+            lettersLabel.setText(initialLetters + "  " + letterParts[0] + "   " + letterParts[1]);
+            consonantsTextField.setEditable(false);
+            vowelsTextField.setEditable(false);
+            getButton.setEnabled(false);
+
+            sendWord.setEnabled(true);
+            wordTextField.setEditable(true);
+            ActionListener action = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    if (counter == 0) {
+                        timer.stop();
+                        timeerLabel.setText("Time is Up");
+                    } else {
+                        timeerLabel.setText(String.valueOf(counter));
+                        counter--;
+                    }
+                }
+            };
+
+            timer = new Timer(1000, action);
+            timer.setInitialDelay(0);
+            timer.start();
+        }
+    }//GEN-LAST:event_getButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton getTextField;
+    private javax.swing.JTextField consonantsTextField;
+    private javax.swing.JButton getButton;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lettersLabel;
-    private javax.swing.JTextField requiredTextField;
+    private javax.swing.JLabel nameTextField;
     private javax.swing.JButton sendWord;
+    private javax.swing.JLabel timeerLabel;
+    private javax.swing.JTextField vowelsTextField;
     private javax.swing.JTextField wordTextField;
     // End of variables declaration//GEN-END:variables
 }
