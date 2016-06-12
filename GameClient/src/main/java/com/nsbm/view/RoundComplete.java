@@ -5,12 +5,18 @@
  */
 package com.nsbm.view;
 
+import com.nsbm.common.CommonData;
+import static com.nsbm.common.CommonData.currentRound;
 import static com.nsbm.common.CommonData.username;
 import static com.nsbm.common.CommonUtil.setRoundCompletedModelData;
 import static com.nsbm.service.PlayerServiceHandler.getRoundCompletedPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listenToRoundCompletionEvent;
 import static com.nsbm.service.PlayerServiceHandler.notifyRoundCompletion;
+import static com.nsbm.service.PlayerServiceHandler.setFrameReference;
+import static com.nsbm.service.PlayerServiceHandler.setLabelReference;
 import static com.nsbm.service.PlayerServiceHandler.setModelReference;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -32,8 +38,8 @@ public class RoundComplete extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         playerList = new javax.swing.JList();
-        StartNextRound = new javax.swing.JButton();
         playerNameField = new javax.swing.JLabel();
+        nextRoundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -44,9 +50,9 @@ public class RoundComplete extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(playerList);
 
-        StartNextRound.setText("Next Round");
-
         playerNameField.setText("name");
+
+        nextRoundLabel.setText("nextRound");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,11 +64,11 @@ public class RoundComplete extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(StartNextRound, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(playerNameField)))
+                        .addComponent(playerNameField))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(nextRoundLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -70,9 +76,9 @@ public class RoundComplete extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(StartNextRound, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(nextRoundLabel)
+                .addGap(25, 25, 25)
                 .addComponent(playerNameField)
                 .addContainerGap())
         );
@@ -84,19 +90,31 @@ public class RoundComplete extends javax.swing.JFrame {
         playerNameField.setText(username);
         allCompletedPlayer = getRoundCompletedPlayers();
         setModelReference(model);
+        setLabelReference(nextRoundLabel);
+        setFrameReference(this);
         playerList.setModel(model);
         new Thread(new Runnable() {
             public void run() {
                 setRoundCompletedModelData(allCompletedPlayer, model);
-                notifyRoundCompletion();
-                listenToRoundCompletionEvent();
+                listenToRoundCompletionEvent();              
+//                notifyRoundCompletion();
+//                if (!CommonData.isLastPlayer || currentRound==1) {
+//                    System.out.println(username + " started listening");
+//                    listenToRoundCompletionEvent();
+//                }
             }
         }).start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(RoundComplete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        notifyRoundCompletion();
     }//GEN-LAST:event_formWindowOpened
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton StartNextRound;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nextRoundLabel;
     private javax.swing.JList playerList;
     private javax.swing.JLabel playerNameField;
     // End of variables declaration//GEN-END:variables

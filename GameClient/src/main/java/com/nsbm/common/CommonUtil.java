@@ -6,7 +6,8 @@
 package com.nsbm.common;
 
 import com.nsbm.entity.Player;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 
 /**
@@ -14,6 +15,8 @@ import javax.swing.DefaultListModel;
  * @author Lakshitha
  */
 public class CommonUtil {
+
+    private static Set<String> completedPlayerSet;
 
     public static void setModelData(Player[] players, DefaultListModel<String> model) {
         for (Player p : players) {
@@ -29,16 +32,20 @@ public class CommonUtil {
     public static void setModelData(String player, DefaultListModel<String> model) {
         model.add(0, player + " joined");
     }
-    
+
     public static void setRoundCompletedModelData(String[] statistics, DefaultListModel<String> model) {
+        completedPlayerSet = new HashSet<>();
         for (String p : statistics) {
+            completedPlayerSet.add(p);
             p = p.replaceAll("@", " ");
             model.addElement(p);
         }
     }
 
     public static void setRoundCompletedModelData(String statistic, DefaultListModel<String> model) {
-        statistic = statistic.replaceAll("@", " ");
-        model.add(0, statistic);
+        if (completedPlayerSet.add(statistic)) {
+            statistic = statistic.replaceAll("@", " ");
+            model.add(0, statistic);
+        }
     }
 }

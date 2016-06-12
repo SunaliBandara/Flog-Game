@@ -5,6 +5,7 @@
  */
 package com.nsbm.service;
 
+import static com.nsbm.common.CommonUtil.checkRoundEnd;
 import static com.nsbm.common.CommonUtil.getPlayerStatisticsFromPlayer;
 import static com.nsbm.common.CurrentPlay.currentRound;
 import com.nsbm.entity.Player;
@@ -28,8 +29,9 @@ import org.glassfish.jersey.media.sse.SseFeature;
 @Singleton
 @Path("/BroadCaster")
 public class NotificationService {
-    private SseBroadcaster broadcaster = new SseBroadcaster();
- 
+
+    private final SseBroadcaster broadcaster = new SseBroadcaster();
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -37,15 +39,15 @@ public class NotificationService {
     public String broadcastJoinMessage(String message) {
         OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
         OutboundEvent event = eventBuilder.name("joined")
-            .mediaType(MediaType.TEXT_PLAIN_TYPE)
-            .data(String.class, message)
-            .build();
- 
+                .mediaType(MediaType.TEXT_PLAIN_TYPE)
+                .data(String.class, message)
+                .build();
+
         broadcaster.broadcast(event);
- 
-        return "Your have Joined";
+
+        return "You have Joined";
     }
- 
+
     @GET
     @Produces(SseFeature.SERVER_SENT_EVENTS)
     @Path("/listenPlayerJoin")
@@ -54,7 +56,7 @@ public class NotificationService {
         this.broadcaster.add(eventOutput);
         return eventOutput;
     }
-    
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,14 +65,20 @@ public class NotificationService {
         PlayerStatistics statistics = getPlayerStatisticsFromPlayer(player);
         OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
         OutboundEvent event = eventBuilder.name("completed")
-            .mediaType(MediaType.TEXT_PLAIN_TYPE)
-            .data(String.class, player.getUsername()+"@"+statistics.getWordStatus()+"@"+statistics.getWord())
-            .build();
+                .mediaType(MediaType.TEXT_PLAIN_TYPE)
+                .data(String.class, player.getUsername() + "@" + statistics.getWordStatus() + "@" + statistics.getWord())
+                .build();
         broadcaster.broadcast(event);
- 
+        synchronized (NotificationService.class) {
+            if (checkRoundEnd()) {
+                currentRound++;
+                broadcastNextRoundMessage(player.getUsername());
+                return "starting round " + currentRound;
+            }
+        }
         return "Your have completed the round " + currentRound;
     }
-    
+
     @GET
     @Produces(SseFeature.SERVER_SENT_EVENTS)
     @Path("/listenRoundCompletion")
@@ -78,5 +86,19 @@ public class NotificationService {
         final EventOutput eventOutput = new EventOutput();
         this.broadcaster.add(eventOutput);
         return eventOutput;
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/sendNextRoundStart")
+    public String broadcastNextRoundMessage(String lastPlayerName) {   
+        OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
+        OutboundEvent event = eventBuilder.name("starting")
+                .mediaType(MediaType.TEXT_PLAIN_TYPE)
+                .data(String.class, "roundEnd")
+                .build();
+        broadcaster.broadcast(event);
+        return "second round starting";
     }
 }

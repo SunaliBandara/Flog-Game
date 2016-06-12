@@ -3,9 +3,10 @@ package com.nsbm.view;
 import static com.nsbm.common.CommonUtil.setModelData;
 import com.nsbm.common.PlayerStatus;
 import com.nsbm.common.CommonData;
+import static com.nsbm.common.CommonData.currentRound;
 import com.nsbm.entity.Player;
 import static com.nsbm.service.PlayerServiceHandler.getAllPlayers;
-import static com.nsbm.service.PlayerServiceHandler.listendToJoinEvent;
+import static com.nsbm.service.PlayerServiceHandler.listenToJoinEvent;
 import static com.nsbm.service.PlayerServiceHandler.notifyPlayerJoin;
 import static com.nsbm.service.PlayerServiceHandler.setModelReference;
 import javax.swing.DefaultListModel;
@@ -99,7 +100,9 @@ public class MainMenu extends javax.swing.JFrame {
             public void run() {
                 setModelData(allPlayers,model);
                 notifyPlayerJoin();
-                listendToJoinEvent();
+                if(currentRound == 0){
+                    listenToJoinEvent();
+                }        
             }
         }).start();
 

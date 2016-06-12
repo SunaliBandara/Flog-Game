@@ -12,7 +12,9 @@ package com.nsbm.common;
 public class CommonData {
 
     public static String username;
+    public static int currentRound = 0;
     public static int id;
+    public static boolean isLastPlayer = false;
     public final static String IP = "http://localhost:8080/GameServer/WebResources/";
     public static PlayerStatus playerStatus = PlayerStatus.JOINED;
     public final static String GET = "GET";
@@ -22,6 +24,7 @@ public class CommonData {
     public final static String ADD_PLAYER = "addPlayer";
     public final static String GET_PLAYERS = "getPlayers";
     public final static String PLAYER_JOIN_BROADCAST = "sendPlayerJoin";
+    public final static String NEXT_ROUND_BROADCAST = "sendNextRoundStart";
     public final static String PLAYER_JOIN_LISTEN = "listenPlayerJoin";
     public final static String ROUND_COMPLETION_LISTEN = "listenRoundCompletion";
     public final static String WORD_CLASS = "WordService/";

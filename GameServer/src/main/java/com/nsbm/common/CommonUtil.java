@@ -77,4 +77,15 @@ public class CommonUtil {
         }
         return roundCompletedPlayers;
     }
+    
+    public static boolean checkRoundEnd(){
+        boolean roundEnd = true;
+        for(Player player : getPLAYERS()){
+            if(player.getPlayerStatus()!=PlayerStatus.ROUND_COMPLETED){
+                roundEnd = false;
+                break;
+            }
+        }
+        return roundEnd;
+    }
 }

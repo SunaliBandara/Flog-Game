@@ -1,9 +1,8 @@
 package com.nsbm.view;
 
 import static com.nsbm.common.CommonData.SUCCESS;
+import static com.nsbm.common.CommonData.currentRound;
 import static com.nsbm.common.CommonData.username;
-import static com.nsbm.service.PlayerServiceHandler.listenToRoundCompletionEvent;
-import static com.nsbm.service.PlayerServiceHandler.notifyRoundCompletion;
 import static com.nsbm.service.WordServiceHandler.addWord;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
@@ -140,12 +139,12 @@ public class Game extends javax.swing.JFrame {
     private void sendWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendWordActionPerformed
         String word = wordTextField.getText();
         String response = addWord(word);
-        if(response.equals(SUCCESS)){
+        if (response.equals(SUCCESS)) {
             JOptionPane.showMessageDialog(rootPane, "Correct Word");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Incorrect Word");
         }
+        currentRound++;
         this.dispose();
         RoundComplete roundComplete = new RoundComplete();
         roundComplete.setVisible(true);
@@ -153,6 +152,7 @@ public class Game extends javax.swing.JFrame {
 
     private void getButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getButtonActionPerformed
         lettersLabel.setText("");
+        
         int consonantsRequired = Integer.parseInt(consonantsTextField.getText());
         int vowelsRequired = Integer.parseInt(vowelsTextField.getText());
         if (consonantsRequired + vowelsRequired > 10) {
@@ -161,12 +161,14 @@ public class Game extends javax.swing.JFrame {
             String letters = getLetters(vowelsRequired, consonantsRequired);
             String[] letterParts = letters.split("@");
             lettersLabel.setText(initialLetters + "  " + letterParts[0] + "   " + letterParts[1]);
+            
             consonantsTextField.setEditable(false);
             vowelsTextField.setEditable(false);
-            getButton.setEnabled(false);
-
+            getButton.setEnabled(false);            
             sendWord.setEnabled(true);
             wordTextField.setEditable(true);
+            
+            counter = 180;
             ActionListener action = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
