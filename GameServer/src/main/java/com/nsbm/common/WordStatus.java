@@ -10,5 +10,5 @@ package com.nsbm.common;
  * @author Lakshitha
  */
 public enum WordStatus {
-    CORRECT, INCORRECT,NOT_SUBMITTED
+    CORRECT, INCORRECT,NOT_SUBMITTED,ADALA_NA
 }

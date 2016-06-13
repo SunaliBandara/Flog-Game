@@ -17,6 +17,7 @@ public class PlayerStatistics {
     private String consonants;
     private String vowels;
     private WordStatus wordStatus;
+    private int score;
     
     public String getInitialLetters() {
         return initialLetters;
@@ -58,10 +59,17 @@ public class PlayerStatistics {
         this.wordStatus = wordStatus;
     }
 
-    @Override
-    public String toString() {
-        return "PlayerStatistics{" + "initialLetters=" + initialLetters + ", word=" + word + ", consonants=" + consonants + ", vowels=" + vowels + '}';
+    public int getScore() {
+        return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerStatistics{" + "initialLetters=" + initialLetters + ", word=" + word + ", consonants=" + consonants + ", vowels=" + vowels + ", wordStatus=" + wordStatus + ", score=" + score + '}';
+    }
 
 }

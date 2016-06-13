@@ -93,16 +93,16 @@ public class MainMenu extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         user.setText(CommonData.username);
         allPlayers = getAllPlayers();
+        setModelData(allPlayers, model);
         playerList.setModel(model);
         setModelReference(model);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                setModelData(allPlayers,model);
                 notifyPlayerJoin();
-                if(currentRound == 0){
+                if (currentRound == 0) {
                     listenToJoinEvent();
-                }        
+                }
             }
         }).start();
 

@@ -8,12 +8,15 @@ package com.nsbm.service;
 import static com.nsbm.common.CommonData.DICTIONARY_LINK;
 import static com.nsbm.common.CommonUtil.findPlayer;
 import static com.nsbm.common.CommonUtil.getPlayerStatisticsFromPlayer;
+import static com.nsbm.common.CommonUtil.getPoints;
 import static com.nsbm.common.CommonUtil.getRandomConsonants;
 import static com.nsbm.common.CommonUtil.getRandomVowels;
+import static com.nsbm.common.CommonUtil.verifyWord;
 import static com.nsbm.common.CurrentPlay.currentRound;
 import static com.nsbm.common.CurrentPlay.getPLAYER_ROUND_STATISTICS;
 import static com.nsbm.common.CurrentPlay.submitedWords;
 import com.nsbm.common.PlayerStatus;
+import com.nsbm.common.ResponseResult;
 import static com.nsbm.common.ResponseResult.ERROR;
 import static com.nsbm.common.ResponseResult.INCORRECT_WORD;
 import static com.nsbm.common.ResponseResult.SUCCESS;
@@ -104,10 +107,6 @@ public class WordService {
             PlayerStatistics p = getPlayerStatisticsFromPlayer(player);
             p.setWord(word);
             submitedWords++;
-//            if (submitedWords == getPLAYERS().size()) {
-//                // End of Round;
-//                currentRound++;
-//            }
             String checkUpURL = DICTIONARY_LINK + word + "/json";
             URL url = new URL(checkUpURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -119,6 +118,7 @@ public class WordService {
                 output = br.readLine();
             } catch (FileNotFoundException ex) {
                 p.setWordStatus(WordStatus.INCORRECT);
+                p.setScore(0);
                 return INCORRECT_WORD;
             } catch (IOException ex) {
                 Logger.getLogger(WordService.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,7 +133,14 @@ public class WordService {
                 Player listPlayer = findPlayer(player.getUsername());
                 listPlayer.setPlayerStatus(PlayerStatus.ROUND_COMPLETED);
             }
-            p.setWordStatus(WordStatus.CORRECT);
+            if(verifyWord(p)){
+                p.setWordStatus(WordStatus.CORRECT);
+                p.setScore(getPoints(p));
+            }
+            else{
+                p.setWordStatus(WordStatus.ADALA_NA);
+                return ResponseResult.ADALA_NA;
+            }
             Player listedPlayer = findPlayer(player.getUsername());
             listedPlayer.setPlayerStatus(PlayerStatus.ROUND_COMPLETED);
             System.out.println(getPLAYER_ROUND_STATISTICS());

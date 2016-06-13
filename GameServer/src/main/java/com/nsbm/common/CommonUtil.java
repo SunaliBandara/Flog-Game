@@ -88,4 +88,39 @@ public class CommonUtil {
         }
         return roundEnd;
     }
+    
+    public static boolean verifyWord(PlayerStatistics statistics){
+        String word = statistics.getWord();
+        boolean validWord = true;
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(statistics.getInitialLetters());
+        buffer.append(statistics.getConsonants());
+        buffer.append(statistics.getVowels());
+
+        char [] result = buffer.toString().toCharArray();
+        for (int i = 0; i < word.length(); i++) {
+            char wordLetter = word.charAt(i);
+            if(!validWord){
+               return false; 
+            }
+            validWord = false;
+            for(char c : result){
+                if(wordLetter == c){
+                    validWord = true;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public static int getPoints(PlayerStatistics statistics){
+        int wordValue = 0;
+        for(char c : statistics.getInitialLetters().toCharArray()){
+            if(statistics.getWord().indexOf(c) > 0){
+                wordValue = wordValue + 5;
+            }
+        }
+        wordValue = wordValue + statistics.getWord().length();
+        return wordValue;
+    }
 }
