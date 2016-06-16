@@ -5,8 +5,6 @@
  */
 package com.nsbm.view;
 
-import com.nsbm.common.CommonData;
-import static com.nsbm.common.CommonData.currentRound;
 import static com.nsbm.common.CommonData.username;
 import static com.nsbm.common.CommonUtil.setRoundCompletedModelData;
 import static com.nsbm.service.PlayerServiceHandler.getRoundCompletedPlayers;
@@ -97,11 +95,6 @@ public class RoundComplete extends javax.swing.JFrame {
             public void run() {
                 setRoundCompletedModelData(allCompletedPlayer, model);
                 listenToRoundCompletionEvent();              
-//                notifyRoundCompletion();
-//                if (!CommonData.isLastPlayer || currentRound==1) {
-//                    System.out.println(username + " started listening");
-//                    listenToRoundCompletionEvent();
-//                }
             }
         }).start();
         try {

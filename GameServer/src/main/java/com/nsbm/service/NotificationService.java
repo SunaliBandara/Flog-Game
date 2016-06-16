@@ -66,7 +66,8 @@ public class NotificationService {
         OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
         OutboundEvent event = eventBuilder.name("completed")
                 .mediaType(MediaType.TEXT_PLAIN_TYPE)
-                .data(String.class, player.getUsername() + "@" + statistics.getWordStatus() + "@" + statistics.getWord())
+                .data(String.class, player.getUsername() + "@" + statistics.getWordStatus() + 
+                        "@" + statistics.getScore() + "@" + statistics.getWord())
                 .build();
         broadcaster.broadcast(event);
         synchronized (NotificationService.class) {

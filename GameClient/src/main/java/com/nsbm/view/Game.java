@@ -1,8 +1,9 @@
 package com.nsbm.view;
 
-import static com.nsbm.common.CommonData.SUCCESS;
 import static com.nsbm.common.CommonData.currentRound;
 import static com.nsbm.common.CommonData.username;
+import static com.nsbm.common.ResponseResult.ADALA_NA;
+import static com.nsbm.common.ResponseResult.SUCCESS;
 import static com.nsbm.service.WordServiceHandler.addWord;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
@@ -141,7 +142,9 @@ public class Game extends javax.swing.JFrame {
         String response = addWord(word);
         if (response.equals(SUCCESS)) {
             JOptionPane.showMessageDialog(rootPane, "Correct Word");
-        } else {
+        } else if(response.equals(ADALA_NA)){
+            JOptionPane.showMessageDialog(rootPane, "Adala Nane");
+        } else{
             JOptionPane.showMessageDialog(rootPane, "Incorrect Word");
         }
         currentRound++;

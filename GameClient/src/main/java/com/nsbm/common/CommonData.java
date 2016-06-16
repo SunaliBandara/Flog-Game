@@ -31,6 +31,5 @@ public class CommonData {
     public final static String INITIAL_LETTERS = "getInitialLetters";
     public final static String LETTERS = "getLetters";
     public final static String ROUND_COMPLETION_BROADCAST = "sendPlayerRoundCompletion";
-    public final static String SUCCESS = "success";
     public final static String GET_ROUND_COMPLETED_PLAYERS = "getRoundCompletedPlayers";
 }

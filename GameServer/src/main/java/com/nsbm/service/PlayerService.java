@@ -62,13 +62,12 @@ public class PlayerService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getRoundCompletedPlayers")
     public String getRoundCompletedPlayers(){
-        String statisticString = new String();
         List<String> completedPlayer = new ArrayList<String>();
         List<Player> players = findRoundCompletedPlayers();
         for(Player player : players){
             PlayerStatistics statistics = getPlayerStatisticsFromPlayer(player);
-            statisticString = player.getUsername() + "@" + statistics.getWordStatus() + "@"
-                    + statistics.getWord();
+            String statisticString = player.getUsername() + "@" + statistics.getWordStatus() 
+                    + "@" + statistics.getScore() + "@" + statistics.getWord();
             completedPlayer.add(statisticString);
         }
         return new Gson().toJson(completedPlayer);
