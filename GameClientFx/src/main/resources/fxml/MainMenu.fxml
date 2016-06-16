@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="MainMenuAnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.MainMenuController">
+   <children>
+      <Button fx:id="startButton" layoutX="237.0" layoutY="343.0" onAction="#startGame"  mnemonicParsing="false" prefHeight="63.0" prefWidth="126.0" styleClass="buttonClass" text="START" />
+      <Label layoutX="20.0" layoutY="470.0" text="Log In as ">
+         <font>
+            <Font name="Calibri Light" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userNameLabel" layoutX="90.0" layoutY="470.0" text="UserName">
+         <font>
+            <Font name="Calibri Light" size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="400.0" prefHeight="500.0" prefWidth="200.0">
+         <children>
+           <ListView fx:id="listBox" layoutY="100.0" prefHeight="255.0" prefWidth="200.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

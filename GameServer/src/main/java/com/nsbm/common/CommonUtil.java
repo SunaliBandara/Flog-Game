@@ -9,9 +9,9 @@ import static com.nsbm.common.CommonData.VOWELS;
 import static com.nsbm.common.CurrentPlay.currentRound;
 import static com.nsbm.common.CurrentPlay.getPLAYERS;
 import static com.nsbm.common.CurrentPlay.getPLAYER_ROUND_STATISTICS;
+import static com.nsbm.common.CurrentPlay.getSPECIAL_POINTS;
 import com.nsbm.entity.Player;
 import com.nsbm.entity.PlayerStatistics;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -122,5 +122,10 @@ public class CommonUtil {
         }
         wordValue = wordValue + statistics.getWord().length();
         return wordValue;
+    }
+    
+    public static int getCurrentSpecialPoints(Player player){
+        Map<Player,Integer> specialPoints = getSPECIAL_POINTS();
+        return specialPoints.get(player);
     }
 }

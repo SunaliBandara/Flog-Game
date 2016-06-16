@@ -91,8 +91,6 @@ public class WordService {
         listPlayer.setPlayerStatus(PlayerStatus.PLAYING);
         String voweles = getRandomVowels(vowelsRequired);
         p.setVowels(voweles);
-        voweles = voweles.concat("@");
-
         String consonants = getRandomConsonants(consonantsRequired);
         p.setConsonants(consonants);
         return voweles + consonants;
@@ -116,6 +114,7 @@ public class WordService {
                 br = new BufferedReader(new InputStreamReader(
                         (connection.getInputStream())));
                 output = br.readLine();
+                System.out.println(output);
             } catch (FileNotFoundException ex) {
                 p.setWordStatus(WordStatus.INCORRECT);
                 p.setScore(0);

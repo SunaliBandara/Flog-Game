@@ -25,7 +25,7 @@ public class CurrentPlay {
 
     private static final Map <Integer, Map<Player,PlayerStatistics>> PLAYER_ROUND_STATISTICS = new HashMap<Integer, Map<Player,PlayerStatistics>>();
 
-    private static final Map<Integer, List<Map<Player, String>>> PLAYER_ROUND_WORDS = new HashMap<Integer, List<Map<Player, String>>>();
+    private static final Map<Player, Integer> SPECIAL_POINS = new HashMap<Player, Integer>();
 
     public static List<Player> getPLAYERS() {
         return PLAYERS;
@@ -35,7 +35,7 @@ public class CurrentPlay {
         return PLAYER_ROUND_STATISTICS;
     }
 
-    public static Map<Integer, List<Map<Player, String>>> getPLAYER_ROUND_WORDS() {
-        return PLAYER_ROUND_WORDS;
+    public static Map<Player,Integer> getSPECIAL_POINTS(){
+        return SPECIAL_POINS;
     }
 }
