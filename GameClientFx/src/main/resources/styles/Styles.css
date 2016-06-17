@@ -1,6 +1,5 @@
 .startupFxmlClass{
-    -fx-background-image: url('bu.jpg');
-   
+    -fx-background-image: url('bu.jpg');  
 }
 
 .mainFxmlClass{
@@ -56,11 +55,46 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
-.buttonTextbox {
-    -fx-background-color: #3CBC8D;
-    -fx-background-radius: 14px;
-}
 .glassPane{
     -fx-background-color: rgba(0, 100, 100, 0.5);
     -fx-background-radius: 10;
+}
+.text-input:disabled {
+    -fx-opacity: 1.0;
+    -fx-cursor: crosshair;
+    -fx-background-image: url('woodenback.jpg');
+    -fx-background-image-radius: 14px;
+}
+#letterPane > .text-input{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
+    -fx-background-radius: 13px;
+    -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
+    -fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);
+}
+.text-input:text{
+    -fx-font-family: Gafata;
+    -fx-font-size: 40;
+}
+.gameheader{
+    -fx-font-family:DengXian;
+    -fx-font-size:25px;
+    -fx-font-style:bold;
+}
+#username{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
+    -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
+}
+#gamename{
+    -fx-text-fill:linear-gradient(left, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 7%, rgba(0,0,0,1) 18%, rgba(10,10,10,1) 19%, rgba(102,102,102,1) 28%, rgba(17,17,17,1) 38%, rgba(71,71,71,1) 50%, rgba(17,17,17,1) 55%, rgba(44,44,44,1) 62%, rgba(94,94,94,1) 70%, rgba(43,43,43,1) 77%, rgba(0,0,0,1) 85%, rgba(19,19,19,1) 100%);
+    -fx-font-family:Forte;
+    -fx-font-size:55px;
+    -fx-text-alignment:center;
+}
+#extendableNotificationPane,#listBox{
+    -fx-background-radius: 25px;
+    -fx-background-color: rgba(0, 100, 100, 0.5);
+}
+#listBox{
+    -fx-background-radius: 25px;
+    -fx-background-color: rgba(0, 100, 100, 0.5);
 }
