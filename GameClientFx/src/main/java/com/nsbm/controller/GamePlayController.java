@@ -58,6 +58,7 @@ public class GamePlayController implements Initializable {
     }
 
     public void sendWord() {
+        Stage stage = new Stage();
         String word = wordField.getText();
         String response = addWord(word);
         if (response.equals(SUCCESS)) {
@@ -66,9 +67,10 @@ public class GamePlayController implements Initializable {
             JOptionPane.showMessageDialog(null, "Adala Nane");
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect Word");
+            //Action ad = Dialogs.create().owner(stage).title("Information Dialog").masthead(null).message("I have a great message for you!").showInformation();
         }
         currentRound++;
-        Stage stage = new Stage();
+        
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));

@@ -12,66 +12,68 @@
         <AnchorPane layoutX="20.0" layoutY="70.0" prefHeight="150.0" prefWidth="560.0" styleClass="glassPane">
             <children>
                 <AnchorPane fx:id="letterPane">
-                    <TextField alignment="CENTER" layoutX="509.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="59.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="104.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="149.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="194.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="239.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="284.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="329.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="374.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="419.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
-                    <TextField alignment="CENTER" layoutX="464.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
-                        <font>
-                            <Font name="Calibri Light" size="20.0" />
-                        </font>
-                    </TextField>
+                   <children>
+                       <TextField alignment="CENTER" layoutX="509.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="59.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="104.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="149.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="194.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="239.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="284.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="329.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="374.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="419.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                       <TextField alignment="CENTER" layoutX="464.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0">
+                           <font>
+                               <Font name="Calibri Light" size="20.0" />
+                           </font>
+                       </TextField>
+                   </children>
                 </AnchorPane>
 
                 <TextField fx:id="wordField" alignment="CENTER" layoutX="20.0" layoutY="70.0" prefHeight="50.0" prefWidth="370.0" promptText="Your Word">
@@ -79,7 +81,7 @@
                         <Font name="Arial Bold" size="20.0" />
                     </font>
                 </TextField>
-                <Button fx:id="submitButton" onAction="#sendWord"  layoutX="415.0" layoutY="75.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="silvarButton" text="SUBMIT" />
+                <Button fx:id="submitButton" layoutX="415.0" layoutY="75.0" mnemonicParsing="false" onAction="#sendWord" prefHeight="40.0" prefWidth="125.0" styleClass="lionbutton" text="SUBMIT" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="20.0" layoutY="230.0" prefHeight="120.0" prefWidth="560.0">
@@ -88,7 +90,7 @@
                 <Label layoutX="267.0" layoutY="20.0" text="Time" />
             </children>
         </AnchorPane>
-        <Label layoutX="20.0" layoutY="25.0" text="Lets Play......!!!!">
+        <Label layoutX="20.0" layoutY="25.0" text="Lets Play......!!!!" textFill="WHITE">
             <font>
                 <Font name="Aparajita" size="36.0" />
             </font>

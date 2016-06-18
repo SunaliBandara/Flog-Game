@@ -9,11 +9,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="StartUpAnchorPane" fx:id="startPane" prefHeight="500.0" prefWidth="400.0" styleClass="startupFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.StartUpController">
+<AnchorPane id="StartUpAnchorPane" fx:id="startPane" prefHeight="500.0" prefWidth="400.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.StartUpController">
    <children>
-      <Label fx:id="gamename" layoutX="74.0" layoutY="55.0" styleClass="gameheader" text="FLOGAME" textAlignment="CENTER">
+      <Label fx:id="gamename" layoutX="74.0" layoutY="55.0" styleClass="gameheader" text="FLOGAME" textAlignment="CENTER" textFill="WHITE">
       </Label>
-      <Label layoutX="64.0" layoutY="139.0" styleClass="gameheader" text="Log In to play the FLOG">
+      <Label layoutX="64.0" layoutY="139.0" styleClass="gameheader" text="Log In to play the FLOG" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,11 +28,14 @@
             <Font name="Calibri Light" size="14.0" />
          </font>
       </PasswordField>
-      <Button fx:id="startButton" layoutX="100.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="200.0" styleClass="buttonClass" text="Log In">
+      <Button fx:id="startButton" layoutX="100.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="200.0" styleClass="orangeButton" text="Log In">
          <font>
             <Font name="Calibri Light" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="exitButton" layoutX="7.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleExitButtonAction" prefHeight="40.0" prefWidth="67.0" styleClass="silvarButton" text="Exit" />
+      <Button fx:id="exitButton" layoutY="475.0" mnemonicParsing="false" onAction="#handleExitButtonAction" prefHeight="22.0" prefWidth="45.0" styleClass="silvarButton" text="Exit" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

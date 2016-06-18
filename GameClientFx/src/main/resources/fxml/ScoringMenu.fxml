@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.ScoringMenuController">
+   <children>
+      <AnchorPane layoutX="37.0" layoutY="69.0" prefHeight="200.0" prefWidth="526.0" />
+      <AnchorPane layoutX="110.0" layoutY="269.0" prefHeight="200.0" prefWidth="381.0" />
+      <Label layoutX="231.0" layoutY="53.0" styleClass="gameheader" text="Game Score" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

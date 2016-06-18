@@ -5,6 +5,7 @@ com\nsbm\controller\MainMenuController$1.class
 com\nsbm\service\WordServiceHandler.class
 com\nsbm\entity\Player.class
 com\nsbm\controller\GameWindowController$1.class
+com\nsbm\controller\ScoringMenuController.class
 com\nsbm\controller\MainMenuController.class
 com\nsbm\controller\MainMenuController$2.class
 com\nsbm\controller\FXMLController.class

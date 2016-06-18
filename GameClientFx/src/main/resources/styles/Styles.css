@@ -1,16 +1,16 @@
-.startupFxmlClass{
-    -fx-background-image: url('bu.jpg');  
-}
-
+/*--------------------------------------background css------------------------------------------------*/
 .mainFxmlClass{
-    -fx-background-image: url('bu.jpg');
+    -fx-background-image: url('oi.jpg');
+}
+.glassPane{
+    -fx-background-color: rgba(0, 100, 100, 0.5);
+    -fx-background-radius: 10;
 }
 
-.gameFxmlClass{
-    -fx-background-image: url('Blackbox.jpg');
-}
+/*--------------------------------------end of background css------------------------------------------------*/
 
-.buttonClass{
+/*--------------------------------------button css------------------------------------------------*/
+.orangeButton{
     -fx-background-color: 
         linear-gradient(#ffd65b, #e68400),
         linear-gradient(#ffef84, #f2ba44),
@@ -44,8 +44,7 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
-
-.bevelgreyButton {
+.greyButton {
     -fx-background-color: 
         linear-gradient(#f2f2f2, #d6d6d6),
         linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
@@ -55,10 +54,20 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
-.glassPane{
-    -fx-background-color: rgba(0, 100, 100, 0.5);
-    -fx-background-radius: 10;
+.lionbutton{
+    -fx-background-color: 
+        rgba(0,0,0,0.08),
+        linear-gradient(#9a9a9a, #909090),
+        linear-gradient(white 0%, #f3f3f3 50%, #ececec 51%, #f2f2f2 100%);
+    -fx-background-insets: 0 0 -1 0,0,1;
+    -fx-background-radius: 5,5,4;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: #242d35;
+    -fx-font-size: 14px;
 }
+/*-------------------------------------- end of button css------------------------------------------------*/
+
+/*-------------------------------------- text box css------------------------------------------------*/
 .text-input:disabled {
     -fx-opacity: 1.0;
     -fx-cursor: crosshair;
@@ -75,11 +84,21 @@
     -fx-font-family: Gafata;
     -fx-font-size: 40;
 }
+
+/*--------------------------------------end of text box css------------------------------------------------*/
+
+/*-------------------------------------- Label css------------------------------------------------*/
 .gameheader{
     -fx-font-family:DengXian;
     -fx-font-size:25px;
     -fx-font-style:bold;
 }
+.gamesubheader{
+    -fx-font-family:Andalus;
+    -fx-font-size:75px;
+    -fx-font-style:bold;
+}
+
 #username{
     -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
     -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
@@ -90,11 +109,4 @@
     -fx-font-size:55px;
     -fx-text-alignment:center;
 }
-#extendableNotificationPane,#listBox{
-    -fx-background-radius: 25px;
-    -fx-background-color: rgba(0, 100, 100, 0.5);
-}
-#listBox{
-    -fx-background-radius: 25px;
-    -fx-background-color: rgba(0, 100, 100, 0.5);
-}
+/*--------------------------------------end of Label css------------------------------------------------*/

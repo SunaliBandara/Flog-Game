@@ -1,15 +1,6 @@
-.startupFxmlClass{
-    -fx-background-image: url('bu.jpg');  
-}
-
 .mainFxmlClass{
-    -fx-background-image: url('bu.jpg');
+    -fx-background-image: url('oi.jpg');
 }
-
-.gameFxmlClass{
-    -fx-background-image: url('Blackbox.jpg');
-}
-
 .buttonClass{
     -fx-background-color: 
         linear-gradient(#ffd65b, #e68400),
