@@ -73,7 +73,7 @@ public class GamePlayController implements Initializable {
         
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/RoundComplete.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(GameWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }

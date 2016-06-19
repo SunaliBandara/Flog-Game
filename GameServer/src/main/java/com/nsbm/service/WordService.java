@@ -14,6 +14,7 @@ import static com.nsbm.common.CommonUtil.getRandomVowels;
 import static com.nsbm.common.CommonUtil.verifyWord;
 import static com.nsbm.common.CurrentPlay.currentRound;
 import static com.nsbm.common.CurrentPlay.getPLAYER_ROUND_STATISTICS;
+import static com.nsbm.common.CurrentPlay.getSPECIAL_POINTS;
 import static com.nsbm.common.CurrentPlay.submitedWords;
 import com.nsbm.common.PlayerStatus;
 import com.nsbm.common.ResponseResult;
@@ -66,6 +67,11 @@ public class WordService {
         }
 
         Player listPlayer = findPlayer(player.getUsername());
+        
+        if(currentRound == 0){
+            Map<Player, Integer> specialPoints = getSPECIAL_POINTS();
+            specialPoints.put(player, 0);
+        }
         
         PlayerStatistics statistics = new PlayerStatistics();
         statistics.setInitialLetters(characters);

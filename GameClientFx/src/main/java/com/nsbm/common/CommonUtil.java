@@ -9,7 +9,6 @@ import com.nsbm.entity.Player;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.collections.ObservableList;
-import javax.swing.DefaultListModel;
 
 /**
  *

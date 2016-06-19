@@ -81,7 +81,7 @@
                         <Font name="Arial Bold" size="20.0" />
                     </font>
                 </TextField>
-                <Button fx:id="submitButton" layoutX="415.0" layoutY="75.0" mnemonicParsing="false" onAction="#sendWord" prefHeight="40.0" prefWidth="125.0" styleClass="silvarButton" text="SUBMIT" />
+                <Button fx:id="submitButton" layoutX="415.0" layoutY="75.0" mnemonicParsing="false" onAction="#sendWord" prefHeight="40.0" prefWidth="125.0" styleClass="lionbutton" text="SUBMIT" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="20.0" layoutY="230.0" prefHeight="120.0" prefWidth="560.0">

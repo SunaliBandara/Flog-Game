@@ -25,6 +25,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.nsbm.service.NotificationService.class);
         resources.add(com.nsbm.service.PlayerService.class);
+        resources.add(com.nsbm.service.PointService.class);
         resources.add(com.nsbm.service.WordService.class);
     }
     

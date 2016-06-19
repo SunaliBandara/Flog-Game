@@ -8,6 +8,7 @@ package com.nsbm.controller;
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.currentRound;
 import static com.nsbm.common.CommonUtil.setModelData;
+import com.nsbm.common.PlayerStatus;
 import com.nsbm.entity.Player;
 import static com.nsbm.service.PlayerServiceHandler.getAllPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listenToJoinEvent;
@@ -89,7 +90,7 @@ public class MainMenuController implements Initializable {
         extendableNotificationPane.prefHeightProperty().set(0);
     }
 
-    public void startGame(ActionEvent event) throws IOException {
+    public void startGame(ActionEvent event) throws IOException { 
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
         Scene scene = new Scene(root);
@@ -98,6 +99,7 @@ public class MainMenuController implements Initializable {
         stage.setScene(scene);
         stage.show();
 
+        CommonData.playerStatus = PlayerStatus.PLAYING;
         stage = (Stage) startButton.getScene().getWindow();
         stage.close();
     }

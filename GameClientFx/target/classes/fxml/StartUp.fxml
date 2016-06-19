@@ -28,11 +28,14 @@
             <Font name="Calibri Light" size="14.0" />
          </font>
       </PasswordField>
-      <Button fx:id="startButton" layoutX="100.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="200.0" styleClass="buttonClass" text="Log In">
+      <Button fx:id="startButton" layoutX="100.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="200.0" styleClass="orangeButton" text="Log In">
          <font>
             <Font name="Calibri Light" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="exitButton" layoutX="7.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleExitButtonAction" prefHeight="40.0" prefWidth="67.0" styleClass="silvarButton" text="Exit" />
+      <Button fx:id="exitButton" layoutY="475.0" mnemonicParsing="false" onAction="#handleExitButtonAction" prefHeight="22.0" prefWidth="45.0" styleClass="silvarButton" text="Exit" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

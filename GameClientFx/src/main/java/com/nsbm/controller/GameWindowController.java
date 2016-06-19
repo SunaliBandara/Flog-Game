@@ -8,8 +8,6 @@ package com.nsbm.controller;
 import com.nsbm.common.CommonData;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

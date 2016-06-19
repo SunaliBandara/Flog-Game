@@ -5,13 +5,16 @@
  */
 package com.nsbm.service;
 
+import static com.nsbm.common.CommonUtil.calculateRoundSpecialPoints;
 import static com.nsbm.common.CommonUtil.checkRoundEnd;
+import static com.nsbm.common.CommonUtil.getCurrentSpecialPoints;
 import static com.nsbm.common.CommonUtil.getPlayerStatisticsFromPlayer;
 import static com.nsbm.common.CurrentPlay.currentRound;
+import static com.nsbm.common.CurrentPlay.getPLAYERS;
 import static com.nsbm.common.CurrentPlay.getPLAYER_ROUND_STATISTICS;
+import com.nsbm.common.PlayerStatus;
 import com.nsbm.entity.Player;
 import com.nsbm.entity.PlayerStatistics;
-import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
@@ -78,10 +81,7 @@ public class NotificationService {
                 broadcastNextRoundMessage(player.getUsername());
                 Map<Integer, Map<Player, PlayerStatistics>> playerRoundStatistics = getPLAYER_ROUND_STATISTICS();
                 Map<Player, PlayerStatistics> playerStatistics = playerRoundStatistics.get(currentRound);
-                Map<Player, Integer> specialPoints = new HashMap<Player, Integer>();
-                for(int i=0; i<playerStatistics.size(); i++){
-//                    int specialPonts = 
-                }
+                calculateRoundSpecialPoints(playerStatistics);
                 currentRound++;
                 return "starting round " + currentRound;
             }

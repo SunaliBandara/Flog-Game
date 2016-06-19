@@ -16,7 +16,7 @@ public class CommonData {
     public static int currentRound = 0;
     public static int id;
     public static boolean isLastPlayer = false;
-    public final static String IP = "http://localhost:19765/GameServer/WebResources/";
+    public final static String IP = "http://localhost:8080/GameServer/WebResources/";
     public static PlayerStatus playerStatus = PlayerStatus.JOINED;
     public final static String GET = "GET";
     public final static String POST = "POST";
@@ -33,4 +33,6 @@ public class CommonData {
     public final static String LETTERS = "getLetters";
     public final static String ROUND_COMPLETION_BROADCAST = "sendPlayerRoundCompletion";
     public final static String GET_ROUND_COMPLETED_PLAYERS = "getRoundCompletedPlayers";
+    public final static String POINT_CLASS = "PointService/";
+    public final static String GET_SPECIAL_POINTS = "getSpecialPoints";
 }

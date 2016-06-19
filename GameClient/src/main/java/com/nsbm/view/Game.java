@@ -162,8 +162,8 @@ public class Game extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "You can not select more than 10");
         } else {
             String letters = getLetters(vowelsRequired, consonantsRequired);
-            String[] letterParts = letters.split("@");
-            lettersLabel.setText(initialLetters + "  " + letterParts[0] + "   " + letterParts[1]);
+            //String[] letterParts = letters.split("@");
+            lettersLabel.setText(letters);
             
             consonantsTextField.setEditable(false);
             vowelsTextField.setEditable(false);

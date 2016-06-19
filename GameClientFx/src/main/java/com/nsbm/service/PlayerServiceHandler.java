@@ -23,20 +23,23 @@ import static com.nsbm.common.CommonData.ROUND_COMPLETION_LISTEN;
 import static com.nsbm.common.CommonData.username;
 import static com.nsbm.common.CommonUtil.setRoundCompletedModelData;
 import com.nsbm.entity.Player;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import static com.nsbm.service.PointServiceHandler.getSpecialPoints;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.Timer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -51,21 +54,30 @@ import org.glassfish.jersey.media.sse.SseFeature;
 public class PlayerServiceHandler {
 
     private static ObservableList<String> model = null;
-    private static JLabel label;
+    private static Label label;
     private static int counter = 10;
-    private static Timer timer = null;
-    private static JFrame frame = null;
+    private static Timer timer = new Timer();
+    private static Stage stage = null;
+    private static Label specialPointsLabel;
 
     public static void setModelReference(ObservableList<String> model) {
         PlayerServiceHandler.model = model;
     }
 
-    public static void setLabelReference(JLabel label) {
+    public static void setLabelReference(Label label) {
         PlayerServiceHandler.label = label;
     }
 
-    public static void setFrameReference(JFrame frame) {
-        PlayerServiceHandler.frame = frame;
+    public static void setFrameReference(Stage stage) {
+        PlayerServiceHandler.stage = stage;
+    }
+
+    public static Label getSpecialPointsLabel() {
+        return specialPointsLabel;
+    }
+
+    public static void setSpecialPointsLabel(Label specialPointsLabel) {
+        PlayerServiceHandler.specialPointsLabel = specialPointsLabel;
     }
 
     public static String addPlayer(String playerName, String playerPassword) {
@@ -137,7 +149,12 @@ public class PlayerServiceHandler {
             if (inboundEvent == null) {
                 break;
             }
-            setModelData(inboundEvent.readData(String.class), model);
+            Platform.runLater(new Runnable() {
+                public void run() {
+                    setModelData(inboundEvent.readData(String.class), model);
+                }
+            });
+
         }
         System.out.println("Done");
     }
@@ -149,27 +166,6 @@ public class PlayerServiceHandler {
             HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(BROADCAST, ROUND_COMPLETION_BROADCAST, POST);
             sendOutput(username, connection);
             output = getInput(connection);
-//            System.out.println(username + "<<" +output);
-//            if (output.equals("starting round " + currentRound) && currentRound==1) {
-//                CommonData.isLastPlayer = true;
-//                timer = new Timer(1000, new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        if (counter == 0) {
-//                            timer.stop();
-//                            frame.dispose();
-//                            Game game = new Game();
-//                            game.setVisible(true);
-//                            counter = 10;
-//                        } else {
-//                            label.setText(String.valueOf(counter));
-//                            counter--;
-//                        }
-//                    }
-//                });
-//                timer.setInitialDelay(0);
-//                timer.start(); 
-//            }
 
         } catch (Exception e) {
             System.out.println(e);
@@ -192,27 +188,51 @@ public class PlayerServiceHandler {
             System.out.println(username + " > " + inboundEvent.readData(String.class));
 
             counter = 10;
+            timer = new Timer();
             if (inboundEvent.readData(String.class).equals("roundEnd")) {
-                timer = new Timer(1000, new ActionListener() {
+                Platform.runLater(new Runnable() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (counter == 0) {
-                            timer.stop();
-                            frame.dispose();
-//                            Game game = new Game();
-//                            game.setVisible(true);
-                        } else {
-                            label.setText(String.valueOf(counter));
-                            counter--;
-                        }
+                    public void run() {
+                        String sp = getSpecialPoints(username);
+                        specialPointsLabel.setText(sp);
                     }
                 });
-                timer.setInitialDelay(0);
-                timer.start();
+                timer.schedule(new TimerTask() {
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                if (counter == 0) {
+                                    timer.cancel();
+                                    Stage stage = (Stage) label.getScene().getWindow();
+                                    stage.close();
+                                    Parent root = null;
+                                    try {
+                                        root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(PlayerServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    Scene scene = new Scene(root);
+                                    scene.getStylesheets().add("/styles/Styles.css");
+                                    stage.setResizable(false);
+                                    stage.setScene(scene);
+                                    stage.show();
+                                } else {
+                                    label.setText(String.valueOf(counter));
+                                    counter--;
+                                }
+                            }
+                        });
+                    }
+                }, 0, 1000);
                 System.out.println(username + " stopped listening");
                 break;
             } else {
-                setRoundCompletedModelData(inboundEvent.readData(String.class), model);
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        setRoundCompletedModelData(inboundEvent.readData(String.class), model);
+                    }
+                });
+
             }
         }
     }

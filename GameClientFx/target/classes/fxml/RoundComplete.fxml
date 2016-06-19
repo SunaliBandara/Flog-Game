@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="completePane" id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.RoundCompleteController">
+    <children>
+        <AnchorPane layoutX="14.0" layoutY="121.0" prefHeight="184.0" prefWidth="575.0" styleClass="glassPane">
+            <children>
+                <ListView fx:id="completeList" layoutX="180.0" layoutY="25.0" prefHeight="130.0" prefWidth="200.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="33.0" layoutY="327.0" prefHeight="130.0" prefWidth="538.0" styleClass="glassPane">
+            <children>
+                <Label layoutX="60.0" layoutY="57.0" text="Next Round in">
+                </Label>
+                <Label fx:id="nextRoundTime" layoutX="246.0" layoutY="57.0">
+                </Label>
+                <Label fx:id="specialPoints" layoutX="341.0" layoutY="57.0" >
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -13,8 +13,12 @@ import static com.nsbm.common.CurrentPlay.getSPECIAL_POINTS;
 import com.nsbm.entity.Player;
 import com.nsbm.entity.PlayerStatistics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 /**
@@ -58,7 +62,7 @@ public class CommonUtil {
         }
         return consonants;
     }
-    
+
     public static Player findPlayer(String username) {
         for (Player player : getPLAYERS()) {
             if (player.getUsername().equals(username)) {
@@ -67,7 +71,7 @@ public class CommonUtil {
         }
         return null;
     }
-    
+
     public static List<Player> findRoundCompletedPlayers() {
         List<Player> roundCompletedPlayers = new ArrayList<Player>();
         for (Player player : getPLAYERS()) {
@@ -77,19 +81,19 @@ public class CommonUtil {
         }
         return roundCompletedPlayers;
     }
-    
-    public static boolean checkRoundEnd(){
+
+    public static boolean checkRoundEnd() {
         boolean roundEnd = true;
-        for(Player player : getPLAYERS()){
-            if(player.getPlayerStatus()!=PlayerStatus.ROUND_COMPLETED){
+        for (Player player : getPLAYERS()) {
+            if (player.getPlayerStatus() != PlayerStatus.ROUND_COMPLETED) {
                 roundEnd = false;
                 break;
             }
         }
         return roundEnd;
     }
-    
-    public static boolean verifyWord(PlayerStatistics statistics){
+
+    public static boolean verifyWord(PlayerStatistics statistics) {
         String word = statistics.getWord();
         boolean validWord = true;
         StringBuilder buffer = new StringBuilder();
@@ -97,35 +101,57 @@ public class CommonUtil {
         buffer.append(statistics.getConsonants());
         buffer.append(statistics.getVowels());
 
-        char [] result = buffer.toString().toCharArray();
+        char[] result = buffer.toString().toCharArray();
         for (int i = 0; i < word.length(); i++) {
             char wordLetter = word.charAt(i);
-            if(!validWord){
-               return false; 
+            if (!validWord) {
+                return false;
             }
             validWord = false;
-            for(char c : result){
-                if(wordLetter == c){
+            for (char c : result) {
+                if (wordLetter == c) {
                     validWord = true;
                 }
             }
         }
         return true;
     }
-    
-    public static int getPoints(PlayerStatistics statistics){
+
+    public static int getPoints(PlayerStatistics statistics) {
         int wordValue = 0;
-        for(char c : statistics.getInitialLetters().toCharArray()){
-            if(statistics.getWord().indexOf(c) > 0){
+        for (char c : statistics.getInitialLetters().toCharArray()) {
+            if (statistics.getWord().indexOf(c) > 0) {
                 wordValue = wordValue + 5;
             }
         }
         wordValue = wordValue + statistics.getWord().length();
         return wordValue;
     }
-    
-    public static int getCurrentSpecialPoints(Player player){
-        Map<Player,Integer> specialPoints = getSPECIAL_POINTS();
+
+    public static int getCurrentSpecialPoints(Player player) {
+        Map<Player, Integer> specialPoints = getSPECIAL_POINTS();
         return specialPoints.get(player);
+    }
+
+    public static void calculateRoundSpecialPoints(Map<Player, PlayerStatistics> playerStatistics) {  
+        int oldPoints = 0, currentRoundPoints = 0;
+        Map<Player, Integer> specialPoints = getSPECIAL_POINTS();
+        List<Entry<Player, PlayerStatistics>> sortedStatistics = new LinkedList<Entry<Player, PlayerStatistics>>(playerStatistics.entrySet());
+        Collections.sort(sortedStatistics, new Comparator<Entry<Player, PlayerStatistics>>() {
+            @Override
+            public int compare(Entry<Player, PlayerStatistics> statOne, Entry<Player, PlayerStatistics> statTwo) {
+                return statTwo.getValue().getScore().compareTo(statOne.getValue().getScore());
+            }
+        });
+        System.out.println("sorted " + sortedStatistics);
+        int count = 1;
+        for (Entry<Player, PlayerStatistics> statistic : sortedStatistics) {
+            oldPoints = getCurrentSpecialPoints(statistic.getKey());
+            currentRoundPoints = (playerStatistics.size() - count);
+            specialPoints.put(statistic.getKey(), currentRoundPoints + oldPoints);
+            count++;
+        }
+        
+        System.out.println("Special " + specialPoints);
     }
 }
