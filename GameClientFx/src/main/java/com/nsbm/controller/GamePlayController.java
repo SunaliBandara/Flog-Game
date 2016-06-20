@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,7 +52,7 @@ public class GamePlayController implements Initializable {
                 break;
             }
             if (node instanceof TextField) {
-                ((TextField) node).setText(String.valueOf(letters.charAt(count)));
+                ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
             }
             count++;
         }
@@ -80,6 +81,7 @@ public class GamePlayController implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
 

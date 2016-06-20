@@ -9,9 +9,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.ScoringMenuController">
    <children>
-      <AnchorPane layoutX="37.0" layoutY="69.0" prefHeight="200.0" prefWidth="526.0" />
-      <AnchorPane layoutX="110.0" layoutY="269.0" prefHeight="200.0" prefWidth="381.0" />
-      <Label layoutX="231.0" layoutY="53.0" styleClass="gameheader" text="Game Score" textFill="WHITE">
+      <AnchorPane layoutX="37.0" layoutY="81.0" prefHeight="200.0" prefWidth="526.0" styleClass="glassPane" />
+      <AnchorPane layoutX="110.0" layoutY="296.0" prefHeight="177.0" prefWidth="381.0" styleClass="glassPane" />
+      <Label layoutX="208.0" layoutY="29.0" styleClass="subheader" text="Game Score" textFill="WHITE">
          <font>
             <Font size="26.0" />
          </font>

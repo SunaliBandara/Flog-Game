@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,13 +52,17 @@ public class GameWindowController implements Initializable {
     @FXML
     private Button requestButton;
     @FXML
+    private Button backButton;
+    @FXML
+    private Button exitButton;
+    @FXML
     private Label timerLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initialLetters = getInitialLetters();
-        initialLetterOne.setText(String.valueOf(initialLetters.charAt(0)));
-        initialLetterTwo.setText(String.valueOf(initialLetters.charAt(1)));
+        initialLetterOne.setText(String.valueOf(initialLetters.charAt(0)).toUpperCase());
+        initialLetterTwo.setText(String.valueOf(initialLetters.charAt(1)).toUpperCase());
     }
 
     public void getRequiredLetters() {
@@ -72,15 +78,17 @@ public class GameWindowController implements Initializable {
                     break;
                 }
                 if (node instanceof TextField) {
-                    ((TextField) node).setText(String.valueOf(letters.charAt(count)));
+                    ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
                 }
                 count++;
             }
             requestButton.setDisable(true);
             CommonData.letters = initialLetters+letters;
             timer.schedule(new TimerTask() {
+                @Override
                 public void run() {
                     Platform.runLater(new Runnable() {
+                        @Override
                         public void run() {
                             if (counter == 0) {
                                 timer.cancel();
@@ -94,6 +102,7 @@ public class GameWindowController implements Initializable {
                                 Scene scene = new Scene(root);
                                 scene.getStylesheets().add("/styles/Styles.css");
                                 stage.setResizable(false);
+                                stage.initStyle(StageStyle.UNDECORATED);
                                 stage.setScene(scene);
                                 stage.show();
                                 
@@ -108,5 +117,23 @@ public class GameWindowController implements Initializable {
                 }
             }, 0, 1000);
         }
+    }
+    @FXML
+    private void backAction(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        stage = (Stage) backButton.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    private void exitAction(ActionEvent event){
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
     }
 }

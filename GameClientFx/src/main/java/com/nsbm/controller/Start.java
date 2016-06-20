@@ -16,9 +16,7 @@ public class Start extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartUp.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-
         stage.initStyle(StageStyle.UNDECORATED);
-        
         stage.setTitle("FLOG");
         stage.setResizable(false);
         stage.setScene(scene);

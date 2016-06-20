@@ -36,6 +36,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 /**
@@ -57,9 +58,14 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button startButton;
     @FXML
+    private Button backButton;
+    @FXML
+    private Button exitButton;
+    @FXML
     private AnchorPane extendableNotificationPane;
     @FXML
     private Rectangle clipRect;
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         userNameLabel.setText(CommonData.username);
@@ -96,6 +102,7 @@ public class MainMenuController implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
 
@@ -154,5 +161,25 @@ public class MainMenuController implements Initializable {
                 }
         };
         return handler;
+    }
+    
+    @FXML
+    private void backAction(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartUp.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+        stage = (Stage) startButton.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    private void exitAction(ActionEvent event){
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
     }
 }
