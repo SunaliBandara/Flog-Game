@@ -8,26 +8,37 @@
 
 <AnchorPane id="AnchorPane" fx:id="completePane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.RoundCompleteController">
     <children>
-        <AnchorPane layoutX="13.0" layoutY="77.0" prefHeight="203.0" prefWidth="575.0" styleClass="glassPane">
-            <children>
-                <ListView fx:id="completeList" layoutX="180.0" layoutY="25.0" prefHeight="161.0" prefWidth="200.0" />
-            </children>
+        <AnchorPane layoutX="25.0" layoutY="90.0" prefHeight="203.0" prefWidth="550.0" styleClass="glassPane">
+         <children>
+            <TableView layoutX="1.0" layoutY="1.0" prefHeight="214.0" prefWidth="550.0">
+              <columns>
+                <TableColumn prefWidth="121.0" text="Player" />
+                <TableColumn prefWidth="136.0" text="Word" />
+                  <TableColumn prefWidth="106.0" text="Status" />
+                  <TableColumn prefWidth="114.0" text="Game Points" />
+                  <TableColumn prefWidth="69.0" text="SP" />
+              </columns>
+            </TableView>
+         </children>
         </AnchorPane>
-        <AnchorPane layoutX="32.0" layoutY="304.0" prefHeight="58.0" prefWidth="538.0" styleClass="glassPane">
+        <AnchorPane layoutX="32.0" layoutY="322.0" prefHeight="58.0" prefWidth="538.0" styleClass="glassPane">
             <children>
                 <Label layoutX="54.0" layoutY="14.0" styleClass="miniheader" text="Next Round in" textFill="WHITE">
                 </Label>
                 <Label fx:id="nextRoundTime" layoutX="198.0" layoutY="14.0" prefHeight="17.0" prefWidth="45.0" styleClass="miniheader" text="00" textFill="WHITE">
                 </Label>
-                <Label fx:id="specialPoints" layoutX="467.0" layoutY="14.0" prefHeight="31.0" prefWidth="25.0" styleClass="miniheader" text="00" textFill="WHITE">
+                <Label fx:id="specialPoints" layoutX="468.0" layoutY="14.0" prefHeight="31.0" prefWidth="25.0" styleClass="miniheader" text="00" textFill="WHITE">
                 </Label>
             <Label layoutX="340.0" layoutY="14.0" styleClass="miniheader" text="Special Points" textFill="WHITE" />
             </children>
         </AnchorPane>
-      <Label layoutX="184.0" layoutY="32.0" styleClass="subheader" text="Round Complete" textFill="WHITE" />
+      <Label layoutX="180.0" layoutY="24.0" styleClass="subheader" text="Round" textFill="WHITE" />
       <Button fx:id="exitButton" layoutX="550.0" layoutY="470.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Exit" />
       <Button fx:id="terminatePerk" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="75.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="   Terminate" />
       <Button fx:id="vowelPerk" alignment="BASELINE_LEFT" layoutX="245.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="    Remove" />
       <Button fx:id="scorePerk" alignment="BASELINE_LEFT" layoutX="410.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="       Score" />
+          <ListView fx:id="completeList" layoutX="13.0" layoutY="451.0" prefHeight="39.0" prefWidth="220.0" />
+      <Label layoutX="288.0" layoutY="24.0" styleClass="subheader" text="1" textFill="WHITE" />
+      <Label layoutX="321.0" layoutY="24.0" styleClass="subheader" text="Complete" textFill="WHITE" />
     </children>
 </AnchorPane>

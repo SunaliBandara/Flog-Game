@@ -27,6 +27,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
@@ -111,6 +113,12 @@ public class GameWindowController implements Initializable {
                             } else {
                                 timerLabel.setText(String.valueOf(counter));
                                 counter--;
+                                if(counter==1){
+                                    final URL resource = getClass().getResource("/styles/mp3.mp3");
+                                    final Media media = new Media(resource.toString());
+                                    final MediaPlayer mediaPlayer = new MediaPlayer(media);
+                                    mediaPlayer.play();
+                                }
                             }
                         }
                     });

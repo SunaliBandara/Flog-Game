@@ -102,6 +102,27 @@
     -fx-background-image-radius: 14px;
     -fx-background-radius: 13px;
 }
+.defaultText{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
+    -fx-background-radius: 11px;
+    -fx-background-color: linear-gradient(to left, #83a4d4 , #b6fbff);
+    -fx-focus-traversable:false;
+    -fx-padding:0px;
+    -fx-spacing: 0px;
+    -fx-font-size:30px;
+    -fx-font-family:Comic Sans MS;
+    -fx-font-style:bold;
+    -fx-text-fill:#000654;
+}
+#wordPane > #wordField{
+    -fx-background-radius: 11px;
+    -fx-padding:0px;
+    -fx-spacing: 0px;
+    -fx-font-size:30px;
+    -fx-font-family:High Tower Text;
+    -fx-font-style:bold;
+    -fx-text-fill:#000654;
+}
 
 #letterPane > .text-input{
     -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
@@ -123,7 +144,11 @@
     -fx-font-size: 40;
     
 }
-
+#letterPane > .text-input:hover{
+        -fx-text-fill:white;
+        -fx-background-radius: 13px;
+        -fx-background-color:linear-gradient(to left, #00bf8f , #001510);
+}
 /*----------------end of text box css------------*/
 
 /*------------------- Label css------------------*/
@@ -149,10 +174,24 @@
     -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
     -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
 }
-/*#gamename{
-    -fx-text-fill:linear-gradient(left, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 7%, rgba(0,0,0,1) 18%, rgba(10,10,10,1) 19%, rgba(102,102,102,1) 28%, rgba(17,17,17,1) 38%, rgba(71,71,71,1) 50%, rgba(17,17,17,1) 55%, rgba(44,44,44,1) 62%, rgba(94,94,94,1) 70%, rgba(43,43,43,1) 77%, rgba(0,0,0,1) 85%, rgba(19,19,19,1) 100%);
-    -fx-font-family:Forte;
-    -fx-font-size:55px;
-    -fx-text-alignment:center;
-}*/
 /*---------------end of Label css----------*/
+/*---------------table----------*/
+.table-view {
+    -fx-background-color:transparent;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}
+.table-view .column-header{
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 15px;
+}      
+.table-view .column-header .label{
+    -fx-font-size: 20px;
+    -fx-text-fill:#000654;
+}
+.table-view .column-header-background {
+    -fx-background-radius:10px;
+    -fx-font-family:Andalus;    
+}
+/*---------------table----------*/

@@ -14,6 +14,7 @@ com\nsbm\service\PlayerServiceHandler$4.class
 com\nsbm\controller\ScoringMenuController.class
 com\nsbm\controller\MainMenuController.class
 com\nsbm\controller\MainMenuController$2.class
+com\nsbm\controller\InstructionMenuController.class
 com\nsbm\controller\StartUpController.class
 com\nsbm\service\PlayerServiceHandler$1.class
 com\nsbm\service\RoundServiceHandler.class
