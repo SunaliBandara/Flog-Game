@@ -7,6 +7,7 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import static com.nsbm.service.PlayerServiceHandler.addPlayer;
+import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,6 +53,8 @@ public class StartUpController implements Initializable {
     private void handleExitButtonAction(ActionEvent event) {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+        removePlayer(CommonData.username);
+        System.exit(0);
     }
 
     @FXML

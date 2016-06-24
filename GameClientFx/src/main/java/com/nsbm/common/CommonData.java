@@ -17,7 +17,7 @@ public class CommonData {
     public static int id;
     public static boolean isLastPlayer = false;
     //public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
-    public final static String IP = "http://localhost:8080/GameServer/WebResources/";
+    public final static String IP = "http://localhost:8080/FloGame/WebResources/";
     public static PlayerStatus playerStatus = PlayerStatus.JOINED;
     public final static String GET = "GET";
     public final static String POST = "POST";
@@ -36,4 +36,5 @@ public class CommonData {
     public final static String GET_ROUND_COMPLETED_PLAYERS = "getRoundCompletedPlayers";
     public final static String POINT_CLASS = "PointService/";
     public final static String GET_SPECIAL_POINTS = "getSpecialPoints";
+    public final static String REMOVE_PLAYER = "removePlayer";
 }

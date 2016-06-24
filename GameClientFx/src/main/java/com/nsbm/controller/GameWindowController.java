@@ -6,6 +6,7 @@
 package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
+import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
 import java.io.IOException;
@@ -164,5 +165,7 @@ public class GameWindowController implements Initializable {
     private void exitAction(ActionEvent event){
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+        removePlayer(CommonData.username);
+        System.exit(0);
     }
 }

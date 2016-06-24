@@ -6,7 +6,7 @@
 package com.nsbm.service;
 
 import com.google.gson.Gson;
-import static com.nsbm.common.CommonUtil.setModelData;
+import static com.nsbm.common.CommonUtil.setPlayerJoinModelData;
 import com.nsbm.common.PlayerStatus;
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.ADD_PLAYER;
@@ -18,11 +18,13 @@ import static com.nsbm.common.CommonData.PLAYER_CLASS;
 import static com.nsbm.common.CommonData.PLAYER_JOIN_BROADCAST;
 import static com.nsbm.common.CommonData.PLAYER_JOIN_LISTEN;
 import static com.nsbm.common.CommonData.POST;
+import static com.nsbm.common.CommonData.REMOVE_PLAYER;
 import static com.nsbm.common.CommonData.ROUND_COMPLETION_BROADCAST;
 import static com.nsbm.common.CommonData.ROUND_COMPLETION_LISTEN;
 import static com.nsbm.common.CommonData.username;
-import static com.nsbm.common.CommonUtil.setRoundCompletedModelData;
+import static com.nsbm.common.CommonUtil.addObservableListData;
 import com.nsbm.entity.Player;
+import com.nsbm.entity.PlayerStatistic;
 import static com.nsbm.service.PointServiceHandler.getSpecialPoints;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,6 +56,7 @@ import org.glassfish.jersey.media.sse.SseFeature;
 public class PlayerServiceHandler {
 
     private static ObservableList<String> model = null;
+    private static ObservableList<PlayerStatistic> playerScore = null;
     private static Label label;
     private static int counter = 10;
     private static Timer timer = new Timer();
@@ -78,6 +81,10 @@ public class PlayerServiceHandler {
 
     public static void setSpecialPointsLabel(Label specialPointsLabel) {
         PlayerServiceHandler.specialPointsLabel = specialPointsLabel;
+    }
+
+    public static void setPlayerScore(ObservableList<PlayerStatistic> playerScore) {
+        PlayerServiceHandler.playerScore = playerScore;
     }
 
     public static String addPlayer(String playerName, String playerPassword) {
@@ -151,7 +158,7 @@ public class PlayerServiceHandler {
             }
             Platform.runLater(new Runnable() {
                 public void run() {
-                    setModelData(inboundEvent.readData(String.class), model);
+                    setPlayerJoinModelData(inboundEvent.readData(String.class), model);
                 }
             });
 
@@ -193,8 +200,8 @@ public class PlayerServiceHandler {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        String sp = getSpecialPoints(username);
-                        specialPointsLabel.setText(sp);
+                        //String sp = getSpecialPoints(username);
+                        //specialPointsLabel.setText(sp);
                     }
                 });
                 timer.schedule(new TimerTask() {
@@ -229,12 +236,24 @@ public class PlayerServiceHandler {
             } else {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        setRoundCompletedModelData(inboundEvent.readData(String.class), model);
+                        addObservableListData(inboundEvent.readData(String.class), playerScore);
                     }
                 });
 
             }
         }
+    }
+
+    public static String removePlayer(String username) {
+        String output = null;
+        try {
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, REMOVE_PLAYER, GET);
+            sendOutput(username, connection);
+            output = getInput(connection);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return output;
     }
 
     private static void sendOutput(String username, HttpURLConnection connection) {

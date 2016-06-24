@@ -7,12 +7,13 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.currentRound;
-import static com.nsbm.common.CommonUtil.setModelData;
+import static com.nsbm.common.CommonUtil.setPlayerJoinModelData;
 import com.nsbm.common.PlayerStatus;
 import com.nsbm.entity.Player;
 import static com.nsbm.service.PlayerServiceHandler.getAllPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listenToJoinEvent;
 import static com.nsbm.service.PlayerServiceHandler.notifyPlayerJoin;
+import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import static com.nsbm.service.PlayerServiceHandler.setModelReference;
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +28,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -70,7 +70,7 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         userNameLabel.setText(CommonData.username);
         allPlayers = getAllPlayers();
-        setModelData(allPlayers, model);
+        setPlayerJoinModelData(allPlayers, model);
         listBox.setItems(model);
         setModelReference(model);
         Thread t = new Thread(new Runnable() {
@@ -115,13 +115,9 @@ public class MainMenuController implements Initializable {
     private void notificationClick() {
         clipRect.setWidth(extendableNotificationPane.getWidth());
         if (clipRect.heightProperty().get() != 0) {
-            // Animation for scroll up.
             Timeline timelineUp = new Timeline();
-            // Animation of sliding the search pane up, implemented via
-            // clipping.
             final KeyValue kvUp1 = new KeyValue(clipRect.heightProperty(), 0);
             final KeyValue kvUp2 = new KeyValue(clipRect.translateYProperty(), extendableNotificationPane.getHeight());
-            // The actual movement of the search pane. This makes the table grow
             final KeyValue kvUp4 = new KeyValue(extendableNotificationPane.prefHeightProperty(), 0);
             final KeyValue kvUp3 = new KeyValue(extendableNotificationPane.translateYProperty(), -extendableNotificationPane.getHeight());
 
@@ -129,12 +125,9 @@ public class MainMenuController implements Initializable {
             timelineUp.getKeyFrames().add(kfUp);
             timelineUp.play();
         } else {
-            // Animation for scroll down.
             Timeline timelineDown = new Timeline();
-            // Animation for sliding the search pane down. No change in size, just making the visible part of the pane bigger.
             final KeyValue kvDwn1 = new KeyValue(clipRect.heightProperty(), extendableNotificationPane.getHeight());
             final KeyValue kvDwn2 = new KeyValue(clipRect.translateYProperty(), 0);
-            // Growth of the pane.
             final KeyValue kvDwn4 = new KeyValue(extendableNotificationPane.prefHeightProperty(), extendableNotificationPane.getHeight());
             final KeyValue kvDwn3 = new KeyValue(extendableNotificationPane.translateYProperty(), 0);
             final KeyFrame kfDwn = new KeyFrame(Duration.millis(200), createBouncingEffect(extendableNotificationPane.getHeight()), kvDwn1, kvDwn2, kvDwn3, kvDwn4);
@@ -152,8 +145,6 @@ public class MainMenuController implements Initializable {
         final KeyFrame kf1 = new KeyFrame(Duration.millis(100), kv1, kv2, kv3);
         timelineBounce.getKeyFrames().add(kf1);
 
-        // Event handler to call bouncing effect after the scroll down is
-        // finished.
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -181,5 +172,7 @@ public class MainMenuController implements Initializable {
     private void exitAction(ActionEvent event){
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+        removePlayer(CommonData.username);
+        System.exit(0);
     }
 }
