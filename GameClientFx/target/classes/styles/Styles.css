@@ -92,6 +92,10 @@
     -fx-spacing: 0px;
     -fx-text-alignment:justify;
 }
+#startButton:hover ,#notificationButton:hover ,#scoreBoardButton:hover ,#instructionButton:hover ,
+#requestButton:hover,#letterChangeButton:hover,#submitButton:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
 /*------------ end of button css-----------------------*/
 
 /*------------------ text box css-----------------------*/
@@ -129,6 +133,36 @@
     -fx-background-radius: 13px;
     -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
     -fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);
+    -fx-display-caret: false;
+    -fx-cursor:hand;
+    -fx-focus-traversable:false;
+    -fx-padding:0px;
+    -fx-spacing: 0px;
+    -fx-font-size:30px;
+    -fx-font-family:Gafata;
+    -fx-font-style:bold;
+    -fx-alignment:TOP_CENTER;
+}
+.defaultLetter{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
+    -fx-background-radius: 13px;
+    -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
+    -fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);
+    -fx-display-caret: false;
+    -fx-cursor:hand;
+    -fx-focus-traversable:false;
+    -fx-padding:0px;
+    -fx-spacing: 0px;
+    -fx-font-size:30px;
+    -fx-font-family:Gafata;
+    -fx-font-style:bold;
+    -fx-alignment:TOP_CENTER;
+}
+.selectedLetter{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
+    -fx-background-radius: 13px;
+    -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
+    -fx-background-color:linear-gradient(to left, #00C9FF , #92FE9D);
     -fx-display-caret: false;
     -fx-cursor:hand;
     -fx-focus-traversable:false;

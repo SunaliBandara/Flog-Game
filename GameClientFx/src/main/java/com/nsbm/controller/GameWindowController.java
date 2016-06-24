@@ -42,7 +42,7 @@ public class GameWindowController implements Initializable {
 
     private String initialLetters = null;
     private static int counter = 10;
-    private final Timer timer = new Timer();
+    private Timer timer = new Timer();
     private final TextField[] letterFields = new TextField[10];
 
     @FXML
@@ -59,6 +59,8 @@ public class GameWindowController implements Initializable {
     private Button exitButton;
     @FXML
     private Label timerLabel;
+    @FXML
+    private String selectedLetter;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -86,6 +88,8 @@ public class GameWindowController implements Initializable {
             }
             requestButton.setDisable(true);
             CommonData.letters = initialLetters+letters;
+            timer = new Timer();
+            counter = 10;
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -124,6 +128,23 @@ public class GameWindowController implements Initializable {
                     });
                 }
             }, 0, 1000);
+        }
+    }
+    public void getSelectedText(){
+        for(Node node : letterPane.getChildren()){
+//            if(!((TextField)node).getText().isEmpty()){
+                if (node instanceof TextField) {
+                    node.setStyle("-fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);");
+                    if(node.isFocused()){
+                        node.setStyle("-fx-background-color:linear-gradient(to left, #1A2980 , #26D0CE);");
+                        selectedLetter = ((TextField) node).getText();
+                        System.out.println(selectedLetter);
+                    }
+                }
+//            }
+//            else{
+//                System.out.println("request letters");
+//            }
         }
     }
     @FXML
