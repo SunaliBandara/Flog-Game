@@ -31,8 +31,8 @@
             <Font name="Arial" size="18.0" />
          </font>
       </PasswordField>
-      <Button layoutX="85.0" layoutY="366.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="230.0" styleClass="orangeButton" text="Sign Up" />
-      <Button layoutX="14.0" layoutY="461.0" mnemonicParsing="false" styleClass="silvarButton" text="Back" />
-      <Button layoutX="351.0" layoutY="461.0" mnemonicParsing="false" styleClass="silvarButton" text="Exit" />
+      <Button fx:id="signUpButton" layoutX="85.0" layoutY="366.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="230.0" styleClass="orangeButton" text="Sign Up" />
+      <Button fx:id="backButton" onAction="#backAction"  layoutX="14.0" layoutY="461.0" mnemonicParsing="false" styleClass="silvarButton" text="Back" />
+      <Button fx:id="exitButton" onAction="#exitAction"  layoutX="351.0" layoutY="461.0" mnemonicParsing="false" styleClass="silvarButton" text="Exit" />
    </children>
 </AnchorPane>

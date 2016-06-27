@@ -43,7 +43,7 @@
          </font>
       </Label>
       <Label layoutX="50.0" layoutY="407.0" />
-      <Hyperlink fx:id="signUpLink" layoutX="286.0" layoutY="378.0" text="SignUp" textFill="WHITE">
+      <Hyperlink fx:id="signUpLink" onAction="#handleSignUpAction"  layoutX="286.0" layoutY="378.0" text="SignUp" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
