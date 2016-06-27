@@ -1,5 +1,6 @@
 com\nsbm\common\CommonData.class
 com\nsbm\common\PlayerStatus.class
+com\nsbm\controller\SignUpController.class
 com\nsbm\entity\Player.class
 com\nsbm\service\PointServiceHandler.class
 com\nsbm\service\PlayerServiceHandler$2.class

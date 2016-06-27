@@ -16,8 +16,8 @@ public class CommonData {
     public static int currentRound = 0;
     public static int id;
     public static boolean isLastPlayer = false;
-    //public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
-    public final static String IP = "http://localhost:8080/FloGame/WebResources/";
+    public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
+    //public final static String IP = "http://localhost:8080/FloGame/WebResources/";
     public static PlayerStatus playerStatus = PlayerStatus.JOINED;
     public final static String GET = "GET";
     public final static String POST = "POST";
