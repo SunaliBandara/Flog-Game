@@ -16,5 +16,6 @@
             <Font size="26.0" />
          </font>
       </Label>
+      <Button fx:id="backButton" layoutX="15.0" layoutY="461.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Back" />
    </children>
 </AnchorPane>

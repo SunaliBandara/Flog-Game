@@ -92,7 +92,7 @@
     -fx-spacing: 0px;
     -fx-text-alignment:justify;
 }
-#startButton:hover ,#notificationButton:hover ,#scoreBoardButton:hover ,#instructionButton:hover ,
+#startButton:hover ,#notificationButton:hover ,#scoreboardButton:hover ,#instructionButton:hover ,
 #requestButton:hover,#letterChangeButton:hover,#submitButton:hover {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
@@ -221,11 +221,55 @@
     -fx-background-radius: 15px;
 }      
 .table-view .column-header .label{
+    -fx-background-color: transparent;
     -fx-font-size: 20px;
     -fx-text-fill:#000654;
 }
 .table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-background-fills: white;
+    -fx-border-color: white;
+    -fx-border-insets: 0 0 0 1;
     -fx-background-radius:10px;
     -fx-font-family:Andalus;    
+}
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+.table-row-cell:odd{
+    -fx-background-color:transparent;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-padding: 0.0em; /* 0 */  
+}
+.table-row-cell:selected {
+    -fx-background-color: #3355ff;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+    -fx-border: 0 0 0 0;
+}
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
 }
 /*---------------table----------*/

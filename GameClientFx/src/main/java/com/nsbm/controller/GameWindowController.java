@@ -119,7 +119,7 @@ public class GameWindowController implements Initializable {
                                 timerLabel.setText(String.valueOf(counter));
                                 counter--;
                                 if(counter==1){
-                                    final URL resource = getClass().getResource("/styles/mp3.mp3");
+                                    final URL resource = getClass().getResource("/styles/10sec.mp3");
                                     final Media media = new Media(resource.toString());
                                     final MediaPlayer mediaPlayer = new MediaPlayer(media);
                                     mediaPlayer.play();

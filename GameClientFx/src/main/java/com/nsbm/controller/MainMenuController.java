@@ -62,6 +62,10 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
+    private Button scoreboardButton;
+    @FXML
+    private Button instructionButton;
+    @FXML
     private AnchorPane extendableNotificationPane;
     @FXML
     private Rectangle clipRect;
@@ -165,9 +169,39 @@ public class MainMenuController implements Initializable {
         stage.setScene(scene);
         stage.show();
 
-        stage = (Stage) startButton.getScene().getWindow();
+        stage = (Stage) backButton.getScene().getWindow();
         stage.close();
     }
+    @FXML
+    private void scoreBoardAction(ActionEvent event) throws IOException{
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ScoringMenu.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+        stage = (Stage)  scoreboardButton.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void instructionMenuAction(ActionEvent event) throws IOException{
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructionMenu.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+        stage = (Stage) instructionButton.getScene().getWindow();
+        stage.close();
+    }
+    
     @FXML
     private void exitAction(ActionEvent event){
         Stage stage = (Stage) exitButton.getScene().getWindow();

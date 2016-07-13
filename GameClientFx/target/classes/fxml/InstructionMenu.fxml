@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.nsbm.controller.InstructionMenuController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.InstructionMenuController">
    <children>
       <Label layoutX="194.0" layoutY="29.0" styleClass="subheader" text="INSTRUCTIONS" textFill="WHITE" />
       <AnchorPane layoutX="40.0" layoutY="68.0" prefHeight="184.0" prefWidth="532.0" styleClass="glassPane">
@@ -15,10 +14,11 @@
             <Label layoutX="14.0" layoutY="14.0" styleClass="miniheader" text="Game Rules" textFill="WHITE" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="40.0" layoutY="274.0" prefHeight="200.0" prefWidth="532.0" styleClass="glassPane">
+      <AnchorPane layoutX="40.0" layoutY="260.0" prefHeight="192.0" prefWidth="532.0" styleClass="glassPane">
          <children>
             <Label layoutX="14.0" layoutY="14.0" styleClass="miniheader" text="How to Play" textFill="WHITE" />
          </children>
       </AnchorPane>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="462.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Back" />
    </children>
 </AnchorPane>
