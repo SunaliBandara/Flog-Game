@@ -233,7 +233,7 @@ public class PlayerServiceHandler {
                 break;
             } else if (inboundEvent.readData(String.class).equals("gameComplete")) {
                 Platform.runLater(() -> {
-                    Stage stage1 = new Stage();
+                    Stage scoringMenu = new Stage();
                     Parent root = null;
                     try {
                         root = FXMLLoader.load(new Object().getClass().getResource("/fxml/ScoringMenu.fxml"));
@@ -242,14 +242,15 @@ public class PlayerServiceHandler {
                     }
                     Scene scene = new Scene(root);
                     scene.getStylesheets().add("/styles/Styles.css");
-                    stage1.setResizable(false);
-                    stage1.initStyle(StageStyle.UNDECORATED);
-                    stage1.setScene(scene);
-                    stage1.show();
-                    stage1 = (Stage) label.getScene().getWindow();
-                    stage1.close();
+                    scoringMenu.setResizable(false);
+                    scoringMenu.initStyle(StageStyle.UNDECORATED);
+                    scoringMenu.setScene(scene);
+                    scoringMenu.show();
+                    scoringMenu = (Stage) label.getScene().getWindow();
+                    scoringMenu.close();
+                    
                 });
-
+                break;
             } else {
                 Platform.runLater(new Runnable() {
                     public void run() {

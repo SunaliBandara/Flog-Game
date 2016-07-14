@@ -5,8 +5,11 @@
  */
 package com.nsbm.controller;
 
+import com.nsbm.common.CommonData;
+import static com.nsbm.service.PointServiceHandler.getFinalScore;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,18 +27,14 @@ import javafx.stage.StageStyle;
  * @author Muthu
  */
 public class ScoringMenuController implements Initializable {
-
-    
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
     @FXML
     private Button backButton;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        String [] scores = getFinalScore(CommonData.username);
+        for(String score : scores){
+            String [] scoreParts = score.split("@");
+        }
     }   
     
     @FXML

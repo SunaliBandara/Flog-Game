@@ -6,7 +6,7 @@
 package com.nsbm.service;
 
 import com.google.gson.Gson;
-import static com.nsbm.common.CommonData.GET;
+import static com.nsbm.common.CommonData.FINAL_SCORE;
 import static com.nsbm.common.CommonData.GET_SPECIAL_POINTS;
 import static com.nsbm.common.CommonData.POINT_CLASS;
 import static com.nsbm.common.CommonData.POST;
@@ -35,6 +35,21 @@ public class PointServiceHandler {
             System.out.println(e);
         }
         return output;
+    }
+    
+    public static String [] getFinalScore(String username) {
+        String output = null;
+        String [] scores = null;
+        try {
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(POINT_CLASS, FINAL_SCORE, POST);
+            sendOutput(username, connection);
+            output = getInput(connection);
+            Gson parser = new Gson();
+            scores = parser.fromJson(output, String[].class);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return scores;
     }
 
     private static void sendOutput(String username, HttpURLConnection connection) {
