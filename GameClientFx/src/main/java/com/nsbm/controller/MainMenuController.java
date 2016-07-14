@@ -7,9 +7,11 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.currentRound;
+import com.nsbm.common.CommonUtil;
 import static com.nsbm.common.CommonUtil.setPlayerJoinModelData;
 import com.nsbm.common.PlayerStatus;
 import com.nsbm.entity.Player;
+import com.nsbm.service.GameServiceHandler;
 import static com.nsbm.service.PlayerServiceHandler.getAllPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listenToJoinEvent;
 import static com.nsbm.service.PlayerServiceHandler.notifyPlayerJoin;
@@ -38,6 +40,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -46,7 +49,7 @@ import javafx.util.Duration;
  */
 public class MainMenuController implements Initializable {
 
-    final ObservableList<String> model = FXCollections.observableArrayList();
+    ObservableList<String> model = FXCollections.observableArrayList();
 
     private String[] playerNames;
     private Player[] allPlayers;
@@ -69,26 +72,24 @@ public class MainMenuController implements Initializable {
     private AnchorPane extendableNotificationPane;
     @FXML
     private Rectangle clipRect;
- 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        model = FXCollections.observableArrayList(); 
         userNameLabel.setText(CommonData.username);
         allPlayers = getAllPlayers();
         setPlayerJoinModelData(allPlayers, model);
         listBox.setItems(model);
         setModelReference(model);
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                notifyPlayerJoin();
-                if (currentRound == 0) {
-                    listenToJoinEvent();
-                }
+        Thread t = new Thread(() -> {
+            notifyPlayerJoin();
+            if (currentRound == 0) {
+                listenToJoinEvent();
             }
         });
         t.setDaemon(true);
         t.start();
-        
+
         double widthInitial = 200;
         double heightInitial = 400;
         clipRect = new Rectangle();
@@ -100,21 +101,21 @@ public class MainMenuController implements Initializable {
         extendableNotificationPane.prefHeightProperty().set(0);
     }
 
-    public void startGame(ActionEvent event) throws IOException { 
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.show();
-
-        CommonData.playerStatus = PlayerStatus.PLAYING;
-        stage = (Stage) startButton.getScene().getWindow();
-        stage.close();
+    public void startGame(ActionEvent event) throws IOException {
+        String playableStatus = GameServiceHandler.startGame();
+        if (playableStatus.equals("playable")) {
+            CommonData.isWaiting = false;
+            //Remove Label Named Waiting
+            openGame();
+        } else {
+            CommonData.isWaiting = true;
+            CommonUtil.mainMenu = this;
+            //Disable Start Button
+            //Add new Label Named Waiting
+            JOptionPane.showMessageDialog(null, playableStatus);
+        }
     }
-    
+
     @FXML
     private void notificationClick() {
         clipRect.setWidth(extendableNotificationPane.getWidth());
@@ -139,6 +140,7 @@ public class MainMenuController implements Initializable {
             timelineDown.play();
         }
     }
+
     private EventHandler<ActionEvent> createBouncingEffect(double height) {
         final Timeline timelineBounce = new Timeline();
         timelineBounce.setCycleCount(2);
@@ -150,14 +152,14 @@ public class MainMenuController implements Initializable {
         timelineBounce.getKeyFrames().add(kf1);
 
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                        timelineBounce.play();
-                }
+            @Override
+            public void handle(ActionEvent event) {
+                timelineBounce.play();
+            }
         };
         return handler;
     }
-    
+
     @FXML
     private void backAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
@@ -172,8 +174,9 @@ public class MainMenuController implements Initializable {
         stage = (Stage) backButton.getScene().getWindow();
         stage.close();
     }
+
     @FXML
-    private void scoreBoardAction(ActionEvent event) throws IOException{
+    private void scoreBoardAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/ScoringMenu.fxml"));
         Scene scene = new Scene(root);
@@ -183,12 +186,12 @@ public class MainMenuController implements Initializable {
         stage.setScene(scene);
         stage.show();
 
-        stage = (Stage)  scoreboardButton.getScene().getWindow();
+        stage = (Stage) scoreboardButton.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
-    private void instructionMenuAction(ActionEvent event) throws IOException{
+    private void instructionMenuAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructionMenu.fxml"));
         Scene scene = new Scene(root);
@@ -201,12 +204,39 @@ public class MainMenuController implements Initializable {
         stage = (Stage) instructionButton.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
-    private void exitAction(ActionEvent event){
+    private void exitAction(ActionEvent event) {
+//        Action ad = Dialogs.create()
+//                    .title("Example")
+//                    .actions(Dialog.ACTION_OK,Dialog.ACTION_NO)
+//                    .message("please work")
+//                    .styleClass(Dialog.STYLE_CLASS_NATIVE)
+//                    .showConfirm();
+//        if(ad == Dialog.ACTION_OK){
+//            System.out.println("finally");
+//        }
+//        else if(ad == Dialog.ACTION_NO){
+//            System.out.println("crap");
+//        }
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
         removePlayer(CommonData.username);
         System.exit(0);
+    }
+
+    public void openGame() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+
+        CommonData.playerStatus = PlayerStatus.PLAYING;
+        stage = (Stage) startButton.getScene().getWindow();
+        stage.close();
     }
 }

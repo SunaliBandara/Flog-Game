@@ -5,11 +5,14 @@
  */
 package com.nsbm.common;
 
+import com.nsbm.controller.MainMenuController;
 import com.nsbm.entity.Player;
 import com.nsbm.entity.PlayerStatistic;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,6 +26,7 @@ public class CommonUtil {
 
     private static Set<String> completedPlayerSet;
     private static final int COLUMN_WIDTH = 100;
+    public static MainMenuController mainMenu;
 
     public static void setPlayerJoinModelData(Player[] players, ObservableList<String> model) {
         for (Player p : players) {
@@ -37,6 +41,13 @@ public class CommonUtil {
 
     public static void setPlayerJoinModelData(String player, ObservableList<String> model) {
         model.add(0, player + " joined");
+        if(model.size() >= 3 && CommonData.isWaiting){
+            try {
+                mainMenu.openGame();
+            } catch (IOException ex) {
+                Logger.getLogger(CommonUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public static void setRoundCompletedModelData(String[] statistics, ObservableList<String> model) {

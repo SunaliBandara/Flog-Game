@@ -2,6 +2,7 @@ com\nsbm\common\CommonData.class
 com\nsbm\common\PlayerStatus.class
 com\nsbm\controller\SignUpController.class
 com\nsbm\entity\Player.class
+com\nsbm\service\GameServiceHandler.class
 com\nsbm\service\PointServiceHandler.class
 com\nsbm\service\PlayerServiceHandler$2.class
 com\nsbm\controller\ScoringMenuController.class
@@ -19,7 +20,6 @@ com\nsbm\controller\RoundCompleteController.class
 com\nsbm\controller\GameWindowController$1.class
 com\nsbm\service\PlayerServiceHandler$4.class
 com\nsbm\entity\PlayerStatistic.class
-com\nsbm\controller\MainMenuController$2.class
 com\nsbm\controller\StartUpController.class
 com\nsbm\service\PlayerServiceHandler$1.class
 com\nsbm\service\RoundServiceHandler.class

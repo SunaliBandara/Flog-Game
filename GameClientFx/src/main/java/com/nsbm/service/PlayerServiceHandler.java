@@ -180,16 +180,13 @@ public class PlayerServiceHandler {
     }
 
     public static void listenToRoundCompletionEvent() {
-        System.out.println("Starting Listener");
         Client client = ClientBuilder.newBuilder().register(SseFeature.class).build();
         WebTarget target = client.target(CommonData.IP + BROADCAST + ROUND_COMPLETION_LISTEN);
 
         EventInput eventInput = target.request().get(EventInput.class);
         while (!eventInput.isClosed()) {
-            System.out.println("Listening");
             final InboundEvent inboundEvent = eventInput.read();
             if (inboundEvent == null) {
-                System.out.println("Listener Stopped");
                 break;
             }
             System.out.println(username + " > " + inboundEvent.readData(String.class));
@@ -200,8 +197,8 @@ public class PlayerServiceHandler {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        //String sp = getSpecialPoints(username);
-                        //specialPointsLabel.setText(sp);
+                        String sp = getSpecialPoints(username);
+                        specialPointsLabel.setText(sp);
                     }
                 });
                 timer.schedule(new TimerTask() {
@@ -233,6 +230,20 @@ public class PlayerServiceHandler {
                 }, 0, 1000);
                 System.out.println(username + " stopped listening");
                 break;
+            } else if (inboundEvent.readData(String.class).equals("gameComplete")) {
+                Stage stage = (Stage) label.getScene().getWindow();
+                stage.close();
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(new Object().getClass().getResource("/fxml/ScoringMenu.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(PlayerServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/Styles.css");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
             } else {
                 Platform.runLater(new Runnable() {
                     public void run() {

@@ -14,14 +14,16 @@ public class CommonData {
     public static String username;
     public static String letters;
     public static int currentRound = 0;
+    public static boolean isWaiting = false;
     public static int id;
     public static boolean isLastPlayer = false;
-    public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
-    //public final static String IP = "http://localhost:8080/FloGame/WebResources/";
+//    public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
+    public final static String IP = "http://localhost:8080/FloGame/WebResources/";
     public static PlayerStatus playerStatus = PlayerStatus.JOINED;
     public final static String GET = "GET";
     public final static String POST = "POST";
     public final static String PLAYER_CLASS = "PlayerService/";
+    public final static String GAME_CLASS = "GameService/";
     public final static String BROADCAST = "BroadCaster/";
     public final static String ADD_PLAYER = "addPlayer";
     public final static String GET_PLAYERS = "getPlayers";
@@ -37,4 +39,6 @@ public class CommonData {
     public final static String POINT_CLASS = "PointService/";
     public final static String GET_SPECIAL_POINTS = "getSpecialPoints";
     public final static String REMOVE_PLAYER = "removePlayer";
+    public final static String START_GAME = "startGame";
+    
 }
