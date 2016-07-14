@@ -9,6 +9,7 @@ import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.currentRound;
 import com.nsbm.common.CommonUtil;
 import static com.nsbm.common.CommonUtil.setPlayerJoinModelData;
+import com.nsbm.common.Mouse;
 import com.nsbm.common.PlayerStatus;
 import com.nsbm.entity.Player;
 import com.nsbm.service.GameServiceHandler;
@@ -35,7 +36,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -50,7 +53,7 @@ import javax.swing.JOptionPane;
 public class MainMenuController implements Initializable {
 
     ObservableList<String> model = FXCollections.observableArrayList();
-
+    private Mouse mouse= new Mouse();
     private String[] playerNames;
     private Player[] allPlayers;
 
@@ -72,6 +75,8 @@ public class MainMenuController implements Initializable {
     private AnchorPane extendableNotificationPane;
     @FXML
     private Rectangle clipRect;
+    @FXML
+    private Pane mainPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -99,6 +104,22 @@ public class MainMenuController implements Initializable {
         extendableNotificationPane.setClip(clipRect);
         extendableNotificationPane.translateYProperty().set(-heightInitial);
         extendableNotificationPane.prefHeightProperty().set(0);
+        mainPane.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mouse.setX(event.getX());
+                mouse.setY(event.getY());
+            }
+        
+        });
+        mainPane.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mainPane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                mainPane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+            }
+        
+        });
     }
 
     public void startGame(ActionEvent event) throws IOException {

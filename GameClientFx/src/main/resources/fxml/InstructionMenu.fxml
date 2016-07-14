@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.InstructionMenuController">
+<AnchorPane id="AnchorPane" fx:id="instructionPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.InstructionMenuController">
    <children>
       <Label layoutX="194.0" layoutY="29.0" styleClass="subheader" text="INSTRUCTIONS" textFill="WHITE" />
       <AnchorPane layoutX="40.0" layoutY="68.0" prefHeight="184.0" prefWidth="532.0" styleClass="glassPane">

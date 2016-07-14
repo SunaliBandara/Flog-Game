@@ -7,6 +7,7 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonUtil.setTableColumns;
+import com.nsbm.common.Mouse;
 import com.nsbm.entity.PlayerStatistic;
 import static com.nsbm.service.PlayerServiceHandler.getRoundCompletedPlayers;
 import static com.nsbm.service.PlayerServiceHandler.listenToRoundCompletionEvent;
@@ -22,12 +23,15 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -39,7 +43,7 @@ public class RoundCompleteController implements Initializable {
     private String[] allCompletedPlayer;
     final ObservableList<String> model = FXCollections.observableArrayList();
     final ObservableList<PlayerStatistic> playerStatistics = FXCollections.observableArrayList();
-
+    private Mouse mouse = new Mouse();
     @FXML
     private Label nextRoundTime;
     @FXML
@@ -48,7 +52,9 @@ public class RoundCompleteController implements Initializable {
     private Button exitButton;
     @FXML
     private TableView<PlayerStatistic> scoreTable;
-
+    @FXML
+    private Pane completePane;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         allCompletedPlayer = getRoundCompletedPlayers();
@@ -71,6 +77,22 @@ public class RoundCompleteController implements Initializable {
             Logger.getLogger(ScoringMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
         notifyRoundCompletion();
+        completePane.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mouse.setX(event.getX());
+                mouse.setY(event.getY());
+            }
+        
+        });
+        completePane.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                completePane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                completePane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+            }
+        
+        });
     }
 
     @FXML

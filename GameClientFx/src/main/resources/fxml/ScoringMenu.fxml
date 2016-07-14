@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.ScoringMenuController">
+<AnchorPane id="AnchorPane" fx:id="scorePane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.ScoringMenuController">
    <children>
       <AnchorPane layoutX="37.0" layoutY="81.0" prefHeight="200.0" prefWidth="526.0" styleClass="glassPane" />
       <AnchorPane layoutX="110.0" layoutY="296.0" prefHeight="177.0" prefWidth="381.0" styleClass="glassPane" />

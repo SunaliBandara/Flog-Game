@@ -6,6 +6,7 @@
 package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
+import com.nsbm.common.Mouse;
 import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +29,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -45,7 +49,7 @@ public class GameWindowController implements Initializable {
     private static int counter = 10;
     private Timer timer = new Timer();
     private final TextField[] letterFields = new TextField[10];
-
+    private Mouse mouse = new Mouse();
     @FXML
     private TextField initialLetterOne, initialLetterTwo;
     @FXML
@@ -62,12 +66,30 @@ public class GameWindowController implements Initializable {
     private Label timerLabel;
     @FXML
     private String selectedLetter;
-
+    @FXML
+    private Pane gamePane;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initialLetters = getInitialLetters();
         initialLetterOne.setText(String.valueOf(initialLetters.charAt(0)).toUpperCase());
         initialLetterTwo.setText(String.valueOf(initialLetters.charAt(1)).toUpperCase());
+        gamePane.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mouse.setX(event.getX());
+                mouse.setY(event.getY());
+            }
+        
+        });
+        gamePane.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                gamePane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                gamePane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+            }
+        
+        });
     }
 
     public void getRequiredLetters() {

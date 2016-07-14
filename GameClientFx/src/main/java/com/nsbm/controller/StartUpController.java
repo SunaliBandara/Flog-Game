@@ -6,12 +6,14 @@
 package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
+import com.nsbm.common.Mouse;
 import static com.nsbm.service.PlayerServiceHandler.addPlayer;
 import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
@@ -31,7 +35,7 @@ import javax.swing.JOptionPane;
  * @author Muthu
  */
 public class StartUpController implements Initializable {
-
+    private Mouse mouse = new Mouse();
     @FXML
     private TextField username;
     @FXML
@@ -40,6 +44,8 @@ public class StartUpController implements Initializable {
     private Button startButton;
     @FXML
     private Hyperlink signUpLink;
+    @FXML
+    private Pane startPane;
     /**
      * Initializes the controller class.
      *
@@ -48,7 +54,22 @@ public class StartUpController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        startPane.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mouse.setX(event.getX());
+                mouse.setY(event.getY());
+            }
+        
+        });
+        startPane.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                startPane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                startPane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+            }
+        
+        });
     }
 
     @FXML

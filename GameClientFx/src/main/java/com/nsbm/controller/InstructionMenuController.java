@@ -6,16 +6,20 @@ package com.nsbm.controller;
  * and open the template in the editor.
  */
 
+import com.nsbm.common.Mouse;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -26,15 +30,29 @@ import javafx.stage.StageStyle;
  */
 public class InstructionMenuController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private Mouse mouse = new Mouse();
     @FXML
     private Button backButton;
-    
+    @FXML
+    private Pane instructionPane;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        instructionPane.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mouse.setX(event.getX());
+                mouse.setY(event.getY());
+            }
+        
+        });
+        instructionPane.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                instructionPane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                instructionPane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+            }
+        
+        });
     }
     
     @FXML

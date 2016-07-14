@@ -7,6 +7,7 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.currentRound;
+import com.nsbm.common.Mouse;
 import static com.nsbm.common.ResponseResult.ADALA_NA;
 import static com.nsbm.common.ResponseResult.SUCCESS;
 import static com.nsbm.service.WordServiceHandler.addWord;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,7 +25,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
@@ -34,7 +38,7 @@ import javax.swing.JOptionPane;
  * @author Muthu
  */
 public class GamePlayController implements Initializable {
-
+    private Mouse mouse = new Mouse();
     private String letters;
     @FXML
     private AnchorPane letterPane;
@@ -42,7 +46,8 @@ public class GamePlayController implements Initializable {
     private TextField wordField;
     @FXML
     private Button submitButton;
-
+    @FXML
+    private Pane gamePlayPane;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         letters = CommonData.letters;
@@ -56,6 +61,22 @@ public class GamePlayController implements Initializable {
             }
             count++;
         }
+        gamePlayPane.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                mouse.setX(event.getX());
+                mouse.setY(event.getY());
+            }
+        
+        });
+        gamePlayPane.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                gamePlayPane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                gamePlayPane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+            }
+        
+        });
     }
 
     public void sendWord() {
