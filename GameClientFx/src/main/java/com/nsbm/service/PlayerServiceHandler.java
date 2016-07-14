@@ -42,6 +42,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -231,19 +232,24 @@ public class PlayerServiceHandler {
                 System.out.println(username + " stopped listening");
                 break;
             } else if (inboundEvent.readData(String.class).equals("gameComplete")) {
-                Stage stage = (Stage) label.getScene().getWindow();
-                stage.close();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(new Object().getClass().getResource("/fxml/ScoringMenu.fxml"));
-                } catch (IOException ex) {
-                    Logger.getLogger(PlayerServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add("/styles/Styles.css");
-                stage.setResizable(false);
-                stage.setScene(scene);
-                stage.show();
+                Platform.runLater(() -> {
+                    Stage stage1 = new Stage();
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(new Object().getClass().getResource("/fxml/ScoringMenu.fxml"));
+                    } catch (IOException ex) {
+                        Logger.getLogger(PlayerServiceHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add("/styles/Styles.css");
+                    stage1.setResizable(false);
+                    stage1.initStyle(StageStyle.UNDECORATED);
+                    stage1.setScene(scene);
+                    stage1.show();
+                    stage1 = (Stage) label.getScene().getWindow();
+                    stage1.close();
+                });
+
             } else {
                 Platform.runLater(new Runnable() {
                     public void run() {
