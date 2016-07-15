@@ -8,6 +8,7 @@ package com.nsbm.controller;
 import com.nsbm.common.CommonData;
 import com.nsbm.common.Mouse;
 import static com.nsbm.service.PlayerServiceHandler.removePlayer;
+import static com.nsbm.service.WordServiceHandler.changeLetter;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
 import static com.nsbm.service.WordServiceHandler.getLetters;
 import java.io.IOException;
@@ -155,19 +156,14 @@ public class GameWindowController implements Initializable {
     }
     public void getSelectedText(){
         for(Node node : letterPane.getChildren()){
-//            if(!((TextField)node).getText().isEmpty()){
                 if (node instanceof TextField) {
                     node.setStyle("-fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);");
                     if(node.isFocused()){
                         node.setStyle("-fx-background-color:linear-gradient(to left, #1A2980 , #26D0CE);");
                         selectedLetter = ((TextField) node).getText();
-                        System.out.println(selectedLetter);
+                        String newLetter = changeLetter(selectedLetter);
                     }
                 }
-//            }
-//            else{
-//                System.out.println("request letters");
-//            }
         }
     }
     @FXML

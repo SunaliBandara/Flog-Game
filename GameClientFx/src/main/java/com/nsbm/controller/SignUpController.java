@@ -6,9 +6,7 @@ package com.nsbm.controller;
  * and open the template in the editor.
  */
 
-import com.nsbm.common.CommonData;
 import com.nsbm.common.Mouse;
-import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,24 +38,18 @@ public class SignUpController implements Initializable {
     private Pane signUpPane;
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        signUpPane.setOnMousePressed(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                mouse.setX(event.getX());
-                mouse.setY(event.getY());
-            }
-        
+        signUpPane.setOnMousePressed((MouseEvent event) -> {
+            mouse.setX(event.getX());
+            mouse.setY(event.getY());
         });
-        signUpPane.setOnMouseDragged(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                signUpPane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
-                signUpPane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
-            }
-        
+        signUpPane.setOnMouseDragged((MouseEvent event) -> {
+            signUpPane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+            signUpPane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
         });
     }    
     

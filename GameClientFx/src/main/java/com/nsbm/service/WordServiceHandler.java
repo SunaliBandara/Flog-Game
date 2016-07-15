@@ -6,9 +6,11 @@
 package com.nsbm.service;
 
 import com.google.gson.Gson;
+import static com.nsbm.common.CommonData.CHANGE_LETTER;
 import static com.nsbm.common.CommonData.INITIAL_LETTERS;
 import static com.nsbm.common.CommonData.LETTERS;
 import static com.nsbm.common.CommonData.POST;
+import static com.nsbm.common.CommonData.SUBMIT_WORD;
 import static com.nsbm.common.CommonData.WORD_CLASS;
 import static com.nsbm.common.CommonData.username;
 import com.nsbm.entity.Player;
@@ -49,11 +51,23 @@ public class WordServiceHandler {
         }
         return output;
     }
+    
+    public static String changeLetter(String currentLetter) {
+        String output = null;
+        try {
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(WORD_CLASS, CHANGE_LETTER+"/"+currentLetter, POST);
+            sendOutput(username, connection);
+            output = getInput(connection);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return output;
+    }
 
     public static String addWord(String word) {
         String output = null;
         try {
-            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(WORD_CLASS, word, POST);
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(WORD_CLASS, SUBMIT_WORD+"/"+word, POST);
             sendOutput(username, connection);
             output = getInput(connection);
         } catch (Exception e) {

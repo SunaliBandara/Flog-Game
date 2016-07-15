@@ -80,7 +80,6 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        model = FXCollections.observableArrayList(); 
         userNameLabel.setText(CommonData.username);
         allPlayers = getAllPlayers();
         setPlayerJoinModelData(allPlayers, model);
