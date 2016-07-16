@@ -51,7 +51,7 @@ public class ScoringMenuController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        scores = getFinalScore(CommonData.username);
+        scores = getFinalScore(CommonData.username);        
         for(String score : scores){
             String [] scoreParts = score.split("@");
             for(String playerScoreParts : scoreParts){           

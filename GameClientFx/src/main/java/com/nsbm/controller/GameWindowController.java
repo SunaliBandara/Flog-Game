@@ -75,9 +75,12 @@ public class GameWindowController implements Initializable {
     private TextField changeLetter;
     @FXML
     private Pane gamePane;
+    @FXML
+    private Label userNameLabel;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userNameLabel.setText(CommonData.username);
         initialLetters = getInitialLetters();
         initialLetterOne.setText(String.valueOf(initialLetters.charAt(0)).toUpperCase());
         initialLetterTwo.setText(String.valueOf(initialLetters.charAt(1)).toUpperCase());

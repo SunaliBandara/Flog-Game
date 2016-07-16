@@ -49,14 +49,19 @@ public class RoundCompleteController implements Initializable {
     @FXML
     private Label specialPoints;
     @FXML
+    private Label roundNumber;
+    @FXML
     private Button exitButton;
     @FXML
     private TableView<PlayerStatistic> scoreTable;
     @FXML
     private Pane completePane;
+    @FXML
+    private Label userNameLabel;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userNameLabel.setText(CommonData.username);
         allCompletedPlayer = getRoundCompletedPlayers();
         setSpecialPointsLabel(specialPoints);
         setLabelReference(nextRoundTime);

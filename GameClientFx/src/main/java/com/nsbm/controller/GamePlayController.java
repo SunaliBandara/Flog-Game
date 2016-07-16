@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -48,8 +49,12 @@ public class GamePlayController implements Initializable {
     private Button submitButton;
     @FXML
     private Pane gamePlayPane;
+    @FXML
+    private Label userNameLabel;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userNameLabel.setText(CommonData.username);
         letters = CommonData.letters;
         int count = 0;
         for (Node node : letterPane.getChildren()) {

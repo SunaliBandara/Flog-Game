@@ -159,6 +159,7 @@
     -fx-font-style:bold;
     -fx-alignment:TOP_CENTER;
 }
+
 .selectedLetter{
     -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
     -fx-background-radius: 13px;

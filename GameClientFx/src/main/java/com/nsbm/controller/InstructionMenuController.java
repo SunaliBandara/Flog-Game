@@ -6,6 +6,7 @@ package com.nsbm.controller;
  * and open the template in the editor.
  */
 
+import com.nsbm.common.CommonData;
 import com.nsbm.common.Mouse;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -35,8 +37,12 @@ public class InstructionMenuController implements Initializable {
     private Button backButton;
     @FXML
     private Pane instructionPane;
+    @FXML
+    private Label userNameLabel;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userNameLabel.setText(CommonData.username);
         instructionPane.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {

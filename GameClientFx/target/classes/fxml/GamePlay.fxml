@@ -97,5 +97,7 @@
                 <Label layoutX="260.0" layoutY="14.0" styleClass="miniheader" text="Time" textFill="WHITE" />
             </children>
         </AnchorPane>
+      <Label fx:id="userNameLabel" layoutX="546.0" layoutY="16.0" styleClass="miniheader" text="----" textFill="WHITE" />
+      <Label layoutX="441.0" layoutY="16.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
     </children>
 </AnchorPane>
