@@ -134,6 +134,17 @@ public class MainMenuController implements Initializable {
             //Add new Label Named Waiting
             JOptionPane.showMessageDialog(null, playableStatus);
         }
+//        Stage stage = new Stage();
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
+//        Scene scene = new Scene(root);
+//        scene.getStylesheets().add("/styles/Styles.css");
+//        stage.setResizable(false);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setScene(scene);
+//        stage.show();
+//        CommonData.playerStatus = PlayerStatus.PLAYING;
+//        stage = (Stage) startButton.getScene().getWindow();
+//        stage.close();
     }
 
     @FXML

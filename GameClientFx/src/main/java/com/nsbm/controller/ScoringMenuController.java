@@ -7,11 +7,14 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import com.nsbm.common.Mouse;
+import com.nsbm.entity.PlayerStatistic;
 import static com.nsbm.service.PointServiceHandler.getFinalScore;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +23,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -31,17 +36,27 @@ import javafx.stage.StageStyle;
  * @author Muthu
  */
 public class ScoringMenuController implements Initializable {
+    
     private Mouse mouse = new Mouse();
+    private String[] scores;
+    
     @FXML
     private Button backButton;
     @FXML
     private Pane scorePane;
+    @FXML 
+    private  Label playerName;
+    @FXML
+    private Label playerScore;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String [] scores = getFinalScore(CommonData.username);
+        scores = getFinalScore(CommonData.username);
         for(String score : scores){
             String [] scoreParts = score.split("@");
+            for(String playerScoreParts : scoreParts){           
+
+            }
         }
         scorePane.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
@@ -56,8 +71,7 @@ public class ScoringMenuController implements Initializable {
             public void handle(MouseEvent event) {
                 scorePane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
                 scorePane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
-            }
-        
+            }        
         });
     }   
     

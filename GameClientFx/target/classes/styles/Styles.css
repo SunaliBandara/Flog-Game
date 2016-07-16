@@ -118,6 +118,7 @@
     -fx-font-style:bold;
     -fx-text-fill:#000654;
 }
+
 #wordPane > #wordField{
     -fx-background-radius: 11px;
     -fx-padding:0px;

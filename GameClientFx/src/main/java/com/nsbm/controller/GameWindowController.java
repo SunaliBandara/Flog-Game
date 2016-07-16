@@ -64,9 +64,15 @@ public class GameWindowController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
+    private Button letterChangeButton;
+    @FXML
     private Label timerLabel;
     @FXML
     private String selectedLetter;
+    @FXML
+    private Node selectedNode;
+    @FXML
+    private TextField changeLetter;
     @FXML
     private Pane gamePane;
     
@@ -141,7 +147,7 @@ public class GameWindowController implements Initializable {
                             } else {
                                 timerLabel.setText(String.valueOf(counter));
                                 counter--;
-                                if(counter==1){
+                                if(counter==9){
                                     final URL resource = getClass().getResource("/styles/10sec.mp3");
                                     final Media media = new Media(resource.toString());
                                     final MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -156,16 +162,24 @@ public class GameWindowController implements Initializable {
     }
     public void getSelectedText(){
         for(Node node : letterPane.getChildren()){
-                if (node instanceof TextField) {
-                    node.setStyle("-fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);");
-                    if(node.isFocused()){
-                        node.setStyle("-fx-background-color:linear-gradient(to left, #1A2980 , #26D0CE);");
-                        selectedLetter = ((TextField) node).getText();
-                        String newLetter = changeLetter(selectedLetter);
-                    }
+            if (node instanceof TextField) {
+                node.setStyle("-fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);");
+                if(node.isFocused()){
+                    selectedNode = node;
+                    node.setStyle("-fx-background-color:linear-gradient(to left, #1A2980 , #26D0CE);");
+                    selectedLetter = ((TextField) node).getText();
                 }
+            }
         }
     }
+    
+    @FXML
+    private void letterChangeAction(ActionEvent event){
+        String newLetter = changeLetter(selectedLetter);
+        ((TextField) selectedNode).setText(newLetter.toUpperCase()); 
+        letterPane.setDisable(true);
+    }
+    
     @FXML
     private void backAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
