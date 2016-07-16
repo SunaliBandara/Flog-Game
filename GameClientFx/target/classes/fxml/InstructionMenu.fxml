@@ -71,7 +71,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="backButton" layoutX="14.0" layoutY="462.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Back" />
-      <Label fx:id="userNameLabel" layoutX="546.0" layoutY="16.0" styleClass="miniheader" text="----" textFill="WHITE" />
-      <Label layoutX="441.0" layoutY="16.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="510.0" layoutY="5.0" styleClass="miniheader" text="----" textFill="WHITE" />
+      <Label layoutX="430.0" layoutY="5.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
    </children>
 </AnchorPane>

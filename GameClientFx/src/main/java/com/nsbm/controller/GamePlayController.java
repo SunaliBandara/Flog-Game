@@ -51,11 +51,15 @@ public class GamePlayController implements Initializable {
     private Pane gamePlayPane;
     @FXML
     private Label userNameLabel;
+    @FXML
+    private Label currentRound;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         userNameLabel.setText(CommonData.username);
         letters = CommonData.letters;
+        CommonData.currentRound++;
+        currentRound.setText("Round " + String.valueOf(CommonData.currentRound));
         int count = 0;
         for (Node node : letterPane.getChildren()) {
             if (count == letters.length()) {
@@ -63,6 +67,9 @@ public class GamePlayController implements Initializable {
             }
             if (node instanceof TextField) {
                 ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
+                if(letters.charAt(count) == CommonData.initialLetters.charAt(0) || letters.charAt(count) == CommonData.initialLetters.charAt(1)){
+                    //Make this node special - Initial
+                }
             }
             count++;
         }
@@ -96,8 +103,6 @@ public class GamePlayController implements Initializable {
             JOptionPane.showMessageDialog(null, "Incorrect Word");
             //Action ad = Dialogs.create().owner(stage).title("Information Dialog").masthead(null).message("I have a great message for you!").showInformation();
         }
-        currentRound++;
-        
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/RoundComplete.fxml"));

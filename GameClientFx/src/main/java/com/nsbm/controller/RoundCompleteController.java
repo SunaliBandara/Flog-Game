@@ -61,6 +61,7 @@ public class RoundCompleteController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        roundNumber.setText(String.valueOf(CommonData.currentRound));
         userNameLabel.setText(CommonData.username);
         allCompletedPlayer = getRoundCompletedPlayers();
         setSpecialPointsLabel(specialPoints);

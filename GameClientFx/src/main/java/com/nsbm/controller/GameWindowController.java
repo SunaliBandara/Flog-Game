@@ -120,6 +120,7 @@ public class GameWindowController implements Initializable {
                 count++;
             }
             requestButton.setDisable(true);
+            CommonData.initialLetters = initialLetters;
             CommonData.letters = initialLetters+letters;
             timer = new Timer();
             counter = 10;
@@ -179,6 +180,7 @@ public class GameWindowController implements Initializable {
     @FXML
     private void letterChangeAction(ActionEvent event){
         String newLetter = changeLetter(selectedLetter);
+        CommonData.letters = CommonData.letters.replaceFirst(selectedLetter, newLetter);
         ((TextField) selectedNode).setText(newLetter.toUpperCase()); 
         letterPane.setDisable(true);
     }

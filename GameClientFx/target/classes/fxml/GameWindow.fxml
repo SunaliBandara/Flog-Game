@@ -155,7 +155,7 @@
       <Button fx:id="backButton" layoutX="5.0" layoutY="470.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Back" />
       <Button fx:id="exitButton" layoutX="550.0" layoutY="470.0" mnemonicParsing="false" onAction="#exitAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Exit" />
       <Label layoutX="20.0" layoutY="262.0" styleClass="miniheader" text="Select any letter you want to change...." textFill="WHITE" />
-      <Label layoutX="431.0" layoutY="6.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
-      <Label fx:id="userNameLabel" layoutX="536.0" layoutY="6.0" styleClass="miniheader" text="----" textFill="WHITE" />
+      <Label layoutX="430.0" layoutY="5.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="510.0" layoutY="5.0" styleClass="miniheader" text="----" textFill="WHITE" />
    </children>
 </AnchorPane>

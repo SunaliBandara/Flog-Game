@@ -89,8 +89,8 @@
                 <Font name="Aparajita" size="36.0" />
             </font>
         </Label>
-      <Label layoutX="250.0" layoutY="50.0" styleClass="subheader" text="Round" textFill="WHITE" />
-      <Label layoutX="350.0" layoutY="50.0" styleClass="subheader" text="1" textFill="WHITE" />
+      <Label fx:id="currentRound" layoutX="250.0" layoutY="50.0" styleClass="subheader" textFill="WHITE" />
+<!--      <Label layoutX="350.0" layoutY="50.0" styleClass="subheader" text="1" textFill="WHITE" />-->
         <AnchorPane layoutX="20.0" layoutY="358.0" prefHeight="120.0" prefWidth="560.0" styleClass="glassPane">
             <children>
                 <ProgressBar layoutX="28.0" layoutY="60.0" prefHeight="17.0" prefWidth="504.0" progress="0.0" />

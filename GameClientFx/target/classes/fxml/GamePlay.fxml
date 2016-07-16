@@ -89,15 +89,15 @@
                 <Font name="Aparajita" size="36.0" />
             </font>
         </Label>
-      <Label layoutX="250.0" layoutY="50.0" styleClass="subheader" text="Round" textFill="WHITE" />
-      <Label layoutX="350.0" layoutY="50.0" styleClass="subheader" text="1" textFill="WHITE" />
+      <Label fx:id="currentRound" layoutX="250.0" layoutY="50.0" styleClass="subheader" textFill="WHITE" />
+<!--      <Label layoutX="350.0" layoutY="50.0" styleClass="subheader" text="1" textFill="WHITE" />-->
         <AnchorPane layoutX="20.0" layoutY="358.0" prefHeight="120.0" prefWidth="560.0" styleClass="glassPane">
             <children>
                 <ProgressBar layoutX="28.0" layoutY="60.0" prefHeight="17.0" prefWidth="504.0" progress="0.0" />
                 <Label layoutX="260.0" layoutY="14.0" styleClass="miniheader" text="Time" textFill="WHITE" />
             </children>
         </AnchorPane>
-      <Label fx:id="userNameLabel" layoutX="546.0" layoutY="16.0" styleClass="miniheader" text="----" textFill="WHITE" />
-      <Label layoutX="441.0" layoutY="16.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="510.0" layoutY="5.0" styleClass="miniheader" text="----" textFill="WHITE" />
+      <Label layoutX="430.0" layoutY="5.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
     </children>
 </AnchorPane>
