@@ -16,10 +16,11 @@ public class CommonData {
     public static String initialLetters;
     public static int currentRound = 0;
     public static boolean isWaiting = false;
+    public static int specialPoints = 0;
     public static int id;
     public static boolean isLastPlayer = false;
-    public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
-//    public final static String IP = "http://localhost:8080/FloGame/WebResources/";
+//    public final static String IP = "http://flogame-nsbm.rhcloud.com/WebResources/";
+    public final static String IP = "http://localhost:8080/FloGame/WebResources/";
     public static PlayerStatus playerStatus = PlayerStatus.JOINED;
     public final static String GET = "GET";
     public final static String POST = "POST";
@@ -44,4 +45,5 @@ public class CommonData {
     public final static String FINAL_SCORE = "getFinalScore";
     public final static String CHANGE_LETTER = "changeLetter";
     public final static String SUBMIT_WORD = "submitWord";
+    public final static String TERMINATE_PLAYER = "broadcastPlayerTermination";
 }

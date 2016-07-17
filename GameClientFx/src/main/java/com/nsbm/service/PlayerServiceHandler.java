@@ -21,6 +21,7 @@ import static com.nsbm.common.CommonData.POST;
 import static com.nsbm.common.CommonData.REMOVE_PLAYER;
 import static com.nsbm.common.CommonData.ROUND_COMPLETION_BROADCAST;
 import static com.nsbm.common.CommonData.ROUND_COMPLETION_LISTEN;
+import static com.nsbm.common.CommonData.TERMINATE_PLAYER;
 import static com.nsbm.common.CommonData.username;
 import static com.nsbm.common.CommonUtil.addObservableListData;
 import com.nsbm.entity.Player;
@@ -179,6 +180,19 @@ public class PlayerServiceHandler {
             System.out.println(e);
         }
     }
+    
+    public static void terminatePlayer() {
+        String output = null;
+        try {
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(BROADCAST, TERMINATE_PLAYER, POST);
+            sendOutput(username, connection);
+            output = getInput(connection);
+            System.out.println(output);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     public static void listenToRoundCompletionEvent() {
         Client client = ClientBuilder.newBuilder().register(SseFeature.class).build();
@@ -199,6 +213,7 @@ public class PlayerServiceHandler {
                     @Override
                     public void run() {
                         String sp = getSpecialPoints(username);
+                        CommonData.specialPoints = Integer.parseInt(sp);
                         specialPointsLabel.setText(sp);
                     }
                 });

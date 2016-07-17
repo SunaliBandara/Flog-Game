@@ -16,6 +16,7 @@ import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import static com.nsbm.service.PlayerServiceHandler.setLabelReference;
 import static com.nsbm.service.PlayerServiceHandler.setPlayerScore;
 import static com.nsbm.service.PlayerServiceHandler.setSpecialPointsLabel;
+import static com.nsbm.service.PlayerServiceHandler.terminatePlayer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,11 +29,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -107,5 +108,16 @@ public class RoundCompleteController implements Initializable {
         stage.close();
         removePlayer(CommonData.username);
         System.exit(0);
+    }
+
+    @FXML
+    private void terminateAction(ActionEvent event) {
+        if(CommonData.specialPoints < 3){
+            JOptionPane.showMessageDialog(null, "Need " + (20 - CommonData.specialPoints) + " Special Points");
+        }
+        else{
+            System.out.println("Terminate Perk Activated");
+            terminatePlayer();
+        }
     }
 }

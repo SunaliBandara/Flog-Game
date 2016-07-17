@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="32.0" layoutY="105.0" prefHeight="61.0" prefWidth="538.0" styleClass="glassPane">
          <children>
-            <Label layoutX="57.0" layoutY="15.0" styleClass="miniheader" text="Name" textFill="WHITE" />
+            <!--<Label layoutX="57.0" layoutY="15.0" styleClass="miniheader" text="Name" textFill="WHITE" />-->
             <Label fx:id="playerName" layoutX="146.0" layoutY="16.0" styleClass="miniheader" textFill="WHITE" />
 <!--            <Label layoutX="340.0" layoutY="16.0" styleClass="miniheader" text="Score" textFill="WHITE" />
             <Label fx:id="playerScoreLabel" layoutX="436.0" layoutY="16.0" styleClass="miniheader" textFill="WHITE" />-->

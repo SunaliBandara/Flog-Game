@@ -288,21 +288,25 @@
     -fx-background-color:invisible;
     -fx-border: 0 0 0 0;
 }
+#scoreList{
+    -fx-background-color:invisible;
+    -fx-border: 0 0 0 0;
+}
 .list-view .list-cell:filled{
     -fx-background-color: rgba(0, 100, 100, 0.5);
     -fx-background-radius: 10;
     -fx-text-fill: white;
-    -fx-text-alignment:center;
+    -fx-alignment:center;
 }
 .list-view .list-cell:even {
     -fx-background-color: rgba(0, 100, 100, 0.5);
     -fx-text-fill: white;
-    -fx-text-alignment:center;
+    -fx-alignment:center;
 }
 .list-view .list-cell:odd {
     -fx-background-color: rgba(0, 100, 100, 0.5);
     -fx-text-fill: white;
-    -fx-text-alignment:center;
+    -fx-alignment:center;
 }
 .list-view .list-cell:empty{
     -fx-background-color: invisible;

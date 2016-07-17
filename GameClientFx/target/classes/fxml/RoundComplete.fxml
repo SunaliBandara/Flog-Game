@@ -28,7 +28,7 @@
             </children>
         </AnchorPane>
       <Label layoutX="180.0" layoutY="24.0" styleClass="subheader" text="Round " textFill="WHITE" />
-      <Button fx:id="terminatePerk" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="75.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="   Terminate" />
+      <Button fx:id="terminatePerk" onAction="#terminateAction"  alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="75.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="   Terminate" />
       <Button fx:id="vowelPerk" alignment="BASELINE_LEFT" layoutX="245.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="    Remove" />
       <Button fx:id="scorePerk" alignment="BASELINE_LEFT" layoutX="410.0" layoutY="400.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" styleClass="orangeButton" text="       Score" />
       <Label fx:id="roundNumber" layoutX="288.0" layoutY="24.0" styleClass="subheader" textFill="WHITE" />
