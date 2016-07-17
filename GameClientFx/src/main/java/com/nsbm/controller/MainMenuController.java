@@ -80,7 +80,7 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        userNameLabel.setText(CommonData.username);
+        userNameLabel.setText("LOG IN AS "+(CommonData.username).toUpperCase());
         allPlayers = getAllPlayers();
         setPlayerJoinModelData(allPlayers, model);
         listBox.setItems(model);

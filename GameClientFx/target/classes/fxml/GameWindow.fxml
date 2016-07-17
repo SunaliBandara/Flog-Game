@@ -12,9 +12,9 @@
 
 <AnchorPane id="AnchorPane" fx:id="gamePane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.GameWindowController">
    <children>
-      <AnchorPane layoutX="18.0" layoutY="97.0" prefHeight="140.0" prefWidth="565.0">
+      <AnchorPane layoutX="18.0" layoutY="100.0" prefHeight="140.0" prefWidth="565.0">
          <children>
-              <Label layoutY="2.0" styleClass="miniheader" text="How many Vowels &amp; Consonants do you need ?" textFill="WHITE" wrapText="true">
+              <Label layoutX="5.0" styleClass="miniheader" text="How many Vowels &amp; Consonants do you need ?" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Calisto MT" size="20.0" />
                </font>
@@ -46,12 +46,12 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="20.0" layoutY="25.0" styleClass="subheader" text="Select Your Letters" textFill="WHITE">
+      <Label layoutX="15.0" layoutY="30.0" styleClass="subheader" text="Select Your Letters" textFill="WHITE">
          <font>
             <Font name="Calibri Light" size="36.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="letterPane" layoutX="28.0" layoutY="293.0" prefHeight="160.0" prefWidth="560.0">
+      <AnchorPane fx:id="letterPane" layoutX="28.0" layoutY="300.0" prefHeight="160.0" prefWidth="560.0">
                   <children>
             <TextField fx:id="letterFive" alignment="CENTER" layoutX="285.0" layoutY="50.0" onMouseClicked="#getSelectedText" prefHeight="42.5" prefWidth="42.5" styleClass="buttonTextbox">
                <font>
@@ -145,7 +145,7 @@
                   <Font name="Calibri Light" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="timerLabel" layoutX="16.0" layoutY="9.0" prefHeight="27.0" prefWidth="99.0" text="Time" textFill="WHITE">
+            <Label fx:id="timerLabel" layoutX="249.0" layoutY="-7.0" prefHeight="66.0" prefWidth="73.0" text="Time" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="24.0" />
                </font>
@@ -154,8 +154,7 @@
       </AnchorPane>
       <Button fx:id="backButton" layoutX="5.0" layoutY="470.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Back" />
       <Button fx:id="exitButton" layoutX="550.0" layoutY="470.0" mnemonicParsing="false" onAction="#exitAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Exit" />
-      <Label layoutX="20.0" layoutY="262.0" styleClass="miniheader" text="Select any letter you want to change...." textFill="WHITE" />
-      <Label layoutX="430.0" layoutY="5.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
-      <Label fx:id="userNameLabel" layoutX="510.0" layoutY="5.0" styleClass="miniheader" text="----" textFill="WHITE" />
+      <Label layoutX="30.0" layoutY="276.0" styleClass="miniheader" text="Select any letter you want to change...." textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="525.0" layoutY="15.0" styleClass="miniheader" text="----" textFill="WHITE" />
    </children>
 </AnchorPane>

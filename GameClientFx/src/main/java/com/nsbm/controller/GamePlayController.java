@@ -40,7 +40,7 @@ import javax.swing.JOptionPane;
  */
 public class GamePlayController implements Initializable {
     private Mouse mouse = new Mouse();
-    private String letters;
+    private String letters,initial;
     @FXML
     private AnchorPane letterPane;
     @FXML
@@ -58,6 +58,7 @@ public class GamePlayController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         userNameLabel.setText(CommonData.username);
         letters = CommonData.letters;
+        initial = CommonData.initialLetters;
         CommonData.currentRound++;
         currentRound.setText("Round " + String.valueOf(CommonData.currentRound));
         int count = 0;
@@ -66,10 +67,15 @@ public class GamePlayController implements Initializable {
                 break;
             }
             if (node instanceof TextField) {
-                ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
-                if(letters.charAt(count) == CommonData.initialLetters.charAt(0) || letters.charAt(count) == CommonData.initialLetters.charAt(1)){
-                    //Make this node special - Initial
+                if(count == 0 || count == 1){
+                    ((TextField) node).setText(String.valueOf(initial.charAt(count)).toUpperCase());
+                    node.setDisable(true);
                 }
+                else{
+                    ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
+                    //if(letters.charAt(count) == CommonData.initialLetters.charAt(0) || letters.charAt(count) == CommonData.initialLetters.charAt(1)){
+                    //node.setDisable(true);
+                }              
             }
             count++;
         }
@@ -98,7 +104,7 @@ public class GamePlayController implements Initializable {
         if (response.equals(SUCCESS)) {
             JOptionPane.showMessageDialog(null, "Correct Word");
         } else if (response.equals(ADALA_NA)) {
-            JOptionPane.showMessageDialog(null, "Adala Nane");
+            JOptionPane.showMessageDialog(null, "You Can Only Used Given Letters");
         } else {
             JOptionPane.showMessageDialog(null, "Incorrect Word");
             //Action ad = Dialogs.create().owner(stage).title("Information Dialog").masthead(null).message("I have a great message for you!").showInformation();

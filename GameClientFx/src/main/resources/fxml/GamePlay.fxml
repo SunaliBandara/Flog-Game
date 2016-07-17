@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="gamePlayPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.GamePlayController">
     <children>
-        <AnchorPane fx:id="wordPane" layoutX="20.0" layoutY="88.0" prefHeight="228.0" prefWidth="560.0" styleClass="glassPane">
+        <AnchorPane fx:id="wordPane" layoutX="20.0" layoutY="110.0" prefHeight="228.0" prefWidth="560.0" styleClass="glassPane">
             <children>
                 <AnchorPane fx:id="letterPane" layoutX="6.0">
                    <children>
@@ -89,7 +89,7 @@
                 <Font name="Aparajita" size="36.0" />
             </font>
         </Label>
-      <Label fx:id="currentRound" layoutX="250.0" layoutY="50.0" styleClass="subheader" textFill="WHITE" />
+      <Label fx:id="currentRound" layoutX="250.0" layoutY="45.0" styleClass="subheader" textFill="WHITE" />
 <!--      <Label layoutX="350.0" layoutY="50.0" styleClass="subheader" text="1" textFill="WHITE" />-->
         <AnchorPane layoutX="20.0" layoutY="358.0" prefHeight="120.0" prefWidth="560.0" styleClass="glassPane">
             <children>
@@ -97,7 +97,6 @@
                 <Label layoutX="260.0" layoutY="14.0" styleClass="miniheader" text="Time" textFill="WHITE" />
             </children>
         </AnchorPane>
-      <Label fx:id="userNameLabel" layoutX="510.0" layoutY="5.0" styleClass="miniheader" text="----" textFill="WHITE" />
-      <Label layoutX="430.0" layoutY="5.0" styleClass="miniheader" text="Log in as" textFill="WHITE" />
+      <Label fx:id="userNameLabel" layoutX="535.0" layoutY="25.0" styleClass="miniheader" text="----" textFill="WHITE" />
     </children>
 </AnchorPane>

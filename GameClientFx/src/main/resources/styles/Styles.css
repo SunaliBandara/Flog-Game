@@ -185,6 +185,14 @@
         -fx-background-radius: 13px;
         -fx-background-color:linear-gradient(to left, #00bf8f , #001510);
 }
+#timerLabel {
+    -fx-font-size: 50px;
+    -fx-font-weight:bold;
+    -fx-font-family:Stencil;
+    -fx-effect: dropshadow(three-pass-box , #ffffff , 4, 0.0 , 0 , 2 );
+    -fx-text-fill:  linear-gradient(#66ff66, #00cc00);
+}
+
 /*----------------end of text box css------------*/
 
 /*------------------- Label css------------------*/
@@ -210,6 +218,7 @@
     -fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 3, 0.0 , 1, 1 );
     -fx-background-insets: 0 1 1 0, 1 0 0 1, 1;
 }
+
 /*---------------end of Label css----------*/
 /*---------------table----------*/
 .table-view {
@@ -275,3 +284,30 @@
     -fx-opacity: 0;
 }
 /*---------------table----------*/
+#listBox{
+    -fx-background-color:invisible;
+    -fx-border: 0 0 0 0;
+}
+#scoreList{
+    -fx-background-color:invisible;
+    -fx-border: 0 0 0 0;
+}
+.list-view .list-cell:filled{
+    -fx-background-color: rgba(0, 100, 100, 0.5);
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-alignment:center;
+}
+.list-view .list-cell:even {
+    -fx-background-color: rgba(0, 100, 100, 0.5);
+    -fx-text-fill: white;
+    -fx-alignment:center;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: rgba(0, 100, 100, 0.5);
+    -fx-text-fill: white;
+    -fx-alignment:center;
+}
+.list-view .list-cell:empty{
+    -fx-background-color: invisible;
+}

@@ -77,7 +77,7 @@ public class GameWindowController implements Initializable {
     private Pane gamePane;
     @FXML
     private Label userNameLabel;
-    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         userNameLabel.setText(CommonData.username);
@@ -150,13 +150,17 @@ public class GameWindowController implements Initializable {
                                 stage.close();
                             } else {
                                 timerLabel.setText(String.valueOf(counter));
-                                counter--;
-                                if(counter==9){
-                                    final URL resource = getClass().getResource("/styles/10sec.mp3");
+                                if(counter==10){
+                                    final URL resource = getClass().getResource("/styles/sec10.mp3");
                                     final Media media = new Media(resource.toString());
                                     final MediaPlayer mediaPlayer = new MediaPlayer(media);
                                     mediaPlayer.play();
                                 }
+                                else if(counter == 9 || counter == 8 || counter == 7 || counter == 6 || counter == 5 || counter == 4 )
+                                    timerLabel.setStyle("-fx-text-fill:linear-gradient(#66ff66, #00cc00);");
+                                else
+                                    timerLabel.setStyle("-fx-text-fill:  linear-gradient(#ff5400,#be1d00);");
+                                counter--;
                             }
                         }
                     });
