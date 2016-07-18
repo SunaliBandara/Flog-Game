@@ -6,7 +6,9 @@
 package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
+import static com.nsbm.common.CommonData.username;
 import com.nsbm.common.Mouse;
+import static com.nsbm.service.PlayerServiceHandler.checkTermination;
 import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import static com.nsbm.service.WordServiceHandler.changeLetter;
 import static com.nsbm.service.WordServiceHandler.getInitialLetters;
@@ -77,29 +79,34 @@ public class GameWindowController implements Initializable {
     private Pane gamePane;
     @FXML
     private Label userNameLabel;
-        
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        userNameLabel.setText(CommonData.username);
-        initialLetters = getInitialLetters();
-        initialLetterOne.setText(String.valueOf(initialLetters.charAt(0)).toUpperCase());
-        initialLetterTwo.setText(String.valueOf(initialLetters.charAt(1)).toUpperCase());
-        gamePane.setOnMousePressed(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                mouse.setX(event.getX());
-                mouse.setY(event.getY());
-            }
-        
-        });
-        gamePane.setOnMouseDragged(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                gamePane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
-                gamePane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
-            }
-        
-        });
+        String termination = checkTermination();
+        if (termination.equals(username + " Terminated")) {
+            //Close this window - You have been terminated
+        } else {
+            userNameLabel.setText(CommonData.username);
+            initialLetters = getInitialLetters();
+            initialLetterOne.setText(String.valueOf(initialLetters.charAt(0)).toUpperCase());
+            initialLetterTwo.setText(String.valueOf(initialLetters.charAt(1)).toUpperCase());
+            gamePane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    mouse.setX(event.getX());
+                    mouse.setY(event.getY());
+                }
+
+            });
+            gamePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    gamePane.getScene().getWindow().setX(event.getScreenX() - mouse.getX() - 14);
+                    gamePane.getScene().getWindow().setY(event.getScreenY() - mouse.getY() - 14);
+                }
+
+            });
+        }
     }
 
     public void getRequiredLetters() {
@@ -121,7 +128,7 @@ public class GameWindowController implements Initializable {
             }
             requestButton.setDisable(true);
             CommonData.initialLetters = initialLetters;
-            CommonData.letters = initialLetters+letters;
+            CommonData.letters = initialLetters + letters;
             timer = new Timer();
             counter = 10;
             timer.schedule(new TimerTask() {
@@ -145,21 +152,21 @@ public class GameWindowController implements Initializable {
                                 stage.initStyle(StageStyle.UNDECORATED);
                                 stage.setScene(scene);
                                 stage.show();
-                                
+
                                 stage = (Stage) requestButton.getScene().getWindow();
                                 stage.close();
                             } else {
                                 timerLabel.setText(String.valueOf(counter));
-                                if(counter==10){
+                                if (counter == 10) {
                                     final URL resource = getClass().getResource("/styles/sec10.mp3");
                                     final Media media = new Media(resource.toString());
                                     final MediaPlayer mediaPlayer = new MediaPlayer(media);
                                     mediaPlayer.play();
-                                }
-                                else if(counter == 9 || counter == 8 || counter == 7 || counter == 6 || counter == 5 || counter == 4 )
+                                } else if (counter == 9 || counter == 8 || counter == 7 || counter == 6 || counter == 5 || counter == 4) {
                                     timerLabel.setStyle("-fx-text-fill:linear-gradient(#66ff66, #00cc00);");
-                                else
+                                } else {
                                     timerLabel.setStyle("-fx-text-fill:  linear-gradient(#ff5400,#be1d00);");
+                                }
                                 counter--;
                             }
                         }
@@ -168,11 +175,12 @@ public class GameWindowController implements Initializable {
             }, 0, 1000);
         }
     }
-    public void getSelectedText(){
-        for(Node node : letterPane.getChildren()){
+
+    public void getSelectedText() {
+        for (Node node : letterPane.getChildren()) {
             if (node instanceof TextField) {
                 node.setStyle("-fx-background-color:linear-gradient(to left, #1D976C , #93F9B9);");
-                if(node.isFocused()){
+                if (node.isFocused()) {
                     selectedNode = node;
                     node.setStyle("-fx-background-color:linear-gradient(to left, #1A2980 , #26D0CE);");
                     selectedLetter = ((TextField) node).getText();
@@ -180,15 +188,15 @@ public class GameWindowController implements Initializable {
             }
         }
     }
-    
+
     @FXML
-    private void letterChangeAction(ActionEvent event){
+    private void letterChangeAction(ActionEvent event) {
         String newLetter = changeLetter(selectedLetter);
         CommonData.letters = CommonData.letters.replaceFirst(selectedLetter, newLetter);
-        ((TextField) selectedNode).setText(newLetter.toUpperCase()); 
+        ((TextField) selectedNode).setText(newLetter.toUpperCase());
         letterPane.setDisable(true);
     }
-    
+
     @FXML
     private void backAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
@@ -202,8 +210,9 @@ public class GameWindowController implements Initializable {
         stage = (Stage) backButton.getScene().getWindow();
         stage.close();
     }
+
     @FXML
-    private void exitAction(ActionEvent event){
+    private void exitAction(ActionEvent event) {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
         removePlayer(CommonData.username);

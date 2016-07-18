@@ -45,5 +45,6 @@ public class CommonData {
     public final static String FINAL_SCORE = "getFinalScore";
     public final static String CHANGE_LETTER = "changeLetter";
     public final static String SUBMIT_WORD = "submitWord";
-    public final static String TERMINATE_PLAYER = "broadcastPlayerTermination";
+    public final static String TERMINATE_PLAYER = "terminatePlayer";
+    public final static String CHECK_TERMINATION = "checkTermination";
 }

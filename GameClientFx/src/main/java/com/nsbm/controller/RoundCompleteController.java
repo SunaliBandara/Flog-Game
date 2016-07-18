@@ -112,7 +112,7 @@ public class RoundCompleteController implements Initializable {
 
     @FXML
     private void terminateAction(ActionEvent event) {
-        if(CommonData.specialPoints < 3){
+        if(CommonData.specialPoints < 1){
             JOptionPane.showMessageDialog(null, "Need " + (20 - CommonData.specialPoints) + " Special Points");
         }
         else{

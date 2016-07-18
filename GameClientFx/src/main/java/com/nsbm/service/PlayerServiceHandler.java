@@ -11,6 +11,7 @@ import com.nsbm.common.PlayerStatus;
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.ADD_PLAYER;
 import static com.nsbm.common.CommonData.BROADCAST;
+import static com.nsbm.common.CommonData.CHECK_TERMINATION;
 import static com.nsbm.common.CommonData.GET;
 import static com.nsbm.common.CommonData.GET_PLAYERS;
 import static com.nsbm.common.CommonData.GET_ROUND_COMPLETED_PLAYERS;
@@ -180,11 +181,11 @@ public class PlayerServiceHandler {
             System.out.println(e);
         }
     }
-    
+
     public static void terminatePlayer() {
         String output = null;
         try {
-            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(BROADCAST, TERMINATE_PLAYER, POST);
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, TERMINATE_PLAYER, POST);
             sendOutput(username, connection);
             output = getInput(connection);
             System.out.println(output);
@@ -263,7 +264,7 @@ public class PlayerServiceHandler {
                     scoringMenu.show();
                     scoringMenu = (Stage) label.getScene().getWindow();
                     scoringMenu.close();
-                    
+
                 });
                 break;
             } else {
@@ -284,6 +285,18 @@ public class PlayerServiceHandler {
             sendOutput(username, connection);
             output = getInput(connection);
         } catch (IOException e) {
+            System.out.println(e);
+        }
+        return output;
+    }
+    
+    public static String checkTermination(){
+        String output = null;
+        try {
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, CHECK_TERMINATION, POST);
+            sendOutput(username, connection);
+            output = getInput(connection);
+        } catch (Exception e) {
             System.out.println(e);
         }
         return output;
