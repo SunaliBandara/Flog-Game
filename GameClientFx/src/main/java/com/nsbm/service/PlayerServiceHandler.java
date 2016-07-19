@@ -19,12 +19,14 @@ import static com.nsbm.common.CommonData.PLAYER_CLASS;
 import static com.nsbm.common.CommonData.PLAYER_JOIN_BROADCAST;
 import static com.nsbm.common.CommonData.PLAYER_JOIN_LISTEN;
 import static com.nsbm.common.CommonData.POST;
+import static com.nsbm.common.CommonData.REGISTER_PLAYER;
 import static com.nsbm.common.CommonData.REMOVE_PLAYER;
 import static com.nsbm.common.CommonData.ROUND_COMPLETION_BROADCAST;
 import static com.nsbm.common.CommonData.ROUND_COMPLETION_LISTEN;
 import static com.nsbm.common.CommonData.TERMINATE_PLAYER;
 import static com.nsbm.common.CommonData.username;
 import static com.nsbm.common.CommonUtil.addObservableListData;
+import static com.nsbm.common.ResponseResult.SUCCESS;
 import com.nsbm.entity.Player;
 import com.nsbm.entity.PlayerStatistic;
 import static com.nsbm.service.PointServiceHandler.getSpecialPoints;
@@ -45,6 +47,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -89,11 +92,23 @@ public class PlayerServiceHandler {
     public static void setPlayerScore(ObservableList<PlayerStatistic> playerScore) {
         PlayerServiceHandler.playerScore = playerScore;
     }
-
-    public static String addPlayer(String playerName, String playerPassword) {
+    
+    public static String RegisterPlayer(String playerName, String playerPassword, String email) {
         String output = null;
         try {
-            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, ADD_PLAYER, POST);
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, REGISTER_PLAYER + "/"+email+"/"+playerName+"/"+playerPassword, POST);
+            sendOutput(null, connection);
+            output = getInput(connection);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return output;
+    }
+
+    public static String LoginPlayer(String playerName, String playerPassword) {
+        String output = null;
+        try {
+            HttpURLConnection connection = new FactoryServiceHandler().getServiceConnection(PLAYER_CLASS, ADD_PLAYER+"/"+playerName+"/"+playerPassword, POST);
             sendOutput(playerName, connection);
 
             output = getInput(connection);
