@@ -1,7 +1,6 @@
 com\nsbm\common\CommonData.class
 com\nsbm\common\PlayerStatus.class
 com\nsbm\controller\SignUpController.class
-com\nsbm\controller\GameWindowController$2.class
 com\nsbm\controller\RoundCompleteController$2.class
 com\nsbm\controller\GamePlayController$1.class
 com\nsbm\controller\StartUpController$1.class
@@ -13,6 +12,7 @@ com\nsbm\controller\ScoringMenuController.class
 com\nsbm\controller\RoundCompleteController$3.class
 com\nsbm\controller\MainMenuController.class
 com\nsbm\controller\ScoringMenuController$2.class
+com\nsbm\controller\GamePlayController$3.class
 com\nsbm\controller\InstructionMenuController.class
 com\nsbm\service\PlayerServiceHandler$3$1.class
 com\nsbm\common\Mouse.class
@@ -33,7 +33,6 @@ com\nsbm\service\PlayerServiceHandler$4.class
 com\nsbm\controller\InstructionMenuController$1.class
 com\nsbm\entity\PlayerStatistic.class
 com\nsbm\controller\MainMenuController$2.class
-com\nsbm\controller\GameWindowController$3.class
 com\nsbm\controller\StartUpController.class
 com\nsbm\service\PlayerServiceHandler$1.class
 com\nsbm\service\RoundServiceHandler.class
@@ -41,5 +40,4 @@ com\nsbm\controller\GameWindowController.class
 com\nsbm\service\PlayerServiceHandler.class
 com\nsbm\controller\GamePlayController$2.class
 com\nsbm\service\FactoryServiceHandler.class
-com\nsbm\controller\GameWindowController$3$1.class
 com\nsbm\controller\Start.class

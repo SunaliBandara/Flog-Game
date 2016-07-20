@@ -6,7 +6,6 @@
 package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
-import static com.nsbm.common.CommonData.currentRound;
 import com.nsbm.common.Mouse;
 import static com.nsbm.common.ResponseResult.ADALA_NA;
 import static com.nsbm.common.ResponseResult.SUCCESS;
@@ -14,8 +13,11 @@ import static com.nsbm.service.WordServiceHandler.addWord;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -40,6 +43,9 @@ import javax.swing.JOptionPane;
  */
 public class GamePlayController implements Initializable {
     private Mouse mouse = new Mouse();
+    private Timer timer = new Timer();
+    private static int counter = 100;
+    private static int progressCount = 0;
     private String letters,initial;
     @FXML
     private AnchorPane letterPane;
@@ -53,6 +59,8 @@ public class GamePlayController implements Initializable {
     private Label userNameLabel;
     @FXML
     private Label currentRound;
+    @FXML
+    private ProgressBar progressBar;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -79,6 +87,24 @@ public class GamePlayController implements Initializable {
             }
             count++;
         }
+        
+        timer = new Timer();
+            counter = 100;
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        if (counter == 0) {                         
+                            sendWord();                            
+                        } else {         
+                            progressBar.setProgress(progressCount);
+                            progressCount++;
+                            counter--;
+                        }
+                    });
+                }
+            }, 0, 1000);
+        
         gamePlayPane.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
@@ -98,6 +124,7 @@ public class GamePlayController implements Initializable {
     }
 
     public void sendWord() {
+        timer.cancel();
         Stage stage = new Stage();
         String word = wordField.getText();
         String response = addWord(word);
