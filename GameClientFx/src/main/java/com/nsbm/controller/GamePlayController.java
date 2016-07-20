@@ -97,6 +97,7 @@ public class GamePlayController implements Initializable {
 
         timer = new Timer();
             counter = 100;
+            progressCount = 0.00;
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

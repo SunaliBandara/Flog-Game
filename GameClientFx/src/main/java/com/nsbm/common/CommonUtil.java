@@ -25,7 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class CommonUtil {
 
     private static Set<String> completedPlayerSet;
-    private static final int COLUMN_WIDTH = 100;
+    private static final int COLUMN_WIDTH = 150;
     public static MainMenuController mainMenu;
 
     public static void setPlayerJoinModelData(Player[] players, ObservableList<String> model) {
@@ -92,11 +92,11 @@ public class CommonUtil {
         playerColumn.setMinWidth(COLUMN_WIDTH);
         playerColumn.setCellValueFactory(new PropertyValueFactory<PlayerStatistic,String>("Player"));
 
-        TableColumn wordColumn = new TableColumn("Status");
-        wordColumn.setMinWidth(COLUMN_WIDTH);
-        wordColumn.setCellValueFactory(
-            new PropertyValueFactory<PlayerStatistic,String>("Status")
-        );
+//        TableColumn wordColumn = new TableColumn("Status");
+//        wordColumn.setMinWidth(COLUMN_WIDTH);
+//        wordColumn.setCellValueFactory(
+//            new PropertyValueFactory<PlayerStatistic,String>("Status")
+//        );
 
         TableColumn statusColumn = new TableColumn("GamePoints");
         statusColumn.setMinWidth(COLUMN_WIDTH);
@@ -112,6 +112,6 @@ public class CommonUtil {
                         
         setObservableListData(data, playerScores);
         scoreTable.setItems(data);
-        scoreTable.getColumns().addAll(playerColumn, wordColumn, statusColumn, gamePointsColumn);
+        scoreTable.getColumns().addAll(playerColumn, statusColumn, gamePointsColumn);
     }
 }
