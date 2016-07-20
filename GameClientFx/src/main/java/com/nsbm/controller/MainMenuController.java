@@ -125,37 +125,37 @@ public class MainMenuController implements Initializable {
     }
 
     public void startGame(ActionEvent event) throws IOException {
-        String playableStatus = GameServiceHandler.startGame();
-        if (playableStatus.equals("playable")) {
-            CommonData.isWaiting = false;
-            //Remove Label Named Waiting
-            openGame();
-        } else {
-            CommonData.isWaiting = true;
-            CommonUtil.mainMenu = this;
-            //Disable Start Button
-            //Add new Label Named Waiting
-            //JOptionPane.showMessageDialog(null, playableStatus);
-            alert = new Alert(Alert.AlertType.INFORMATION,playableStatus);
-            alert.setHeaderText(null);
-            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
-            alert.getDialogPane().setPrefSize(350,95);
-            alert.initStyle(StageStyle.UNDECORATED);       
-            alert.initOwner(exitButton.getScene().getWindow());
-            alert.showAndWait();
-            startButton.setDisable(true);
-        }
-//        Stage stage = new Stage();
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
-//        Scene scene = new Scene(root);
-//        scene.getStylesheets().add("/styles/Styles.css");
-//        stage.setResizable(false);
-//        stage.initStyle(StageStyle.UNDECORATED);
-//        stage.setScene(scene);
-//        stage.show();
-//        CommonData.playerStatus = PlayerStatus.PLAYING;
-//        stage = (Stage) startButton.getScene().getWindow();
-//        stage.close();
+//        String playableStatus = GameServiceHandler.startGame();
+//        if (playableStatus.equals("playable")) {
+//            CommonData.isWaiting = false;
+//            //Remove Label Named Waiting
+//            openGame();
+//        } else {
+//            CommonData.isWaiting = true;
+//            CommonUtil.mainMenu = this;
+//            //Disable Start Button
+//            //Add new Label Named Waiting
+//            //JOptionPane.showMessageDialog(null, playableStatus);
+//            alert = new Alert(Alert.AlertType.INFORMATION,playableStatus);
+//            alert.setHeaderText(null);
+//            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
+//            alert.getDialogPane().setPrefSize(350,95);
+//            alert.initStyle(StageStyle.UNDECORATED);       
+//            alert.initOwner(exitButton.getScene().getWindow());
+//            alert.showAndWait();
+//            startButton.setDisable(true);
+//        }
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        CommonData.playerStatus = PlayerStatus.PLAYING;
+        stage = (Stage) startButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

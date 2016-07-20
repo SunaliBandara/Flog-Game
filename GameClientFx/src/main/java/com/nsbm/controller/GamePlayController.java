@@ -132,8 +132,14 @@ public class GamePlayController implements Initializable {
 
     public void sendWord() {
         timer.cancel();
+        String word;
         Stage stage = new Stage();
-        String word = wordField.getText();
+        if(wordField.getText()== null || wordField.getText().length() == 0 ){
+            word = "noword";
+        }
+        else{
+            word = wordField.getText();
+        }
         String response = addWord(word);
         if (response.equals(SUCCESS)) {
                 alert = new Alert(Alert.AlertType.INFORMATION,"Correct Word");
@@ -174,5 +180,6 @@ public class GamePlayController implements Initializable {
         stage.show();
         stage = (Stage) submitButton.getScene().getWindow();
         stage.close();
+            
     }
 }
