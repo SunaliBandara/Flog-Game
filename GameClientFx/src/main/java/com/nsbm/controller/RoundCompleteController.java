@@ -108,13 +108,7 @@ public class RoundCompleteController implements Initializable {
     @FXML
     private void terminateAction(ActionEvent event) {
         if(CommonData.specialPoints < 1){
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Need " + (20 - CommonData.specialPoints) + " Special Points");
-            alert.setHeaderText(null);
-            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
-            alert.getDialogPane().setPrefSize(350,95);
-            alert.initStyle(StageStyle.UNDECORATED);       
-            alert.initOwner(terminatePerk.getScene().getWindow());
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null,"Need " + (20 - CommonData.specialPoints) + " Special Points");
         }
         else{
             System.out.println("Terminate Perk Activated");

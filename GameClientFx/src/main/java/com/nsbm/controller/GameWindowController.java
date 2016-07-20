@@ -43,6 +43,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -90,13 +91,6 @@ public class GameWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         String termination = checkTermination();
         if (termination.equals(username + " Terminated")) {
-            alert = new Alert(Alert.AlertType.INFORMATION,"You Have Been Terminated By Another Player");
-            alert.setHeaderText(null);
-            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
-            alert.getDialogPane().setPrefSize(390,95);
-            alert.initStyle(StageStyle.UNDECORATED);       
-            alert.initOwner(exitButton.getScene().getWindow());
-            if (alert.showAndWait().get() == ButtonType.OK){
                 Stage stage = new Stage();
                 Parent root = null;
                 try {
@@ -112,7 +106,6 @@ public class GameWindowController implements Initializable {
                 stage.show();
                 stage = (Stage) exitButton.getScene().getWindow();
                 stage.close();
-            }
         } else {
             userNameLabel.setText(CommonData.username);
             initialLetters = getInitialLetters();
@@ -136,22 +129,10 @@ public class GameWindowController implements Initializable {
                 int vowelsRequired = Integer.parseInt(noOfVowels.getText());
                 int consonantsRequired = Integer.parseInt(noOfConsonants.getText());
                 if (consonantsRequired + vowelsRequired > 10) {
-                    alert = new Alert(Alert.AlertType.WARNING,"You Cannot Request More Than 10 Letters");
-                    alert.setHeaderText(null);
-                    alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
-                    alert.getDialogPane().setPrefSize(350,95);
-                    alert.initStyle(StageStyle.UNDECORATED);       
-                    alert.initOwner(requestButton.getScene().getWindow());
-                    alert.showAndWait();
+                    JOptionPane.showMessageDialog(null, "You can not select more than 10");
                 } 
                 else if(consonantsRequired==0 || vowelsRequired==0 ){
-                    alert = new Alert(Alert.AlertType.WARNING,"You Have to Select From Both Letter Categories");
-                    alert.setHeaderText(null);
-                    alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
-                    alert.getDialogPane().setPrefSize(350,95);
-                    alert.initStyle(StageStyle.UNDECORATED);       
-                    alert.initOwner(requestButton.getScene().getWindow());
-                    alert.showAndWait();
+                    JOptionPane.showMessageDialog(null,"You Have to Select From Both Letter Categories");
                 }
                 else {
                     String letters = getLetters(vowelsRequired, consonantsRequired);
@@ -212,23 +193,11 @@ public class GameWindowController implements Initializable {
                 }
             }
             else{
-                alert = new Alert(Alert.AlertType.ERROR,"Please Enter the number of Letters You need");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
-                alert.getDialogPane().setPrefSize(350,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(requestButton.getScene().getWindow());
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "you have to select from both categories");
             }
         }
         else{
-            alert = new Alert(Alert.AlertType.ERROR,"Please Enter a numeric Value");
-            alert.setHeaderText(null);
-            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
-            alert.getDialogPane().setPrefSize(350,95);
-            alert.initStyle(StageStyle.UNDECORATED);       
-            alert.initOwner(requestButton.getScene().getWindow());
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Select a numeric value");
         }
     }
 
@@ -269,18 +238,9 @@ public class GameWindowController implements Initializable {
 
     @FXML
     private void exitAction(ActionEvent event) {
-        alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Exit The Game?");
-        alert.setTitle("Exit");
-        alert.setHeaderText(null);
-        alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-confirm.png"));
-        alert.getDialogPane().setPrefSize(390,95);
-        alert.initStyle(StageStyle.UNDECORATED);       
-        alert.initOwner(exitButton.getScene().getWindow());
-        if (alert.showAndWait().get() == ButtonType.OK){
             Stage stage = (Stage) exitButton.getScene().getWindow();
             stage.close();
             removePlayer(CommonData.username);
             System.exit(0);
-        }
     }
 }

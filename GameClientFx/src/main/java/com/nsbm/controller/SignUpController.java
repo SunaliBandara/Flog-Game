@@ -92,19 +92,10 @@ public class SignUpController implements Initializable {
     
     @FXML
     private void exitAction(ActionEvent event){
-        alert = new Alert(AlertType.CONFIRMATION,"Do You Want To Exit The Game?");
-        alert.setTitle("Exit");
-        alert.setHeaderText(null);
-        alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-confirm.png"));
-        alert.getDialogPane().setPrefSize(390,95);
-        alert.initStyle(StageStyle.UNDECORATED);       
-        alert.initOwner(exitButton.getScene().getWindow());
-        if (alert.showAndWait().get() == ButtonType.OK){
             Stage stage = (Stage) exitButton.getScene().getWindow();
             stage.close();
             removePlayer(CommonData.username);
             System.exit(0);
-        }
     }
     
     @FXML
@@ -115,39 +106,14 @@ public class SignUpController implements Initializable {
             String email = emailField.getText();
             String result = RegisterPlayer(name,password,email);   
             if(result.equals(SUCCESS)){
-                alert = new Alert(AlertType.INFORMATION,"Successfully Registered");
-                alert.setTitle("Success");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
-                alert.getDialogPane().setPrefSize(390,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(signUpButton.getScene().getWindow());
-                if (alert.showAndWait().get() == ButtonType.OK){
-                    usernameField.clear();
-                    passwordField.clear();
-                    emailField.clear();
-                }
+                JOptionPane.showMessageDialog(null, "Sucess");
             }
             else{
-                alert = new Alert(AlertType.ERROR,"Error");
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
-                alert.getDialogPane().setPrefSize(390,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(signUpButton.getScene().getWindow());
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         }
         else{
-            alert = new Alert(AlertType.ERROR,"Fields cannot be empty");
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
-            alert.getDialogPane().setPrefSize(390,95);
-            alert.initStyle(StageStyle.UNDECORATED);       
-            alert.initOwner(signUpButton.getScene().getWindow());
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "fields cannot be empty");
         }
     }   
 }

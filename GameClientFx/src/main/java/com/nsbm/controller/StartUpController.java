@@ -85,18 +85,10 @@ public class StartUpController implements Initializable {
 
     @FXML
     private void handleExitButtonAction(ActionEvent event) {
-        alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Exit The Game?");
-        alert.setHeaderText(null);
-        alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-confirm.png"));
-        alert.getDialogPane().setPrefSize(350,95);
-        alert.initStyle(StageStyle.UNDECORATED);       
-        alert.initOwner(exitButton.getScene().getWindow());
-        if (alert.showAndWait().get() == ButtonType.OK){
             Stage stage = (Stage) exitButton.getScene().getWindow();
             stage.close();
             removePlayer(CommonData.username);
             System.exit(0);
-        }
     }
 
     @FXML
@@ -118,31 +110,13 @@ public class StartUpController implements Initializable {
                 stage = (Stage) startButton.getScene().getWindow();
                 stage.close();
             } else if (result.equals("invalid login")) {
-                alert = new Alert(Alert.AlertType.ERROR,"Your User name or Password is Incorrect");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
-                alert.getDialogPane().setPrefSize(350,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(startButton.getScene().getWindow());
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "Invalid Login");
             } else {
-                alert = new Alert(Alert.AlertType.WARNING,"Player Doesn't exists");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
-                alert.getDialogPane().setPrefSize(350,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(startButton.getScene().getWindow());
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "Player Doesnt exists");
             }
         }
         else{
-            alert = new Alert(Alert.AlertType.WARNING,"Please Enter your username and Password");
-            alert.setHeaderText(null);
-            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
-            alert.getDialogPane().setPrefSize(350,95);
-            alert.initStyle(StageStyle.UNDECORATED);       
-            alert.initOwner(startButton.getScene().getWindow());
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Please enter user name and password");
         }
     }
 

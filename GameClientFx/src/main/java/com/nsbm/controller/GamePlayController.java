@@ -142,29 +142,11 @@ public class GamePlayController implements Initializable {
         }
         String response = addWord(word);
         if (response.equals(SUCCESS)) {
-                alert = new Alert(Alert.AlertType.INFORMATION,"Correct Word");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
-                alert.getDialogPane().setPrefSize(350,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(submitButton.getScene().getWindow());
-                alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Correct Word");
         } else if (response.equals(ADALA_NA)) {
-                alert = new Alert(Alert.AlertType.INFORMATION,"You Have Used incorrect Letter");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
-                alert.getDialogPane().setPrefSize(350,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(submitButton.getScene().getWindow());
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "You Can Only Used Given Letters");
         } else {
-                alert = new Alert(Alert.AlertType.INFORMATION,"Incorrect Word");
-                alert.setHeaderText(null);
-                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
-                alert.getDialogPane().setPrefSize(350,95);
-                alert.initStyle(StageStyle.UNDECORATED);       
-                alert.initOwner(submitButton.getScene().getWindow());
-                alert.showAndWait();     
+                JOptionPane.showMessageDialog(null, "Incorrect Word"); 
         }
         Parent root = null;
         try {
