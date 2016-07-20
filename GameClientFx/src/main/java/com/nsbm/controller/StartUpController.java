@@ -7,6 +7,7 @@ package com.nsbm.controller;
 
 import com.nsbm.common.CommonData;
 import com.nsbm.common.Mouse;
+import com.nsbm.common.Validator;
 import static com.nsbm.service.PlayerServiceHandler.LoginPlayer;
 import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import java.io.IOException;
@@ -19,10 +20,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -37,6 +41,7 @@ import javax.swing.JOptionPane;
 public class StartUpController implements Initializable {
 
     private Mouse mouse = new Mouse();
+    private Validator validate = new Validator();
     @FXML
     private TextField username;
     @FXML
@@ -49,6 +54,8 @@ public class StartUpController implements Initializable {
     private Hyperlink signUpLink;
     @FXML
     private Pane startPane;
+    @FXML
+    private Alert alert;
 
     /**
      * Initializes the controller class.
@@ -78,34 +85,64 @@ public class StartUpController implements Initializable {
 
     @FXML
     private void handleExitButtonAction(ActionEvent event) {
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-        removePlayer(CommonData.username);
-        System.exit(0);
+        alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Exit The Game?");
+        alert.setHeaderText(null);
+        alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-confirm.png"));
+        alert.getDialogPane().setPrefSize(350,95);
+        alert.initStyle(StageStyle.UNDECORATED);       
+        alert.initOwner(exitButton.getScene().getWindow());
+        if (alert.showAndWait().get() == ButtonType.OK){
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.close();
+            removePlayer(CommonData.username);
+            System.exit(0);
+        }
     }
 
     @FXML
     private void handleStart(ActionEvent event) throws IOException {
-        String playerName = username.getText();
-        CommonData.username = playerName;
-        String password = passwordField.getText();
-        String result = LoginPlayer(playerName, password);
-        if (result.equals("success")) {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.show();
-
-            stage = (Stage) startButton.getScene().getWindow();
-            stage.close();
-        } else if (result.equals("invalid login")) {
-            JOptionPane.showMessageDialog(null, "Incorrect Username/Password");
-        } else {
-            JOptionPane.showMessageDialog(null, "Player Already Exist");
+        if(validate.isInputEmpty(username) && validate.isInputEmpty(passwordField)){
+            String playerName = username.getText();
+            CommonData.username = playerName;
+            String password = passwordField.getText();
+            String result = LoginPlayer(playerName, password);
+            if (result.equals("success")) {
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/Styles.css");
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setScene(scene);
+                stage.show();
+                stage = (Stage) startButton.getScene().getWindow();
+                stage.close();
+            } else if (result.equals("invalid login")) {
+                alert = new Alert(Alert.AlertType.ERROR,"Your User name or Password is Incorrect");
+                alert.setHeaderText(null);
+                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
+                alert.getDialogPane().setPrefSize(350,95);
+                alert.initStyle(StageStyle.UNDECORATED);       
+                alert.initOwner(startButton.getScene().getWindow());
+                alert.showAndWait();
+            } else {
+                alert = new Alert(Alert.AlertType.WARNING,"Player Doesn't exists");
+                alert.setHeaderText(null);
+                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
+                alert.getDialogPane().setPrefSize(350,95);
+                alert.initStyle(StageStyle.UNDECORATED);       
+                alert.initOwner(startButton.getScene().getWindow());
+                alert.showAndWait();
+            }
+        }
+        else{
+            alert = new Alert(Alert.AlertType.WARNING,"Please Enter your username and Password");
+            alert.setHeaderText(null);
+            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
+            alert.getDialogPane().setPrefSize(350,95);
+            alert.initStyle(StageStyle.UNDECORATED);       
+            alert.initOwner(startButton.getScene().getWindow());
+            alert.showAndWait();
         }
     }
 

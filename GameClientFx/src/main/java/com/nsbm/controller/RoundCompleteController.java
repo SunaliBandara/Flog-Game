@@ -27,12 +27,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,7 +55,7 @@ public class RoundCompleteController implements Initializable {
     @FXML
     private Label roundNumber;
     @FXML
-    private Button exitButton;
+    private Button terminatePerk;
     @FXML
     private TableView<PlayerStatistic> scoreTable;
     @FXML
@@ -103,17 +106,15 @@ public class RoundCompleteController implements Initializable {
     }
 
     @FXML
-    private void exitAction(ActionEvent event) {
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-        removePlayer(CommonData.username);
-        System.exit(0);
-    }
-
-    @FXML
     private void terminateAction(ActionEvent event) {
         if(CommonData.specialPoints < 1){
-            JOptionPane.showMessageDialog(null, "Need " + (20 - CommonData.specialPoints) + " Special Points");
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Need " + (20 - CommonData.specialPoints) + " Special Points");
+            alert.setHeaderText(null);
+            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
+            alert.getDialogPane().setPrefSize(350,95);
+            alert.initStyle(StageStyle.UNDECORATED);       
+            alert.initOwner(terminatePerk.getScene().getWindow());
+            alert.showAndWait();
         }
         else{
             System.out.println("Terminate Perk Activated");

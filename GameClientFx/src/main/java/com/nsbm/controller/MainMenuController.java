@@ -33,9 +33,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -68,8 +71,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
-    private Button scoreboardButton;
-    @FXML
     private Button instructionButton;
     @FXML
     private AnchorPane extendableNotificationPane;
@@ -77,6 +78,8 @@ public class MainMenuController implements Initializable {
     private Rectangle clipRect;
     @FXML
     private Pane mainPane;
+    @FXML
+    private Alert alert;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,29 +125,37 @@ public class MainMenuController implements Initializable {
     }
 
     public void startGame(ActionEvent event) throws IOException {
-//        String playableStatus = GameServiceHandler.startGame();
-//        if (playableStatus.equals("playable")) {
-//            CommonData.isWaiting = false;
-//            //Remove Label Named Waiting
-//            openGame();
-//        } else {
-//            CommonData.isWaiting = true;
-//            CommonUtil.mainMenu = this;
-//            //Disable Start Button
-//            //Add new Label Named Waiting
-//            JOptionPane.showMessageDialog(null, playableStatus);
-//        }
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.show();
-        CommonData.playerStatus = PlayerStatus.PLAYING;
-        stage = (Stage) startButton.getScene().getWindow();
-        stage.close();
+        String playableStatus = GameServiceHandler.startGame();
+        if (playableStatus.equals("playable")) {
+            CommonData.isWaiting = false;
+            //Remove Label Named Waiting
+            openGame();
+        } else {
+            CommonData.isWaiting = true;
+            CommonUtil.mainMenu = this;
+            //Disable Start Button
+            //Add new Label Named Waiting
+            //JOptionPane.showMessageDialog(null, playableStatus);
+            alert = new Alert(Alert.AlertType.INFORMATION,playableStatus);
+            alert.setHeaderText(null);
+            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
+            alert.getDialogPane().setPrefSize(350,95);
+            alert.initStyle(StageStyle.UNDECORATED);       
+            alert.initOwner(exitButton.getScene().getWindow());
+            alert.showAndWait();
+            startButton.setDisable(true);
+        }
+//        Stage stage = new Stage();
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GameWindow.fxml"));
+//        Scene scene = new Scene(root);
+//        scene.getStylesheets().add("/styles/Styles.css");
+//        stage.setResizable(false);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setScene(scene);
+//        stage.show();
+//        CommonData.playerStatus = PlayerStatus.PLAYING;
+//        stage = (Stage) startButton.getScene().getWindow();
+//        stage.close();
     }
 
     @FXML
@@ -207,21 +218,6 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void scoreBoardAction(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ScoringMenu.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.show();
-
-        stage = (Stage) scoreboardButton.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
     private void instructionMenuAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/InstructionMenu.fxml"));
@@ -238,22 +234,18 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void exitAction(ActionEvent event) {
-//        Action ad = Dialogs.create()
-//                    .title("Example")
-//                    .actions(Dialog.ACTION_OK,Dialog.ACTION_NO)
-//                    .message("please work")
-//                    .styleClass(Dialog.STYLE_CLASS_NATIVE)
-//                    .showConfirm();
-//        if(ad == Dialog.ACTION_OK){
-//            System.out.println("finally");
-//        }
-//        else if(ad == Dialog.ACTION_NO){
-//            System.out.println("crap");
-//        }
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-        removePlayer(CommonData.username);
-        System.exit(0);
+        alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Exit The Game?");
+        alert.setHeaderText(null);
+        alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-confirm.png"));
+        alert.getDialogPane().setPrefSize(350,95);
+        alert.initStyle(StageStyle.UNDECORATED);       
+        alert.initOwner(exitButton.getScene().getWindow());
+        if (alert.showAndWait().get() == ButtonType.OK){
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.close();
+            removePlayer(CommonData.username);
+            System.exit(0);
+        }
     }
 
     public void openGame() throws IOException {

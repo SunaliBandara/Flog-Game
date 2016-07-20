@@ -100,7 +100,6 @@ public class ScoringMenuController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
-
         stage = (Stage) backButton.getScene().getWindow();
         stage.close();
     }

@@ -8,6 +8,7 @@ package com.nsbm.controller;
 import com.nsbm.common.CommonData;
 import static com.nsbm.common.CommonData.username;
 import com.nsbm.common.Mouse;
+import com.nsbm.common.Validator;
 import static com.nsbm.service.PlayerServiceHandler.checkTermination;
 import static com.nsbm.service.PlayerServiceHandler.removePlayer;
 import static com.nsbm.service.WordServiceHandler.changeLetter;
@@ -29,9 +30,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -39,7 +43,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -53,6 +56,7 @@ public class GameWindowController implements Initializable {
     private Timer timer = new Timer();
     private final TextField[] letterFields = new TextField[10];
     private Mouse mouse = new Mouse();
+    private Validator validate = new Validator();
     @FXML
     private TextField initialLetterOne, initialLetterTwo;
     @FXML
@@ -79,13 +83,36 @@ public class GameWindowController implements Initializable {
     private Pane gamePane;
     @FXML
     private Label userNameLabel;
+    @FXML
+    private Alert alert;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         String termination = checkTermination();
         if (termination.equals(username + " Terminated")) {
-            Stage stage = (Stage) exitButton.getScene().getWindow();
-            stage.close();
+            alert = new Alert(Alert.AlertType.INFORMATION,"You Have Been Terminated By Another Player");
+            alert.setHeaderText(null);
+            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
+            alert.getDialogPane().setPrefSize(390,95);
+            alert.initStyle(StageStyle.UNDECORATED);       
+            alert.initOwner(exitButton.getScene().getWindow());
+            if (alert.showAndWait().get() == ButtonType.OK){
+                Stage stage = new Stage();
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(GameWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/Styles.css");
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setScene(scene);
+                stage.show();
+                stage = (Stage) exitButton.getScene().getWindow();
+                stage.close();
+            }
         } else {
             userNameLabel.setText(CommonData.username);
             initialLetters = getInitialLetters();
@@ -103,66 +130,105 @@ public class GameWindowController implements Initializable {
     }
 
     public void getRequiredLetters() {
-        int vowelsRequired = Integer.parseInt(noOfVowels.getText());
-        int consonantsRequired = Integer.parseInt(noOfConsonants.getText());
-        if (consonantsRequired + vowelsRequired > 10) {
-            JOptionPane.showMessageDialog(null, "You can not select more than 10");
-        } else {
-            String letters = getLetters(vowelsRequired, consonantsRequired);
-            int count = 0;
-            for (Node node : letterPane.getChildren()) {
-                if (count == letters.length()) {
-                    break;
+        exitButton.setDisable(true);
+        if(validate.isNumeric(noOfVowels.getText())&& validate.isNumeric(noOfConsonants.getText())){
+            if(validate.isInputEmpty(noOfVowels) && validate.isInputEmpty(noOfConsonants)){
+                int vowelsRequired = Integer.parseInt(noOfVowels.getText());
+                int consonantsRequired = Integer.parseInt(noOfConsonants.getText());
+                if (consonantsRequired + vowelsRequired > 10) {
+                    alert = new Alert(Alert.AlertType.WARNING,"You Cannot Request More Than 10 Letters");
+                    alert.setHeaderText(null);
+                    alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
+                    alert.getDialogPane().setPrefSize(350,95);
+                    alert.initStyle(StageStyle.UNDECORATED);       
+                    alert.initOwner(requestButton.getScene().getWindow());
+                    alert.showAndWait();
+                } 
+                else if(consonantsRequired==0 || vowelsRequired==0 ){
+                    alert = new Alert(Alert.AlertType.WARNING,"You Have to Select From Both Letter Categories");
+                    alert.setHeaderText(null);
+                    alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-warning.png"));
+                    alert.getDialogPane().setPrefSize(350,95);
+                    alert.initStyle(StageStyle.UNDECORATED);       
+                    alert.initOwner(requestButton.getScene().getWindow());
+                    alert.showAndWait();
                 }
-                if (node instanceof TextField) {
-                    ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
-                }
-                count++;
-            }
-            requestButton.setDisable(true);
-            CommonData.initialLetters = initialLetters;
-            CommonData.letters = initialLetters + letters;
-            timer = new Timer();
-            counter = 10;
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> {
-                        if (counter == 0) {
-                            timer.cancel();
-                            Stage stage = new Stage();
-                            Parent root = null;
-                            try {
-                                root = FXMLLoader.load(getClass().getResource("/fxml/GamePlay.fxml"));
-                            } catch (IOException ex) {
-                                Logger.getLogger(GameWindowController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            Scene scene = new Scene(root);
-                            scene.getStylesheets().add("/styles/Styles.css");
-                            stage.setResizable(false);
-                            stage.initStyle(StageStyle.UNDECORATED);
-                            stage.setScene(scene);
-                            stage.show();
-                            
-                            stage = (Stage) requestButton.getScene().getWindow();
-                            stage.close();
-                        } else {
-                            timerLabel.setText(String.valueOf(counter));
-                            if (counter == 10) {
-                                final URL resource = getClass().getResource("/styles/sec10.mp3");
-                                final Media media = new Media(resource.toString());
-                                final MediaPlayer mediaPlayer = new MediaPlayer(media);
-                                mediaPlayer.play();
-                            } else if (counter == 9 || counter == 8 || counter == 7 || counter == 6 || counter == 5 || counter == 4) {
-                                timerLabel.setStyle("-fx-text-fill:linear-gradient(#66ff66, #00cc00);");
-                            } else {
-                                timerLabel.setStyle("-fx-text-fill:  linear-gradient(#ff5400,#be1d00);");
-                            }
-                            counter--;
+                else {
+                    String letters = getLetters(vowelsRequired, consonantsRequired);
+                    int count = 0;
+                    for (Node node : letterPane.getChildren()) {
+                        if (count == letters.length()) {
+                            break;
                         }
-                    });
+                        if (node instanceof TextField) {
+                            ((TextField) node).setText(String.valueOf(letters.charAt(count)).toUpperCase());
+                        }
+                        count++;
+                    }
+                    requestButton.setDisable(true);
+                    CommonData.initialLetters = initialLetters;
+                    CommonData.letters = initialLetters + letters;
+                    timer = new Timer();
+                    counter = 10;
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Platform.runLater(() -> {
+                                if (counter == 0) {
+                                    timer.cancel();
+                                    Stage stage = new Stage();
+                                    Parent root = null;
+                                    try {
+                                        root = FXMLLoader.load(getClass().getResource("/fxml/GamePlay.fxml"));
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(GameWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    Scene scene = new Scene(root);
+                                    scene.getStylesheets().add("/styles/Styles.css");
+                                    stage.setResizable(false);
+                                    stage.initStyle(StageStyle.UNDECORATED);
+                                    stage.setScene(scene);
+                                    stage.show();
+
+                                    stage = (Stage) requestButton.getScene().getWindow();
+                                    stage.close();
+                                } else {
+                                    timerLabel.setText(String.valueOf(counter));
+                                    if (counter == 10) {
+                                        final URL resource = getClass().getResource("/styles/sec10.mp3");
+                                        final Media media = new Media(resource.toString());
+                                        final MediaPlayer mediaPlayer = new MediaPlayer(media);
+                                        mediaPlayer.play();
+                                    } else if (counter == 9 || counter == 8 || counter == 7 || counter == 6 || counter == 5 || counter == 4) {
+                                        timerLabel.setStyle("-fx-text-fill:linear-gradient(#66ff66, #00cc00);");
+                                    } else {
+                                        timerLabel.setStyle("-fx-text-fill:  linear-gradient(#ff5400,#be1d00);");
+                                    }
+                                    counter--;
+                                }
+                            });
+                        }
+                    }, 0, 1000);
                 }
-            }, 0, 1000);
+            }
+            else{
+                alert = new Alert(Alert.AlertType.ERROR,"Please Enter the number of Letters You need");
+                alert.setHeaderText(null);
+                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
+                alert.getDialogPane().setPrefSize(350,95);
+                alert.initStyle(StageStyle.UNDECORATED);       
+                alert.initOwner(requestButton.getScene().getWindow());
+                alert.showAndWait();
+            }
+        }
+        else{
+            alert = new Alert(Alert.AlertType.ERROR,"Please Enter a numeric Value");
+            alert.setHeaderText(null);
+            alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-error.png"));
+            alert.getDialogPane().setPrefSize(350,95);
+            alert.initStyle(StageStyle.UNDECORATED);       
+            alert.initOwner(requestButton.getScene().getWindow());
+            alert.showAndWait();
         }
     }
 
@@ -203,9 +269,18 @@ public class GameWindowController implements Initializable {
 
     @FXML
     private void exitAction(ActionEvent event) {
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-        removePlayer(CommonData.username);
-        System.exit(0);
+        alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Exit The Game?");
+        alert.setTitle("Exit");
+        alert.setHeaderText(null);
+        alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-confirm.png"));
+        alert.getDialogPane().setPrefSize(390,95);
+        alert.initStyle(StageStyle.UNDECORATED);       
+        alert.initOwner(exitButton.getScene().getWindow());
+        if (alert.showAndWait().get() == ButtonType.OK){
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.close();
+            removePlayer(CommonData.username);
+            System.exit(0);
+        }
     }
 }

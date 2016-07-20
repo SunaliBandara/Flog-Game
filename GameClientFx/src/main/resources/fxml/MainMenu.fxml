@@ -10,7 +10,7 @@
 
 <AnchorPane id="MainMenuAnchorPane" fx:id="mainPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nsbm.controller.MainMenuController">
    <children>
-     <Button fx:id="startButton" layoutX="200.0" layoutY="202.0" mnemonicParsing="false" onAction="#startGame" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="START" />
+     <Button fx:id="startButton" layoutX="200.0" layoutY="200.0" mnemonicParsing="false" onAction="#startGame" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="START" />
       <Label fx:id="userNameLabel" layoutX="14.0" layoutY="14.0" text="UserName" textFill="WHITE">
          <font>
             <Font name="Calibri Light" size="20.0" />
@@ -22,15 +22,14 @@
             <Label layoutX="25.0" layoutY="25.0" styleClass="subheader" text="Notification" textFill="WHITE" />
          </children>
       </AnchorPane>
-      <Button fx:id="notificationButton" layoutX="200.0" layoutY="262.0" mnemonicParsing="false" onAction="#notificationClick" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="NOTIFICATION" />
+      <Button fx:id="notificationButton" layoutX="200.0" layoutY="275.0" mnemonicParsing="false" onAction="#notificationClick" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="NOTIFICATION" />
       <Label layoutX="203.0" layoutY="60.0" styleClass="mainheader" text="FLOG" textFill="WHITE">
          <font>
             <Font size="47.0" />
          </font>
       </Label>
       <Button fx:id="backButton" layoutX="5.0" layoutY="470.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Back" />
-      <Button fx:id="instructionButton" layoutX="200.0" layoutY="382.0" mnemonicParsing="false" onAction="#instructionMenuAction" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="INSTRUCTION" />
-      <Button fx:id="scoreboardButton" layoutX="200.0" layoutY="322.0" mnemonicParsing="false" onAction="#scoreBoardAction" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="SCORE BOARD" />
+      <Button fx:id="instructionButton" layoutX="200.0" layoutY="350.0" mnemonicParsing="false" onAction="#instructionMenuAction" prefHeight="45.0" prefWidth="200.0" styleClass="orangeButton" text="INSTRUCTION" />
       <Button fx:id="exitButton" layoutX="550.0" layoutY="470.0" mnemonicParsing="false" onAction="#exitAction" prefHeight="20.0" prefWidth="45.0" styleClass="silvarButton" text="Exit" />
    </children>
 </AnchorPane>

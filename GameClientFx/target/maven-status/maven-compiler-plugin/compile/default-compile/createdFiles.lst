@@ -1,5 +1,6 @@
 com\nsbm\common\CommonData.class
 com\nsbm\common\PlayerStatus.class
+com\nsbm\common\Validator.class
 com\nsbm\controller\SignUpController.class
 com\nsbm\controller\RoundCompleteController$2.class
 com\nsbm\controller\GamePlayController$1.class

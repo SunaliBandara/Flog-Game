@@ -93,8 +93,8 @@
 <!--      <Label layoutX="350.0" layoutY="50.0" styleClass="subheader" text="1" textFill="WHITE" />-->
         <AnchorPane layoutX="20.0" layoutY="358.0" prefHeight="120.0" prefWidth="560.0" styleClass="glassPane">
             <children>
-                <ProgressBar fx:id="progressBar" layoutX="28.0" layoutY="60.0" prefHeight="17.0" prefWidth="504.0" progress="0.0" />
-                <Label layoutX="260.0" layoutY="14.0" styleClass="miniheader" text="Time" textFill="WHITE" />
+                <ProgressBar fx:id="progressBar" layoutX="28.0" layoutY="60.0" prefHeight="25.0" prefWidth="504.0" progress="0.0" />
+                <Label layoutX="248.0" layoutY="14.0" styleClass="subheader" text="Time" textFill="WHITE" />
             </children>
         </AnchorPane>
       <Label fx:id="userNameLabel" layoutX="535.0" layoutY="25.0" styleClass="miniheader" text="----" textFill="WHITE" />

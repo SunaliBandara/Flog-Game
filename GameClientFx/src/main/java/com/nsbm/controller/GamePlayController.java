@@ -9,6 +9,7 @@ import com.nsbm.common.CommonData;
 import com.nsbm.common.Mouse;
 import static com.nsbm.common.ResponseResult.ADALA_NA;
 import static com.nsbm.common.ResponseResult.SUCCESS;
+import com.nsbm.common.Validator;
 import static com.nsbm.service.WordServiceHandler.addWord;
 import java.io.IOException;
 import java.net.URL;
@@ -25,10 +26,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -44,8 +48,9 @@ import javax.swing.JOptionPane;
 public class GamePlayController implements Initializable {
     private Mouse mouse = new Mouse();
     private Timer timer = new Timer();
+    private Validator validate = new Validator();
     private static int counter = 100;
-    private static int progressCount = 0;
+    private static double progressCount = 0.00;
     private String letters,initial;
     @FXML
     private AnchorPane letterPane;
@@ -61,6 +66,8 @@ public class GamePlayController implements Initializable {
     private Label currentRound;
     @FXML
     private ProgressBar progressBar;
+    @FXML
+    private Alert alert;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,7 +94,7 @@ public class GamePlayController implements Initializable {
             }
             count++;
         }
-        
+
         timer = new Timer();
             counter = 100;
             timer.schedule(new TimerTask() {
@@ -98,7 +105,7 @@ public class GamePlayController implements Initializable {
                             sendWord();                            
                         } else {         
                             progressBar.setProgress(progressCount);
-                            progressCount++;
+                            progressCount=progressCount+0.01;
                             counter--;
                         }
                     });
@@ -129,12 +136,29 @@ public class GamePlayController implements Initializable {
         String word = wordField.getText();
         String response = addWord(word);
         if (response.equals(SUCCESS)) {
-            JOptionPane.showMessageDialog(null, "Correct Word");
+                alert = new Alert(Alert.AlertType.INFORMATION,"Correct Word");
+                alert.setHeaderText(null);
+                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
+                alert.getDialogPane().setPrefSize(350,95);
+                alert.initStyle(StageStyle.UNDECORATED);       
+                alert.initOwner(submitButton.getScene().getWindow());
+                alert.showAndWait();
         } else if (response.equals(ADALA_NA)) {
-            JOptionPane.showMessageDialog(null, "You Can Only Used Given Letters");
+                alert = new Alert(Alert.AlertType.INFORMATION,"You Have Used incorrect Letter");
+                alert.setHeaderText(null);
+                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
+                alert.getDialogPane().setPrefSize(350,95);
+                alert.initStyle(StageStyle.UNDECORATED);       
+                alert.initOwner(submitButton.getScene().getWindow());
+                alert.showAndWait();
         } else {
-            JOptionPane.showMessageDialog(null, "Incorrect Word");
-            //Action ad = Dialogs.create().owner(stage).title("Information Dialog").masthead(null).message("I have a great message for you!").showInformation();
+                alert = new Alert(Alert.AlertType.INFORMATION,"Incorrect Word");
+                alert.setHeaderText(null);
+                alert.setGraphic(new ImageView("com/sun/javafx/scene/control/skin/modena/dialog-information.png"));
+                alert.getDialogPane().setPrefSize(350,95);
+                alert.initStyle(StageStyle.UNDECORATED);       
+                alert.initOwner(submitButton.getScene().getWindow());
+                alert.showAndWait();     
         }
         Parent root = null;
         try {
@@ -148,7 +172,6 @@ public class GamePlayController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
-
         stage = (Stage) submitButton.getScene().getWindow();
         stage.close();
     }

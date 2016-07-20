@@ -1,12 +1,11 @@
 /*---------background css-----------------------*/
 .mainFxmlClass{
-    -fx-background-image: url('sca.jpg');
+    -fx-background-image: url('background.jpg');
 }
 .glassPane{
     -fx-background-color: rgba(0, 100, 100, 0.5);
     -fx-background-radius: 10;
 }
-
 /*-------------end of background css----------------*/
 
 /*---------------------button css----------------------*/
@@ -93,7 +92,7 @@
     -fx-text-alignment:justify;
 }
 #startButton:hover ,#notificationButton:hover ,#scoreboardButton:hover ,#instructionButton:hover ,
-#requestButton:hover,#letterChangeButton:hover,#submitButton:hover {
+#requestButton:hover,#letterChangeButton:hover,#submitButton:hover ,#signUpButton:hover,#backButton ,#exitButton{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
 /*------------ end of button css-----------------------*/
